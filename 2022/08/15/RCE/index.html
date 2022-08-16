@@ -165,11 +165,11 @@
 
         
         <span class="category">
-            <a href="/categories/关于网络安全">
+            <a href="/categories/关于web安全">
                 <span class="icon">
                     <a-icon type="book" theme="filled" />
                 </span>
-                关于网络安全
+                关于web安全
             </a>
         </span>
         
@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/RCE" style=color:#00bcd4>
+                <a href="/tags/RCE" style=color:#ffa2c4>
                     RCE
                 </a>
             </span>
@@ -322,7 +322,7 @@ echo stream_get_contents($pipes[1]);    //为什么是$pipes[1]，因为1是输�
 <li><strong>ICMP协议</strong>是“Internet Control Message Protocol”（因特网控制消息协议）的缩写，它是TCP/IP协议族的一个子协议，用于IP主机、路由器之间传递控制消息</li>
 </ul>
 <h3 id="关于命令执行各种绕过"><a href="#关于命令执行各种绕过" class="headerlink" title="关于命令执行各种绕过"></a>关于命令执行各种绕过</h3><ul>
-<li><p><strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/391439312">大佬的文章</a></strong></p>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/391439312">大佬的文章</a></p>
 </li>
 <li><p>cat被过滤时（其实还是靠对各种命令的熟悉）</p>
 <pre><code class="shell">more     #一页一页的显示档案内容
@@ -393,7 +393,7 @@ cat$&#123;IFS&#125;flag || cat$IFS$9flag #全局变量
 <ol>
 <li>根据给你看的源码，可以get方式传入一个file参数，加上提示了shell.txt，因此传参<code>?file=shell.txt</code></li>
 <li>然后点开shell.txt，能看到是个一句话木马，然后传参<code>?ctfhub=system(&quot;ls /&quot;);</code> 后边可以自己想象了</li>
-<li>然后就是那个命令后边的==<strong>引号</strong>==真的很重要啊！！！一开始忘记这事儿死活打印不出目录😭…发现上边的wp我甚至也没有打引号</li>
+<li>然后就是那个命令后边的<strong>引号</strong>真的很重要啊！！！一开始忘记这事儿死活打印不出目录😭…发现上边的wp我甚至也没有打引号</li>
 </ol>
 </blockquote>
 <h5 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h5><blockquote>

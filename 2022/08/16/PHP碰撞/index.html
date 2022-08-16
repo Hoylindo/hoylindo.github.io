@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || PHP碰撞</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>哒哒哒哒哒~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>PHP碰撞 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/8/16
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/PHP" style=color:#1bccbc>
+                    PHP
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <p>假装有摘要</p>
+<span id="more"></span>
+
+<h2 id="PHP碰撞"><a href="#PHP碰撞" class="headerlink" title="PHP碰撞"></a>PHP碰撞</h2><h3 id="PHP数组"><a href="#PHP数组" class="headerlink" title="PHP数组"></a>PHP数组</h3><p>php中有三种数组：</p>
+<ul>
+<li><strong>数值数组</strong>：带有数字 ID 键的数组</li>
+</ul>
+<pre><code class="php">&lt;?php
+    $a=arry(&quot;hhh&quot;,2,&quot;lll&quot;);//自动分配ID键
+    $b[0]=&quot;hello&quot;;//人工分配ID键
+    $b[1]=3;
+//for循环输出
+</code></pre>
+<ul>
+<li><strong>关联数组</strong>：指定的键的数组，每个键关联一个值</li>
+</ul>
+<pre><code class="php">&lt;?php
+    $a=arry(&quot;yi&quot;=&gt;1,&quot;er&quot;=&gt;2);
+    $a[&quot;san&quot;]=3;
+//foreach输出
+</code></pre>
+<ul>
+<li><strong>多维数组</strong>：包含一个或多个数组的数组——套娃型</li>
+</ul>
+<pre><code class="php">&lt;?php
+    $a=arry(
+       arry(99,88),
+       arry(77)
+    )
+    $b=arry(
+       &quot;hahah&quot;=&gt;arry(&quot;h&quot;,&quot;a&quot;)
+    )
+//print_r输出
+</code></pre>
+<h3 id="MD5碰撞"><a href="#MD5碰撞" class="headerlink" title="MD5碰撞"></a>MD5碰撞</h3><p>[^MD5]: 单向散列算法(英语:MD5 Message-Digest Algorithm)——是一种被广泛使用的密码散列函数,将数据(如一段文字)运算变为另一固定长度值,是散列算法的基础原理,可以产生出一个128位(16字节)的散列值(hash value),用于确保信息传输完整一致 </p>
+<ul>
+<li><p>php中的md5默认返回32字节的结果，所以要得到16字节的需要使用字符串截取：</p>
+<pre><code class="php">&lt;?php
+$str = &quot;hello world!&quot;;
+echo &quot;32byte--&gt;&quot;,md5($str),&quot;&lt;br/&gt;&quot;; //为字符串计算摘要值
+$md5Str = substr(md5($str),8,16);//获取16字节的摘要值
+echo &quot;16byte--&gt;&quot;,$md5Str;
+?&gt;
+</code></pre>
+</li>
+<li><p>因为32字节的字符串中间8-24字节与16字节加密的结果是相同的，所以在php中可以通过这一方式来获得16字节的摘要值</p>
+</li>
+</ul>
+<h4 id="关于PHP弱类型"><a href="#关于PHP弱类型" class="headerlink" title="关于PHP弱类型"></a>关于PHP弱类型</h4><p><strong>php中有<code>==</code>和<code>===</code>两种比较方法：</strong></p>
+<ul>
+<li><code>==</code>在比较时会将不同类型的变量或值转换为相同类型再进行比较——<code>&quot;1a&quot;==1</code>，此处将1a转化为1——<code>&quot;a1&quot;==0</code>，此处将a1转化为0<ul>
+<li><code>&quot;0e123456&quot;==&quot;0e234567&quot;</code>相互比较的时候，会将<code>0e</code>这类字符串识别为科学技术法的数字，0的无论多少次方都是零</li>
+<li>在php中当一个字符串被当作一个数值来取值时，如果该字符串没有包含<code>&#39;.&#39;,&#39;e&#39;,&#39;E&#39;</code>，并且其数值值在整形的范围之内时，该字符串被当作int来取值，其他所有情况下都被作为float来取值，而<strong>字符串的开始部分决定了它的值</strong>，如果<strong>字符串以合法的数值开始，则使用该数值，否则其值为0</strong></li>
+</ul>
+</li>
+<li><code>===</code>在比较时直接比较类型是否相同，如果同类型，再比较值</li>
+</ul>
+<h4 id="MD5-绕过0e比较"><a href="#MD5-绕过0e比较" class="headerlink" title="MD5==绕过0e比较"></a>MD5==绕过0e比较</h4><pre><code class="php">&lt;?php
+$flag = &quot;hhhh&quot;;
+$a = $_GET[&#39;a&#39;];
+if ($a != &#39;QNKCDZO&#39; &amp;&amp; md5($a) == md5(&#39;QNKCDZO&#39;)) &#123;
+    echo $flag;
+&#125;else&#123;
+echo(&quot;error&quot;);
+&#125;
+</code></pre>
+<p>上面这段代码中就是上述0e开头的所有字串都被认为是0，<code>md5(&#39;QNKCDZO&#39;)</code>的结果是<code>0e830400451993494058024219903391</code>，那么所有0e开头的md5串都可以满足上面的条件，常用的有：</p>
+<pre><code class="txt">240610708   --&gt; 0e462097431906509019562988736854
+s878926199a --&gt; 0e545993274517709034328855841020
+s155964671a --&gt; 0e342768416822451524974117254469
+s214587387a --&gt; 0e848240448830537924465865611904
+</code></pre>
+<p>以下字符串进行两次md5后以0e开头</p>
+<pre><code class="txt">7r4lGXCH2Ksu2JNT3BYM
+CbDLytmyGm2xQyaLNhWn
+770hQgrBOjrcqftrlaZk
+</code></pre>
+<h4 id="MD5-绕过数组比较"><a href="#MD5-绕过数组比较" class="headerlink" title="MD5===绕过数组比较"></a>MD5===绕过数组比较</h4><p>在php中的hash函数md5、sha1等处理中若传入一个数组的值，则会报错返回<code>NULL</code>，而返回的值在类型和内容上都是相同的，所以可以用来绕过某些<strong>两边参数可控</strong>的场景</p>
+<pre><code class="php">&lt;?php
+$flag=&#39;hhhh&#39;;
+$a=$_GET[&#39;a&#39;];
+$b=$_GET[&#39;a&#39;];
+if(md5($a)===md5($b))&#123;
+    echo $flag;
+&#125;else&#123;
+    echo(&quot;error&quot;);
+&#125;  
+</code></pre>
+<p>此时就可以传参为：?a[]=a&amp;b[]=b，虽然会报错但是程序也会执行</p>
+<h4 id="md5-绕过-硬碰撞"><a href="#md5-绕过-硬碰撞" class="headerlink" title="md5===绕过(硬碰撞)"></a>md5===绕过(硬碰撞)</h4><p>根据MD5的有限计算的特性可以得出，无论是32位还是16位，都一定会存在重复的编码，这种重复的例子就是<strong>硬碰撞</strong></p>
+<p>例如：</p>
+<ul>
+<li><a href="%EF%BF%BD%13vp%EF%BF%BD%EF%BF%BD%EF%BF%BDX%EF%BF%BD%3E#8%EF%BF%BD%EF%BF%BD%DB%8B%60,%EF%BF%BD%EF%BF%BDh%EF%BF%BD-%EF%BF%BDG%EF%BF%BDxIn%0A%EF%BF%BD%EF%BF%BD1%EF%BF%BD%EF%BF%BD%CB%82%25%EF%BF%BD%0D%EF%BF%BDagd%EF%BF%BD%EF%BF%BD%7DG%EF%BF%BD%0E%5D%1B%EF%BF%BD%1C%5C%EF%BF%BD%07-%EF%BF%BD%EF%BF%BD-%1D%EF%BF%BD%5E,%06F:%0F-K%EF%BF%BD%20%1D)f%EF%BF%BD%EF%BF%BD%7D%0C%EF%BF%BD%EF%97%B6%EF%BF%BDH%EF%BF%BD%0E%09%EF%BF%BD%EF%BF%BDMj%5Dmuwr%EF%BF%BDG%16%EF%BF%BD%06rq%C9%A1%EF%BF%BD%00%EF%BF%BD%EF%BF%BD%EF%BF%BDT'q%EF%BF%BD%EF%BF%BD%C3%8F%EF%BF%BD%EF%BF%BDRssS%EF%BF%BD_i%EF%BF%BD%EF%BF%BD;%EF%BF%BD%EF%BF%BDpq%EF%BF%BD*!%EF%BF%BDD%EF%BF%BD%22%EF%BF%BD%EF%BF%BD%EF%BF%BDym%EF%BF%BDa%EF%BF%BD%08W%02%EF%BF%BD*%EF%BF%BD6%EF%BF%BD%EF%BF%BD%EF%BF%BD%13%EF%BF%BD%EF%BF%BD~%EF%BF%BDYE%EF%BF%BD%25g%3C%EF%BF%BD'i+%EF%BF%BDw%EF%BF%BD%EF%BF%BD%EF%BF%BDO%EF%BF%BDs$%EF%BF%BDft%D2%8Ch%06%EF%BF%BD%0C%EF%BF%BDt%EF%BF%BD1%05%EF%BF%BD%15%7D%EF%BF%BD%5E%EF%BF%BD%0B%0F!#%EF%BF%BD%EF%BF%BD%7C%17%12%EF%BF%BD+%EF%BF%BD%10%EF%BF%BD7%60h%EF%BF%BD%EF%BF%BD5ZT%EF%BF%BD%08%0DTxI%D0%93%C3%B3%EF%BF%BD%1F%0B5%11%EF%BF%BD%EF%BF%BD%1D%EF%BF%BDd%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BDR%EF%BF%BD-%EF%BF%BD%12w%EF%BF%BD%EF%BF%BD%EF%BF%BDd%DA%A3eU%5D%EF%BF%BDvUWFl%EF%BF%BD%EF%BF%BD%DF%B2%3C%EF%BF%BD%EF%BF%BD%1E%EF%BF%BD8f%EF%BF%BD%17%22%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%14%EF%BF%BD5O%0A%5C4%EF%BF%BDs%EF%BF%BD%EF%BF%BD%EF%BF%BDfr%EF%BF%BDC%E3%BD%A2%EF%BF%BDb%EF%BF%BDi%1D40WR%EF%BF%BDA%EF%BF%BD%EF%BF%BDe%EF%BF%BD0%7F%EF%BF%BD%C6%A1%EF%BF%BD%EF%BF%BD%EF%BF%BD%C4%8Fa%EF%BF%BD%EF%BF%BD@%1A%13%EF%BF%BD%09%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD_H%EF%BF%BD%D7%B3b%04%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD;t(%1C%EF%BF%BD%EF%BF%BD%09s:%EF%BF%BD%EF%BF%BD/%EF%BF%BD%EF%BF%BD%EF%BF%BD%D5%B9%059%EF%BF%BD%EF%BF%BD">?a=</a></li>
+<li><a href="%EF%BF%BD%13vp%EF%BF%BD%EF%BF%BD%EF%BF%BDX%EF%BF%BD%3E#8%EF%BF%BD%EF%BF%BD%DB%8B%60,%EF%BF%BD%EF%BF%BDh%EF%BF%BD-%EF%BF%BDG%EF%BF%BDxIn%0A%EF%BF%BD%EF%BF%BD1%EF%BF%BD%EF%BF%BD%CB%82%25%EF%BF%BD%0D%EF%BF%BDagd%EF%BF%BD%EF%BF%BD%7DG%EF%BF%BD%0E%5D%1B%EF%BF%BD%1C%5C%EF%BF%BD%07-%EF%BF%BD%EF%BF%BD-%1D%EF%BF%BD%5E,%06F:%0F-K%EF%BF%BD%20%1D)f%EF%BF%BD%EF%BF%BD%7D%0C%EF%BF%BD%EF%97%B6%EF%BF%BDH%EF%BF%BD%0E%09%EF%BF%BD%EF%BF%BDMj%5Dmuwr%EF%BF%BDG%16%EF%BF%BD%06rq%C9%A1%EF%BF%BD%00%EF%BF%BD%EF%BF%BD%EF%BF%BDT'q%EF%BF%BD%EF%BF%BD%C3%8F%EF%BF%BD%EF%BF%BDRssS%EF%BF%BD_i%EF%BF%BD%EF%BF%BD;%EF%BF%BD%EF%BF%BDpq%EF%BF%BD*!%EF%BF%BDD%EF%BF%BD%22%EF%BF%BD%EF%BF%BD%EF%BF%BDym%EF%BF%BDa%EF%BF%BD%08W%02%EF%BF%BD*%EF%BF%BD6%EF%BF%BD%EF%BF%BD%EF%BF%BD%13%EF%BF%BD%EF%BF%BD~%EF%BF%BDYE%EF%BF%BD%25g%3C%EF%BF%BD'i+%EF%BF%BDw%EF%BF%BD%EF%BF%BD%EF%BF%BDO%EF%BF%BDs$%EF%BF%BDft%D2%8Ch%06%EF%BF%BD%0C%EF%BF%BDt%EF%BF%BD1%05%EF%BF%BD%15%7D%EF%BF%BD%5E%EF%BF%BD%0B%0F!#%EF%BF%BD%EF%BF%BD%7C%17%12%EF%BF%BD+%EF%BF%BD%10%EF%BF%BD7%60h%EF%BF%BD%EF%BF%BD5ZT%EF%BF%BD%08%0DTxI%D0%93%C3%B3%EF%BF%BD%1F%0B5%11%EF%BF%BD%EF%BF%BD%1D%EF%BF%BDd%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BDR%EF%BF%BD-%EF%BF%BD%12w%EF%BF%BD%EF%BF%BD%EF%BF%BDd%DA%A3eU%5D%EF%BF%BDvUWFl%EF%BF%BD%EF%BF%BD_%EF%BF%BD%3C%EF%BF%BD%EF%BF%BD%1E%EF%BF%BD8f%EF%BF%BD%17%22%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%14%EF%BF%BD5O%0A%5C4%EF%BF%BD%EF%BF%BD%EF%BF%BDfr%EF%BF%BDC%E3%BD%A2%EF%BF%BDb%EF%BF%BD%EF%BF%BD%1D40WR%EF%BF%BDA%EF%BF%BD%EF%BF%BDe%EF%BF%BD0%7F%EF%BF%BD%C6%A1%EF%BF%BD%EF%BF%BD%EF%BF%BD%C4%8Fa%EF%BF%BD%13@%1A%13%EF%BF%BD%09%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD_H%EF%BF%BD%D7%B3b%04%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD;t%EF%BF%BD%1B%EF%BF%BD%EF%BF%BD%09s:%EF%BF%BD%EF%BF%BD/%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD9%059%EF%BF%BD%EF%BF%BD">&amp;b=</a></li>
+<li><a href="%EF%BF%BD%13vp%EF%BF%BD%EF%BF%BD%EF%BF%BDX%EF%BF%BD%3E#8%EF%BF%BD%EF%BF%BD%DB%8B%60,%EF%BF%BD%EF%BF%BDh%EF%BF%BD-%EF%BF%BDG%EF%BF%BDxIn%0A%EF%BF%BD%EF%BF%BD1%EF%BF%BD%EF%BF%BD%CB%82%25%EF%BF%BD%0D%EF%BF%BDagd%EF%BF%BD%EF%BF%BD%7DG%EF%BF%BD%0E%5D%1B%EF%BF%BD%1C%5C%EF%BF%BD%07-%EF%BF%BD%EF%BF%BD-%1D%EF%BF%BD%5E,%06F:%0F-K%EF%BF%BD%20%1D)f%EF%BF%BD%EF%BF%BD%7D%0C%EF%BF%BD%EF%97%B6%EF%BF%BDH%EF%BF%BD%0E%09%EF%BF%BD%EF%BF%BDMj%5Dmuwr%EF%BF%BDG%16%EF%BF%BD%06rq%C9%A1%EF%BF%BD%00%EF%BF%BD%EF%BF%BD%EF%BF%BDT'q%EF%BF%BD%EF%BF%BD%C3%8F%EF%BF%BD%EF%BF%BDRssS%EF%BF%BD_i%EF%BF%BD%EF%BF%BD;%EF%BF%BD%EF%BF%BDpq%EF%BF%BD*!%EF%BF%BDD%EF%BF%BD%22%EF%BF%BD%EF%BF%BD%EF%BF%BDy%EF%BF%BD%EF%BF%BDa%EF%BF%BD%08W%02%EF%BF%BD*%EF%BF%BD6%EF%BF%BD%EF%BF%BD%EF%BF%BD%13%EF%BF%BD%EF%BF%BD~%EF%BF%BDYE%EF%BF%BD%25g%3C%EF%BF%BDi+%EF%BF%BDw%EF%BF%BD%EF%BF%BD%EF%BF%BDO%EF%BF%BDs$%EF%BF%BD%EF%BF%BDt%D2%8Ch%06%EF%BF%BD%0C%EF%BF%BDt%EF%BF%BD1%05%EF%BF%BD%15%7D%EF%BF%BD%5E%EF%BF%BD%0B%0F!#%EF%BF%BD%16%7C%17%12%EF%BF%BD+%EF%BF%BD%10%EF%BF%BD7%60h%EF%BF%BD%EF%BF%BD5ZT%EF%BF%BD%08%0DTxI%D0%93%EF%BF%BD3%EF%BF%BD%1F%0B5%11%EF%BF%BD%EF%BF%BD%1D%EF%BF%BDd%EF%BF%BD%EF%BF%BD%EF%BF%BDoR%EF%BF%BD-%EF%BF%BD%12w%EF%BF%BD%EF%BF%BD%EF%BF%BDd%DA%A3eU%5D%EF%BF%BDvUWFl%EF%BF%BD%EF%BF%BD%DF%B2%3C%EF%BF%BD%EF%BF%BD%1E%EF%BF%BD8f%EF%BF%BD%17%22%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%14%EF%BF%BD5O%0A%5C4%EF%BF%BDs%EF%BF%BD%EF%BF%BD%EF%BF%BDfr%EF%BF%BDC%E3%BD%A2%EF%BF%BDb%EF%BF%BDi%1D40WR%EF%BF%BDA%EF%BF%BD%EF%BF%BDe%EF%BF%BD0%7F%EF%BF%BD%C6%A1%EF%BF%BD%EF%BF%BD%EF%BF%BD%C4%8Fa%EF%BF%BD%EF%BF%BD@%1A%13%EF%BF%BD%09%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD_H%EF%BF%BD%D7%B3b%04%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD;t(%1C%EF%BF%BD%EF%BF%BD%09s:%EF%BF%BD%EF%BF%BD/%EF%BF%BD%EF%BF%BD%EF%BF%BD%D5%B9%059%EF%BF%BD%EF%BF%BD">&amp;c=</a></li>
+<li>（太长了所以给收成超链接了）</li>
+</ul>
+<p>以上abc加密结果均为：<code>ea8b4156874b91a4ef00c5ca3e4a4a34</code>，可以用来绕过特定的条件</p>
+<p>例二：</p>
+<pre><code class="txt">a=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%00%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1U%5D%83%60%FB_%07%FE%A2
+
+&amp;b=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%02%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1%D5%5D%83%60%FB_%07%FE%A2
+</code></pre>
+<h4 id="NaN和INF"><a href="#NaN和INF" class="headerlink" title="NaN和INF"></a>NaN和INF</h4><ul>
+<li>NAN和INF，分别为非数字和无穷大，但是var_dump一下它们的数据类型是double</li>
+<li>在md5函数处理它们的时候，是将其直接转换为字符串”NAN”和字符串”INF”使用的</li>
+<li>它们与任何数据类型（除了true）做强类型或弱类型比较均为false，甚至<code>NAN===NAN</code>都是false，但<code>md5(&#39;NaN&#39;)===md5(&#39;NaN&#39;)</code>为true</li>
+</ul>
+<h3 id="sha1碰撞"><a href="#sha1碰撞" class="headerlink" title="sha1碰撞"></a>sha1碰撞</h3><p>md5，sha1函数无法处理数组，如果传入的为数组，会返回NULL，所以两个数组经过加密后得到的都是NULL，也就是相等的</p>
+<h4 id="sha1-0e绕过"><a href="#sha1-0e绕过" class="headerlink" title="sha1==0e绕过"></a>sha1==0e绕过</h4><pre><code class="txt">10932435112:  0e07766915004133176347055865026311692244
+aaroZmOk:     0e66507019969427134894567494305185566735
+aaK1STfY:     0e76658526655756207688271159624026011393
+aaO8zKZF:     0e89257456677279068558073954252716165668
+aa3OFF9m:     0e36977786278517984959260394024281014729
+0e1290633704: 0e19985187802402577070739524195726831799
+</code></pre>
+<h3 id="PHP-json"><a href="#PHP-json" class="headerlink" title="PHP json"></a>PHP json</h3><p><strong>什么是json</strong></p>
+<ul>
+<li>JSON (JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式，它基txt于ECMAScript（w3c制定的js规范）的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据</li>
+<li>JSON的常规用途是从web服务器读取数据，然后在网页中显示这些数据</li>
+</ul>
+<p><strong>用法：</strong></p>
+<ol>
+<li>Json_encode —— 对变量进行 JSON 编码</li>
+<li>json_decode —— 对 JSON 格式的字符串进行解码，转换为 PHP 变量</li>
+<li>json_last_error —— 返回最后发生的错误</li>
+</ol>
+<p><strong>几个栗子：</strong></p>
+<pre><code class="php">//将PHP数组转换为JSON格式数据
+&lt;?php
+    $a=array(&#39;a&#39;=&gt;1,&#39;b&#39;=&gt;&#39;hhhhh&#39;,&#39;c&#39;=&gt;99 ); //单双引号无所谓
+    echo json_encode($a);
+//输出结果为：&#123;&quot;a&quot;:1,&quot;b&quot;:&quot;hhhhh&quot;,&quot;c&quot;:99&#125; 
+</code></pre>
+<pre><code class="php">//将PHP对象转换为JSON格式数据
+&lt;?php
+    class People&#123;
+       public $name=&quot;&quot;;
+       public $age=&quot;&quot;;
+       public $birth=&quot;&quot;;
+  &#125;
+   $b=new People();
+   $b-&gt;name=&quot;xiaoming&quot;;
+   $b-&gt;age=5;
+   $b-&gt;birth=&quot;buzhidao&quot;;
+   echo json_encode($b);
+//输出结果为：&#123;&quot;name&quot;:&quot;xiaoming&quot;,&quot;age&quot;:5,&quot;birth&quot;:&quot;buzhidao&quot;&#125;
+</code></pre>
+<pre><code class="php">//将JSON格式的字符串解码并转化为PHP变量
+&lt;?php
+    $c=&#39;&#123;&quot;a&quot;:1,&quot;b&quot;:&quot;11&quot;,&quot;c&quot;:99&#125;&#39;;
+    var_dump(json_decode($c));
+//运行结果为：object(stdClass)#2 (3) &#123; [&quot;a&quot;]=&gt; int(1) [&quot;b&quot;]=&gt; string(2) &quot;11&quot; [&quot;c&quot;]=&gt; int(99) &#125;
+//不可以用echo，会报错||使用JSON_UNESCAPED_UNICODE选项决定是否编码中文
+//var_dump函数：用于输出变量的相关信息，函数显示关于一个或多个表达式的结构信息，包括表达式的类型与值，数组将递归展开值，通过缩进显示其结构
+</code></pre>
+<h4 id="json解码绕过"><a href="#json解码绕过" class="headerlink" title="json解码绕过"></a>json解码绕过</h4><p>php在处理传入的json串时使用json_decode将其解码，进行比较时，可以利用<strong>字符串与0比较为真</strong>的特点绕过</p>
+<pre><code class="php">&lt;?php
+    $flag = &#39;hhhhhhhhhhhh&#39;;
+    $a = $_GET[&#39;a&#39;];
+    $b = json_decode($a);
+    echo $b-&gt;abc;
+    var_dump($b-&gt;abc == $flag);
+    if ($b-&gt;abc == $flag) echo $flag;
+   else  echo &quot;error!!&quot;;
+//当传入?a=&#123;&quot;abc&quot;:0&#125;时，输出flag
+</code></pre>
+<h4 id="array-search绕过"><a href="#array-search绕过" class="headerlink" title="array_search绕过"></a>array_search绕过</h4><p>函数的原型为:<br> <code>mixed array_search ( mixed $needle , array $haystack [, bool $strict = false ] )</code> ，其中<code>$needle，$haystack</code>必需，<code>$strict</code>可选 ，函数判断<code>$haystack</code>中的值是存在<code>$needle</code>，存在则返回该值的键值（<strong>数组的下标，例如该值在第一位返回0，第二位返回1</strong>），第三个参数默认为false，如果设置为true则会进行严格过滤（带类型的比较）</p>
+<pre><code class="php">&lt;?php
+    $a = array(0,1,2,3);
+    var_dump(array_search(&quot;a&quot;,$a));
+    var_dump(array_search(&quot;1a&quot;,$a));
+    var_dump(array_search(&quot;1a&quot;,$a,true));
+?&gt;
+//输出结果为：int(0) int(1) int(2) bool(false) 
+</code></pre>
+<h3 id="php-hash碰撞"><a href="#php-hash碰撞" class="headerlink" title="php hash碰撞"></a>php hash碰撞</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u014691098/article/details/84676753">大佬文章</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000008342378">大佬文章+1</a></p>
+<ul>
+<li>hash碰撞攻击就是构造恶意的数据是hash表退化为链表，每次插入数据都会遍历链表，消耗大量服务器资源，从而达到攻击目的</li>
+<li>php的数组就是利用hash表实现的，对于碰撞的数据，php采用双向链表解决方案，所以可以利用PHP的数组进行hash碰撞攻击</li>
+</ul>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>
