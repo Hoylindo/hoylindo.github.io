@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/RCE" style=color:#00bcd4>
+                <a href="/tags/RCE" style=color:#879cff>
                     RCE
                 </a>
             </span>
@@ -418,7 +418,7 @@ cat$&#123;IFS&#125;flag || cat$IFS$9flag #全局变量
 <h5 id="远程包含"><a href="#远程包含" class="headerlink" title="远程包含"></a>远程包含</h5><blockquote>
 <ol>
 <li>跟它楼上的楼上一模一样</li>
-<li>找到一种大佬做法，感觉才理解什么是远程包含：大老鼠在file里传了一个url，然后是自己本地的代码，然后被执行得到flag</li>
+<li>找到一种大佬做法，感觉才理解什么是远程包含：大佬是在file里传了一个url，然后是自己本地的代码，然后被执行得到flag</li>
 </ol>
 </blockquote>
 <h4 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h4><blockquote>
@@ -475,7 +475,7 @@ cat$&#123;IFS&#125;flag || cat$IFS$9flag #全局变量
 <ul>
 <li>这里需要注意的就是<code>%0a</code>，我在上边过滤空格还是什么的时候试了一下不能用</li>
 <li>现在找到原因是我在页面的输入框写入的，然后因为在url里会被编码所以用不了，直接在url里写就行了</li>
-<li>然后说到这个%0a和%0d，我说好熟悉的样子，看CLRF的时候看到了，但是没记住（甚至没记），果然学东西还是要细致一点</li>
+<li>然后说到这个%0a和%0d，我说好熟悉的样子，看CRLF的时候看到了，但是没记住（甚至没记），果然学东西还是要细致一点</li>
 </ul>
 </blockquote>
 
@@ -509,6 +509,12 @@ cat$&#123;IFS&#125;flag || cat$IFS$9flag #全局变量
 
     <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
     <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
     <script>
     new Vue({
         el: "#layout",
