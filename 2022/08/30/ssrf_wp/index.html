@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/SSRF" style=color:#00bcd4>
+                <a href="/tags/SSRF" style=color:#1bccbc>
                     SSRF
                 </a>
             </span>
@@ -397,7 +397,7 @@ if(isset($_FILES[&quot;file&quot;]) &amp;&amp; $_FILES[&quot;file&quot;][&quot;s
 <h3 id="CTFSHOW-web353"><a href="#CTFSHOW-web353" class="headerlink" title="CTFSHOW-web353"></a>CTFSHOW-web353</h3><blockquote>
 <ul>
 <li>过滤了localhost和127还有<code>. 。</code>什么的</li>
-<li>数字IP绕过：post传url=<a target="_blank" rel="noopener" href="http://127.0.0.1/flag.php%E6%88%96%E8%80%85url=http://0x7F000001/flag.php">http://2130706433/flag.php或者url=http://0x7F000001/flag.php</a></li>
+<li>数字IP绕过：post传url=<a target="_blank" rel="noopener" href="http://127.0.0.1/flag.php">http://2130706433/flag.php</a> 或者url=<a target="_blank" rel="noopener" href="http://127.0.0.1/flag.php">http://0x7F000001/flag.php</a></li>
 </ul>
 </blockquote>
 <h3 id="CTFSHOW-web354"><a href="#CTFSHOW-web354" class="headerlink" title="CTFSHOW-web354"></a>CTFSHOW-web354</h3><blockquote>
@@ -423,7 +423,7 @@ if(isset($_FILES[&quot;file&quot;]) &amp;&amp; $_FILES[&quot;file&quot;][&quot;s
 <h3 id="CTFSHOW-web355"><a href="#CTFSHOW-web355" class="headerlink" title="CTFSHOW-web355"></a>CTFSHOW-web355</h3><blockquote>
 <ul>
 <li>限制了host长度，又双叒叕学到了：127.1是127.0.0.1的简写省略形式， 0在linux系统中会解析成127.0.0.1在windows中解析成0.0.0.0</li>
-<li>post传参：url=<a target="_blank" rel="noopener" href="http://0.0.0.0/flag.php%E6%88%96url=http://127.1/flag.php">http://0/flag.php或url=http://127.1/flag.php</a></li>
+<li>post传参：url=<a target="_blank" rel="noopener" href="http://0.0.0.0/flag.php">http://0/flag.php</a> 或url=<a target="_blank" rel="noopener" href="http://127.0.0.1/flag.php">http://127.1/flag.php</a></li>
 </ul>
 </blockquote>
 <h3 id="CTFSHOW-web356"><a href="#CTFSHOW-web356" class="headerlink" title="CTFSHOW-web356"></a>CTFSHOW-web356</h3><blockquote>
@@ -455,7 +455,7 @@ if(isset($_FILES[&quot;file&quot;]) &amp;&amp; $_FILES[&quot;file&quot;][&quot;s
 </blockquote>
 <h3 id="CTFSHOW-web359"><a href="#CTFSHOW-web359" class="headerlink" title="CTFSHOW-web359"></a>CTFSHOW-web359</h3><blockquote>
 <ul>
-<li>打开是一个登录界面，账号密码随便填，抓包可以看到一个叫returl的参数，把它改成<a target="_blank" rel="noopener" href="http://www.baidu.com,返回百度的页面/">www.baidu.com，返回百度的页面</a></li>
+<li>打开是一个登录界面，账号密码随便填，抓包可以看到一个叫returl的参数，把它改成<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> ，返回百度的页面</li>
 <li>提示是打无密码的mysql，上gopherus</li>
 <li>SQL写马学到了：<ul>
 <li>在 MySQL 中，可以使用 SELECTI…INTO OUTFILE 语句将表的内容导出成一个文本文件</li>
