@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoylindo || 碎碎念</title>
+    <title>Hoylindo || CTFHUB-信息泄露-WP</title>
     <meta name="author" content="hoylindo">
     <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
     <meta name="keywords" content=" ">
@@ -150,98 +150,146 @@
 
                 <div id="main">
                      
-<div class="categories-tags">
-    
-    <div class="all-s">
-        
-        
-        <span>
-            <a href="/categories/关于web安全/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                关于web安全
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/categories/编程语言/" style=background:#879cff>
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                编程语言
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/categories/碎碎念/" style='background:linear-gradient(to right, #fbc2eb 0%, #bbd4ff 100%)'>
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                碎碎念
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/categories/关于算法/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                关于算法
-            </a>
-        </span>
-        
-        
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>CTFHUB-信息泄露-WP </h1>
     </div>
-    <div id="archives">
-        
-        <a-timeline>
-            <a-timeline-item timestamp="2022/8/12" placement="top" color="#a5c2f5">
-                <a-card hoverable>
-                    <div class="item-time">2022/8/12</div>
-                    <a href="/2022/08/12/happy/">
-                        <h3>happy</h3>
-                    </a>
-                    <div class="info">
-                        
-                        <span class="category">
-                            <a href="/categories/碎碎念">
-                                <span class="icon">
-                                    <a-icon type="book" theme="filled" />
-                                </span>
-                                碎碎念
-                            </a>
-                        </span>
-                        
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/9/22
+        </span>
 
-                        
-                        <span class="tags">
-                            <span class="icon">
-                                <a-icon type="tags" />
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/tags/lalalalala" style=color:#ffa2c4>
-                                    lalalalala
-                                </a>
-                            </span>
-                            
-                        </span>
-                        
-                    </div>
-                </a-card>
-            </a-timeline-item>
-        </a-timeline>
+        
+
         
     </div>
-    <script>
-        new Vue({
-            el: '#archives'
-        })
-    </script>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<h3 id="备份文件下载"><a href="#备份文件下载" class="headerlink" title="备份文件下载"></a>备份文件下载</h3><h4 id="网站源码"><a href="#网站源码" class="headerlink" title="网站源码"></a>网站源码</h4><blockquote>
+<ul>
+<li>直接访问<a target="_blank" rel="noopener" href="http://www.zip,下载一个压缩包,找到flag_556132031.txt,但是打开没有flag/">www.zip，下载一个压缩包，找到flag_556132031.txt，但是打开没有flag</a></li>
+<li>直接网站访问flag_556132031.txt，得到flag</li>
+</ul>
+<hr>
+<ul>
+<li>常见的网站源码备份文件后缀：tar、tar.gz、zip、rar</li>
+<li>常见的网站源码备份文件名：web、website、backup、back、www、wwwroot、temp</li>
+</ul>
+</blockquote>
+<h4 id="bak文件"><a href="#bak文件" class="headerlink" title="bak文件"></a>bak文件</h4><blockquote>
+<ul>
+<li>bak文件是php的备份文件后缀</li>
+<li>题目提示flag在index.php的源码里，直接访问index.php.bak，找到flag</li>
+</ul>
+</blockquote>
+<h4 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h4><blockquote>
+<ul>
+<li>访问.index.php.swp，记事本打开，得到flag</li>
+</ul>
+<hr>
+<ul>
+<li>开发人员在线上环境中使用 vim 编辑器，在使用过程中会留下 vim 编辑器缓存，当vim异常退出时，缓存会一直留在服务器上，引起网站源码泄露</li>
+<li>vim缓存中vim会自动生成的备份文件以及临时文件，临时文件是在编辑文本时就会创建的文件，如果程序正常退出，临时文件自动删除</li>
+<li>如果意外退出就会保留，文件名为 .filename.swp，第一次产生的交换文件名为“.filename.txt.swp”</li>
+<li>再次意外退出后，将会产生名为“.filename.txt.swo”的交换文件，第三次产生的交换文件则为“.filename.txt.swn”</li>
+<li>例如：.index.php.swp</li>
+</ul>
+</blockquote>
+<h4 id="DS-Store"><a href="#DS-Store" class="headerlink" title=".DS_Store"></a>.DS_Store</h4><blockquote>
+<ul>
+<li>直接访问.DS_Store，下载文件，好，打不开</li>
+<li>尝试用各种编辑器打开无果后，拖到了Linux里，cat一下，虽然还是有乱码，幸好可以辨认出836413e3b43ec7af94350f861b00d972.txt这么个玩意</li>
+<li>访问836413e3b43ec7af94350f861b00d972.txt，得到flag</li>
+</ul>
+<hr>
+<ul>
+<li>.DS_Store 是 Mac OS 保存文件夹的自定义属性的隐藏文件，通过.DS_Store可以知道这个目录里面所有文件的清单</li>
+</ul>
+</blockquote>
+<h3 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a>PHPINFO</h3><blockquote>
+<ul>
+<li>直接点击访问phpinfo.php，Ctrl+F，找到flag</li>
+</ul>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.php.cn/php-weizijiaocheng-415796.html">使用phpinfo()获取PHP配置信息</a></li>
+</ul>
+</blockquote>
+<h3 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h3><blockquote>
+<ul>
+<li>就嗯点，然后在/flag_in_here/1/4/目录下找到flag.txt，点击访问</li>
+</ul>
+</blockquote>
+<h3 id="SVN泄露"><a href="#SVN泄露" class="headerlink" title="SVN泄露"></a>SVN泄露</h3><blockquote>
+<ul>
+<li><p>SVN是subversion的缩写，是一个开放源代码的版本控制系统，通过采用分支管理系统的高效管理，简而言之就是用于多个人共同开发同一个项目，实现共享资源，实现最终集中式的管理</p>
+</li>
+<li><p>在服务器上布署代码时，如果是使用 svn checkout 功能来更新代码，而没有配置好目录访问权限，则会存在此漏洞；利用此漏洞，可以下载整套网站的源代码</p>
+</li>
+<li><p>在使用SVN管理本地代码过程中，会自动生成一个隐藏文件夹，其中包含重要的源代码信息；但一些网站管理员在发布代码时，不愿意使用导出功能，而是直接复制代码文件夹到WEB服务器上，这就使隐藏文件夹被暴露于外网环境</p>
+<hr>
+</li>
+<li><p>迫不得已又去弄了个kali，不知道为啥外边复制的东西到里边不能粘贴，就很悲伤，url还要自己一个一个敲，flag也是😭</p>
+</li>
+<li><p>弄一个<code>dvcs-ripper</code>：<code>git clone https://github.com/kost/dvcs-ripper</code></p>
+</li>
+<li><p>然后：<code>perl rip.svn -u [url]/.svn</code>，将<code>.svn</code>文件保存到本地</p>
+</li>
+<li><p>然后使用<code>ls cd cat</code>可以在<code>.svn/pristine/ec/</code>目录下的<code>ecb087cbce4e19132bc59e6aa5c59a19621119c5.svn-base</code>中读到flag</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="HG泄露"><a href="#HG泄露" class="headerlink" title="HG泄露"></a>HG泄露</h3><blockquote>
+<ul>
+<li><p>当开发人员使用 Mercurial 进行版本控制，对站点自动部署；如果配置不当,可能会将.hg 文件夹直接部署到线上环境，引起 hg 泄露漏洞</p>
+</li>
+<li><p>dirsearch扫了一下：</p>
+<pre><code class="txt">[22:26:14] 301 -  169B  - /.hg  -&gt;  http://challenge-1c4eccac7cb93555.sandbox.ctfhub.com/.hg/
+[22:26:14] 200 -   63B  - /.hg/store/undo
+[22:26:14] 200 -  127B  - /.hg/undo.dirstate
+</code></pre>
+</li>
+<li><p>一个301两个200，访问那两个200，可以看到里边都写了<code>flag_586329245.txt</code></p>
+</li>
+<li><p>直接访问，得到flag</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="git泄露"><a href="#git泄露" class="headerlink" title="git泄露"></a>git泄露</h3><h4 id="Log"><a href="#Log" class="headerlink" title="Log"></a>Log</h4><blockquote>
+<ul>
+<li>当前大量开发人员使用git进行版本控制，对站点自动部署；如果配置不当，可能会将.git文件夹直接部署到线上环境，引起git泄露漏洞</li>
+<li>下载一个githack，然后：<code>python githack [url]/.git/</code>下载</li>
+<li>然后打开以url命名的那个文件夹，右键<code>git bash here</code>，输入<code>git log</code>可以看到当前版本为 remove flag</li>
+<li>这里有两个命令我试了都可以用的（那个<code>git reset</code>不知道为啥不行）：<ul>
+<li><code>git diff 519890932b9aeb7f57c03a68949b42317498182a</code>，后边那一串是add flag的commit，然后文件夹下会生成一个txt文件，flag在里面</li>
+<li>或者<code>git show</code>命令，就可以直接看到flag</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h4><blockquote>
+<ul>
+<li>下载文件，右键<code>git bash here</code>，然后：<code>git stash list</code>，回显了一个<code>stash@&#123;0&#125;: WIP on master: 12a5348 add flag</code></li>
+<li>然后：<code>git stash pop</code>，回到目录下找到一个<code>56581483718564.txt</code>文件，flag就在里边</li>
+</ul>
+</blockquote>
+<h4 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h4><blockquote>
+<ul>
+<li>githack下载文件，然后，看到了一个<code>128467637999.txt</code>，打开得到flag，啊，有点惊讶</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
 </div>
                      
 <footer id="footer">

