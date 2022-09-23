@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoylindo || 两道小模拟</title>
+    <title>Hoylindo || 信息泄露</title>
     <meta name="author" content="hoylindo">
     <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
     <meta name="keywords" content=" ">
@@ -150,142 +150,190 @@
 
                 <div id="main">
                      
-<link rel="stylesheet" href="/css/post-body.css">
-<div class="article">
-    <div>
-        <h1>两道小模拟 </h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2022/8/16
-        </span>
-
+<div class="categories-tags">
+    
+    <div class="all-s">
         
-        <span class="category">
-            <a href="/categories/关于算法">
+        
+        <span>
+            <a href="/tags/PHP/" style=background:#1bccbc>
                 <span class="icon">
-                    <a-icon type="book" theme="filled" />
+                    <a-icon type="tag" theme="filled" />
                 </span>
-                关于算法
+                PHP
             </a>
         </span>
         
-
         
-
-        <span class="tags">
-            <span class="icon">
-                <a-icon type="tags" theme="filled" />
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/洛谷摸鱼日记" style=color:#ffa2c4>
-                    洛谷摸鱼日记
-                </a>
-            </span>
-            
+        
+        <span>
+            <a href="/tags/Python/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                Python
+            </a>
         </span>
         
+        
+        
+        <span>
+            <a href="/tags/RCE/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                RCE
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/lalalalala/" style=background:#879cff>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                lalalalala
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/信息泄露/" style='background:linear-gradient(to right, #fbc2eb 0%, #bbd4ff 100%)'>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                信息泄露
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/SQL注入/" style=background:#1bccbc>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                SQL注入
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/SSRF-CSRF/" style=background:#ffa2c4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                SSRF&CSRF
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/SSRF/" style=background:#1bccbc>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                SSRF
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/SSTI/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                SSTI
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/XXE/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                XXE
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/洛谷摸鱼日记/" style=background:#1bccbc>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                洛谷摸鱼日记
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/文件上传/" style=background:#879cff>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                文件上传
+            </a>
+        </span>
+        
+        
     </div>
+    <div id="archives">
+        
+        <a-timeline>
+            <a-timeline-item color="#a5c2f5">
+                <a-card hoverable>
+                    <div class="item-time">2022/9/22</div>
+                    <a href="/2022/09/22/ctfhub-信息泄露/">
+                        <h3>CTFHUB-信息泄露-WP</h3>
+                    </a>
+                    <div class="info">
+                        
+                        <span class="category">
+                            <a href="/categories/关于web安全">
+                                <span class="icon">
+                                    <a-icon type="book" theme="filled" />
+                                </span>
+                                关于web安全
+                            </a>
+                        </span>
+                        
 
-    <div class="content" v-pre>
-        <br>
-
-<span id="more"></span>
-
-<p>感觉是很难说的一种题型，小模拟陶冶情操大模拟直接吐属于是（那我写的肯定是陶冶情操那一类</p>
-<p>假期一直一直一直一直摸鱼，最后认认真真写了<strong>一点儿</strong>题解的就两道ez题😭</p>
-<h3 id="扫雷游戏"><a href="#扫雷游戏" class="headerlink" title="扫雷游戏"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2670">扫雷游戏</a></h3><ul>
-<li>char型二维数组，要考虑边界情况</li>
-<li>因为数据范围不大，所以我直接从下标为1开始输入，就可以不用处理边界了</li>
-<li>一开始的思路是统计每个?周围的*个数，但是真的很麻烦</li>
-<li>突然想到可以把?换成0，然后把*周围一圈的数组元素全部+1输出</li>
-</ul>
-<p><strong>代码：</strong></p>
-<pre><code class="c++">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main()&#123;
-    ios::sync_with_stdio(false);
-    cin.tie();
-    cout.tie(); 
-    char a[150][150];
-    int n,m;
-    cin&gt;&gt;n&gt;&gt;m;
-    for(int i=1;i&lt;=n;i++)&#123;
-        for(int j=1;j&lt;=m;j++)&#123;
-            cin&gt;&gt;a[i][j];
-            if(a[i][j]==&#39;?&#39;) a[i][j]=&#39;0&#39;;
-        &#125;
-    &#125;
-    for(int i=1;i&lt;=n;i++)&#123;
-        for(int j=1;j&lt;=m;j++)&#123;
-            if(a[i][j]==&#39;*&#39;)&#123;
-                if(a[i-1][j-1]!=&#39;*&#39;) a[i-1][j-1]++;
-                if(a[i-1][j]!=&#39;*&#39;) a[i-1][j]++;
-                if(a[i-1][j+1]!=&#39;*&#39;) a[i-1][j+1]++;
-                if(a[i+1][j-1]!=&#39;*&#39;) a[i+1][j-1]++;
-                if(a[i+1][j]!=&#39;*&#39;) a[i+1][j]++;
-                if(a[i+1][j+1]!=&#39;*&#39;) a[i+1][j+1]++; 
-                if(a[i][j-1]!=&#39;*&#39;) a[i][j-1]++;
-                if(a[i][j+1]!=&#39;*&#39;) a[i][j+1]++;
-            &#125;
-        &#125;
-    &#125;
-    for(int i=1;i&lt;=n;i++)&#123;
-        for(int j=1;j&lt;=m;j++)&#123;
-            cout&lt;&lt;a[i][j];
-        &#125;
-        cout&lt;&lt;&quot;\n&quot;;
-    &#125;
-    return 0;
-&#125;
-</code></pre>
-<h3 id="乒乓球"><a href="#乒乓球" class="headerlink" title="乒乓球"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1042">乒乓球</a></h3><ul>
-<li>时隔八百年我又回来写了，这个题第一次看就觉得脑袋疼，这种比赛规则题一般都要读好久题（不爱运动怪我</li>
-<li>一开始就没读懂题，以为是单纯计算”W”和”L”的数量特判输出，结果是忽略了<strong>分差高于2才算胜利才能结束</strong>，WAWAWA</li>
-<li>scanf用正则学到了，好耶</li>
-<li>用自定义函数可以缩短代码，我怎么没想到.jpg</li>
-</ul>
-<p><strong>代码：</strong></p>
-<pre><code class="C++">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-char s[65000];
-int main()&#123;
-    ios::sync_with_stdio(false);
-    cin.tie();
-    cout.tie();
-    scanf(&quot;%[^E]&quot;,s);
-    int w=0,l=0;
-    for(int i=0;s[i]!=&#39;\0&#39;;i++)&#123;
-        if(s[i]==&#39;W&#39;) w++;
-        else if(s[i]==&#39;L&#39;) l++;
-        if((w&gt;=11||l&gt;=11)&amp;&amp;abs(w-l)&gt;=2)&#123;
-            cout&lt;&lt;w&lt;&lt;&quot;:&quot;&lt;&lt;l&lt;&lt;&quot;\n&quot;;
-            l=w=0;
-        &#125;
-    &#125;
-    cout&lt;&lt;w&lt;&lt;&quot;:&quot;&lt;&lt;l&lt;&lt;&quot;\n\n&quot;;
-    w=l=0;
-    for(int i=0;s[i]!=&#39;\0&#39;;i++)&#123;
-        if(s[i]==&#39;W&#39;) w++;
-        else if(s[i]==&#39;L&#39;) l++;
-        if((w&gt;=21||l&gt;=21)&amp;&amp;abs(w-l)&gt;=2)&#123;
-            cout&lt;&lt;w&lt;&lt;&quot;:&quot;&lt;&lt;l&lt;&lt;&quot;\n&quot;;
-            l=w=0;
-        &#125;
-    &#125;
-    cout&lt;&lt;w&lt;&lt;&quot;:&quot;&lt;&lt;l&lt;&lt;&quot;\n&quot;;
-    return 0;
-&#125; 
-</code></pre>
-
+                        
+                        <span class="tags">
+                            <span class="icon">
+                                <a-icon type="tags" theme="filled" />
+                            </span>
+                            
+                            <span class="tag">
+                                
+                                <a href="/tags/信息泄露" style=color:#ffa2c4>
+                                    信息泄露
+                                </a>
+                            </span>
+                            
+                        </span>
+                        
+                    </div>
+                </a-card>
+            </a-timeline-item>
+        </a-timeline>
+        
     </div>
-
-    
+    <script>
+        new Vue({
+            el: '#archives'
+        })
+    </script>
 </div>
                      
 <footer id="footer">
