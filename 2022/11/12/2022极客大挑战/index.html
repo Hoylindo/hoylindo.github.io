@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/CTF-WP" style=color:#ff7d73>
+                <a href="/tags/CTF-WP" style=color:#1bccbc>
                     CTF-WP
                 </a>
             </span>
@@ -201,7 +201,7 @@
 <li>提示本地访问，添加<code>X-Forwarded-For: 127.0.0.1</code>，发现被过滤了，搜了一下找到一个：<code>Client-Ip: 127.0.0.1</code></li>
 <li>提示不是从 sycsec.com 访问，添加：<code>Referer: sycsec.com</code></li>
 <li>提示浏览器不是Syclover Browser，添加：<code>User-Agent: Syclover Browser</code></li>
-<li>提示邮箱不是 <a href="mailto:&#x56;&#97;&#110;&#90;&#89;&#x40;&#83;&#121;&#x63;&#108;&#111;&#118;&#x65;&#114;&#46;&#x63;&#x6f;&#109;">&#x56;&#97;&#110;&#90;&#89;&#x40;&#83;&#121;&#x63;&#108;&#111;&#118;&#x65;&#114;&#46;&#x63;&#x6f;&#109;</a> ，添加：<code>From: VanZY@Syclover.com</code>，得到flag：<code>SYC&#123;E3sy_Http_hhXD2333&#125;</code></li>
+<li>提示邮箱不是 <a href="mailto:&#86;&#97;&#x6e;&#x5a;&#x59;&#64;&#x53;&#121;&#99;&#x6c;&#111;&#118;&#x65;&#114;&#46;&#99;&#x6f;&#x6d;">&#86;&#97;&#x6e;&#x5a;&#x59;&#64;&#x53;&#121;&#99;&#x6c;&#111;&#118;&#x65;&#114;&#46;&#99;&#x6f;&#x6d;</a> ，添加：<code>From: VanZY@Syclover.com</code>，得到flag：<code>SYC&#123;E3sy_Http_hhXD2333&#125;</code></li>
 </ul>
 <h3 id="web-来发个包"><a href="#web-来发个包" class="headerlink" title="web-来发个包"></a>web-来发个包</h3><ul>
 <li>输入flag没反应，抓包啥也没有，查看源码发现js被注释，没办法发送请求到后端</li>
@@ -215,6 +215,12 @@
 <h3 id="web-babyupload"><a href="#web-babyupload" class="headerlink" title="web-babyupload"></a>web-babyupload</h3><ul>
 <li>无过滤文件上传，传马，蚁剑链接，结束</li>
 <li>flag：<code>SYC&#123;welc0me_t0_up10ad_wor1d!&#125;</code></li>
+</ul>
+<h3 id="web-justphp"><a href="#web-justphp" class="headerlink" title="web-justphp"></a>web-justphp</h3><ul>
+<li>要求get传入一个<code>SleepTime</code>参数，大于<code>86400*30</code>，小于<code>86400*60</code></li>
+<li>然后<code>sleep((int)$sleeptime);</code>让网页休眠一段时间</li>
+<li>直接传10进制肯定要等好久，传16进制：<code>?SleepTime=0x27a088</code></li>
+<li>得到flag：<code>SYC&#123;C@nzik#lik3s_to#sleeP_in_class?*#&#125;</code></li>
 </ul>
 <h3 id="web-ezR-F-I"><a href="#web-ezR-F-I" class="headerlink" title="web-ezR_F_I"></a>web-ezR_F_I</h3><ul>
 <li>文件包含，过滤了<code>http://</code>替换为空，双写绕过</li>
