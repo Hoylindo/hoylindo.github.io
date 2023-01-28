@@ -402,6 +402,7 @@ print(&quot;number:&quot;.$fake[&#39;number&#39;].&#39;&lt;br&gt;&#39;);
 </code></pre>
 </li>
 <li><p>str_rep函数会把序列化后的字符串中的php和test替换为空，导致字符串变短</p>
+<p><img src="https://s1.ax1x.com/2022/12/13/z5ll7t.png" alt="z5ll7t.png"></p>
 </li>
 <li><p>在name中传入了7个<code>php</code>，被替换为空后腾出来21个字符的空间，恰好将<code>&quot;;s:4:&quot;sign&quot;;s:51:&quot;he</code>包含进去，使<code>&quot;;s:4:&quot;sign&quot;;s:4:&quot;eval&quot;;s:6:&quot;number&quot;;s:4:&quot;2000&quot;;&#125;</code>成为被反序列化的内容</p>
 </li>
@@ -795,7 +796,7 @@ $str = new test();
 <footer id="footer">
     <div class="footer-wrap">
         <div>
-            © 2022 - 2022 Hoylindo
+            © 2022 - 2023 Hoylindo
             <span class="footer-icon">
                 <a-icon type="flag" theme="filled" /></span>
             @hoylindo

