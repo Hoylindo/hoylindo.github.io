@@ -116,7 +116,7 @@
           context.beginPath();
           context.lineCap = "round";
           context.lineWidth = STAR_SIZE * d.z * scale;
-          context.strokeStyle = "rgba(255, 120, 144,.3)";
+          context.strokeStyle = "rgba(253, 182, 201, 0.3)";
           context.beginPath();
           context.moveTo(d.x, d.y);
           var e = velocity.x * 2,
