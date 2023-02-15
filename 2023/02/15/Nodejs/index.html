@@ -264,11 +264,11 @@ console.log(&quot;5&quot;+[&quot;6&quot;,&quot;6&quot;]); //56,6
 </li>
 </ul>
 <h2 id="Nodejs危险函数的利用"><a href="#Nodejs危险函数的利用" class="headerlink" title="Nodejs危险函数的利用"></a>Nodejs危险函数的利用</h2><h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><ul>
-<li><p>**exec()**：</p>
+<li><p><code>exec()</code>：</p>
 <pre><code class="javascript">require(&#39;child_process&#39;).exec(&#39;open /System/Applications/Calculator.app&#39;);
 </code></pre>
 </li>
-<li><p>**eval()**：</p>
+<li><p><code>eval()</code>：</p>
 <pre><code class="javascript">console.log(eval(&quot;document.cookie&quot;)); //执行document.cookie
 console.log(&quot;document.cookie&quot;); //输出document.cookie
 </code></pre>
@@ -277,14 +277,14 @@ console.log(&quot;document.cookie&quot;); //输出document.cookie
 <h3 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h3><ul>
 <li><p>读：</p>
 <ul>
-<li><p>**readFile()**：</p>
+<li><p><code>readFile()</code>：</p>
 <pre><code class="javascript">require(&#39;fs&#39;).readFile(&#39;/etc/passwd&#39;, &#39;utf-8&#39;, (err, data) =&gt; &#123;
  if (err) throw err;
  console.log(data);
 &#125;);
 </code></pre>
 </li>
-<li><p>**readFileSync()**：</p>
+<li><p><code>readFileSync()</code>：</p>
 <pre><code class="javascript">require(&#39;fs&#39;).readFileSync(&#39;/etc/passwd&#39;,&#39;utf-8&#39;)
 </code></pre>
 </li>
@@ -292,11 +292,11 @@ console.log(&quot;document.cookie&quot;); //输出document.cookie
 </li>
 <li><p>写：</p>
 <ul>
-<li><p>**writeFileSync()**：</p>
+<li><p><code>writeFileSync()</code>：</p>
 <pre><code class="javascript">require(&#39;fs&#39;).writeFileSync(&#39;input.txt&#39;,&#39;sss&#39;);
 </code></pre>
 </li>
-<li><p>**writeFile()**：</p>
+<li><p><code>writeFile()</code>：</p>
 <pre><code class="javascript">require(&#39;fs&#39;).writeFile(&#39;input.txt&#39;,&#39;test&#39;,(err)=&gt;&#123;&#125;)
 </code></pre>
 </li>
