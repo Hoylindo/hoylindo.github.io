@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoylindo || test.md</title>
+    <title>Hoylindo || (≧∇≦)ﾉ</title>
     <meta name="author" content="hoylindo">
     <meta name="description" content="嗨，这里是一个搭建的不太熟练的小破站 ">
     <meta name="keywords" content=" ">
@@ -149,59 +149,269 @@
                 </div>
 
                 <div id="main">
-                     
-<link rel="stylesheet" href="/css/post-body.css">
-<div class="article">
-    <div>
-        <h1>test.md </h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2023/5/14
+                    <div id="home-head" style=background-image:url('home.jpg')>
+    <script>
+        var menu = document.getElementById("menu")
+        menu.className += " menu-color"
+    </script>
+     
+    <div id="home-info" class="home-info" @click="home_click">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>Hoylindo</h1>
+                <h3>(≧∇≦)ﾉ</h3>
+                <h5>嗨，这里是一个搭建的不太熟练的小破站</h5>
+            </div>
         </span>
+    </div>
+     
+</div>
+
+
+
+<div id="home-posts-wrap" class=>
+    <div id="home-posts">
+
+        <div id="posts">
+            
+
+<div class="post">
+
+    <a href="/2022/08/15/Python基础/">
+        <h2>
+            Python基础
+        </h2>
+    </a>
+
+    <div class="category-and-date">
 
         
         <span class="category">
-            <a href="/categories/1">
+            <a href="/categories/编程语言">
                 <span class="icon">
-                    <a-icon type="book" theme="filled" />
-                </span>
-                1
+                    <a-icon type="book" theme="filled" /></span>
+                编程语言
             </a>
         </span>
         
 
-        
-
-        <span class="tags">
+        <span class="date">
             <span class="icon">
-                <a-icon type="tags" theme="filled" />
+                <a-icon type="calendar" theme="filled" />
             </span>
+            2022/8/15
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
             
-            <span class="tag">
-                
-                <a href="/tags/1" style=color:#ff7d73>
-                    1
-                </a>
-            </span>
+            <br>
             
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/Python" style=color:#ffa2c4>
+                Python
+            </a>
         </span>
         
     </div>
 
-    <div class="content" v-pre>
-        <br>
+    <a href="/2022/08/15/Python基础/ " class="go-post">
+        阅读全文
+    </a>
+</div>
 
-<span id="more"></span>
+<div class="post">
 
-<p>test</p>
-<img src="images/695793B75C68114636B689A74E03EEE3.jpg" alt="img" style="zoom:80%;" />
+    <a href="/2022/08/12/happy/">
+        <h2>
+            happy
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/碎碎念">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                碎碎念
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/8/12
+        </span>
 
     </div>
 
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <p>小站终于搭好啦</p>
+            
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/lalalalala" style=color:#00bcd4>
+                lalalalala
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/2022/08/12/happy/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+
+             
+<div class="page-current">
+
+    <div class="prev">
+        
+        <a href="/page/3/">
+            <span class="page-num">
+                <a-icon type="caret-left" theme="filled" />
+            </span>
+        </a>
+        
+    </div>
+
+    <div class="page-index">
+
+        
+        <span>
+
+            
+            <a href="/"><span class="page-num">1</span></a>
+            <span class="page-omit">...</span>
+            
+
+            
+
+            
+
+            
+            <a href="/page/2">
+                <span class="page-num">
+                    2
+                </span>
+            </a>
+            
+
+            
+            <a href="/page/3/">
+                <span class="page-num">
+                    3
+                </span>
+            </a>
+        </span>
+        
+
+        <span class="current">
+            4
+        </span>
+
+        
+
+    </div>
+
+    <div class="next">
+        
+    </div>
+
+</div>
+
+        </div>
+    </div>
+    
+    <div id="home-card">
+        <a-affix :offset-top="card_top">
+    <a-card class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="1.jpg " alt="头像">
+        </div>
+        <div class="name">
+            hoylindo
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                是一个很弱的小白
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/Hoylindo">
+
+                    
+                    <a-icon type="github"
+                        theme="filled" />
+                    
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a href="www.haenu.cn">
+                    Haenu's blog
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://www.xlonglong.cn">
+                    longlong~
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://www.cnblogs.com/Knight02/">
+                    杰哥
+                </a>
+            </div>
+            
+        </div>
+    </a-card>
+</a-affix>
+    </div>
     
 </div>
                      
