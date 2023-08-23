@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Java" style=color:#ffa2c4>
+                <a href="/tags/Java" style=color:#1bccbc>
                     Java
                 </a>
             </span>
@@ -245,11 +245,11 @@ public class Test2 &#123;
 </code></pre>
 </li>
 <li><p>成功触发DNS请求</p>
-<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510194116524.png" alt="image-20230510194116524" style="zoom:80%;" /></li>
+<img src="https://s3.bmp.ovh/imgs/2023/08/23/f91bcb335948fa34.png" style="zoom:80%;" /></li>
 <li><p>调试跟进<code>java/net/URLStreamHandler.java</code>中的<code>hashCode()</code>函数，可以看到调用了一个函数<code>getHostAddress()</code>来进行<code>DNS</code>解析返回对应的<code>IP</code></p>
-<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510194636117.png" alt="image-20230510194636117" style="zoom:80%;" /></li>
+<img src="https://s3.bmp.ovh/imgs/2023/08/23/56355f555bfc1047.png" style="zoom:80%;" /></li>
 <li><p>在<code>ysoserial</code>中是通过<code>put()</code>函数来触发的，这一步的实现和前面的是一样的，都是通过<code>hash()</code>函数来实现的</p>
-<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510195045066.png" alt="image-20230510195045066" style="zoom: 80%;" /></li>
+<img src="https://s3.bmp.ovh/imgs/2023/08/23/be25f4dd764099b2.png" style="zoom:80%;" /></li>
 <li><p>当<code>HashMap</code>传入一个<code>URL</code>对象时，会进行一次<code>DNS</code>解析，并且<code>HashMap</code>实现了<code>Serializable</code>接口，重写了<code>readObject</code></p>
 </li>
 <li><p>当一个<code>Java</code>应用存在反序列化漏洞时，可以通过传入一个序列化后的<code>HashMap</code>数据（将<code>URL</code>对象作为<code>key</code>放入<code>HashMap</code>中）</p>
@@ -259,15 +259,15 @@ public class Test2 &#123;
 </ul>
 <h3 id="ysoserial-项目代码分析"><a href="#ysoserial-项目代码分析" class="headerlink" title="ysoserial 项目代码分析"></a>ysoserial 项目代码分析</h3><ul>
 <li><p>这里通过继承<code>URLStreamHandler</code>类，重写<code>openConnection()</code>和<code>getHostAddress()</code>函数，目的在于: <code>HashMap-&gt;put</code>时也会调用<code>getHostAddress()</code>函数进行一次<code>DNS</code>解析，这里就是通过重写的<code>getHostAddress()</code>函数来覆盖掉原函数，从而使其不进行<code>DNS</code>解析，避免在<code>Payload</code>在创建的时候进行<code>DNS</code>解析</p>
-<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510195719148.png" alt="image-20230510195719148" style="zoom:80%;" /></li>
+<img src="https://s3.bmp.ovh/imgs/2023/08/23/25d0e87cca4115a0.png" style="zoom:80%;" /></li>
 <li><p>代码<code>Reflections.setFieldValue(u, &quot;hashCode&quot;, -1);</code>中的<code>setFieldValue()</code>函数是<code>ysoserial</code>项目自定义的一个反射类中的函数</p>
-<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510202131455.png" alt="image-20230510202131455" style="zoom:80%;" /></li>
+<img src="https://s3.bmp.ovh/imgs/2023/08/23/ee2779375081bd2f.png" style="zoom:80%;" /></li>
 <li><p>通过反射来设置<code>URL</code>类的<code>hashCode</code>的值为<code>-1</code>，这是因为在<code>HashMap#put</code>时已经调用过一次<code>hashCode()</code>函数，<code>hashCode</code>的值会改变不再为<code>-1</code>，这样会导致在下一步经过<code>HashMap</code>的<code>readObject()</code>函数反序列化时直接返回<code>hashCode</code>的值，不再调用<code>handler.hashCode(this)</code>，因此利用反射来将<code>hashCode</code>的值设为<code>-1</code></p>
 </li>
 <li><p><code>ysoserial</code>为了防止在生成Payload的时候也执行了URL请求和DNS查询，所以重写了⼀个<code>SilentURLStreamHandler</code>类</p>
 </li>
 <li><p>最后利用<code>PayloadRunner.run()</code>来进行反序列化</p>
-<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510202501568.png" alt="image-20230510202501568" style="zoom:80%;" /></li>
+<img src="https://s3.bmp.ovh/imgs/2023/08/23/f6a3f29517ba6a4d.png" style="zoom:80%;" /></li>
 <li><p>poc</p>
 <pre><code class="java">import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -313,9 +313,9 @@ public class URLDemo &#123;
 </code></pre>
 </li>
 <li><p>从请求结果中可以看出，在<code>Payload</code>生成阶段并没有发起<code>DNS</code>解析，而是在后续反序列化过程中进行的请求</p>
-<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510203437960.png" alt="image-20230510203437960" style="zoom:80%;" />
+<img src="https://s3.bmp.ovh/imgs/2023/08/23/ca7e4297f7968086.png" style="zoom:80%;" />
 
-<img src="D:\ALL\Github\Hexo\Blog\source\_posts\images\image-20230510203523166.png" alt="image-20230510203523166" style="zoom:80%;" /></li>
+<img src="https://s3.bmp.ovh/imgs/2023/08/23/2021526ce2b6e06c.png" style="zoom:80%;" /></li>
 </ul>
 <p>参考链接：</p>
 <p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/327710.html">https://www.freebuf.com/articles/web/327710.html</a></p>
