@@ -183,7 +183,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/CTF-WP" style=color:#1bccbc>
+                <a href="/tags/CTF-WP" style=color:#879cff>
                     CTF-WP
                 </a>
             </span>
@@ -201,7 +201,7 @@
 <li>提示本地访问，添加<code>X-Forwarded-For: 127.0.0.1</code>，发现被过滤了，搜了一下找到一个：<code>Client-Ip: 127.0.0.1</code></li>
 <li>提示不是从 sycsec.com 访问，添加：<code>Referer: sycsec.com</code></li>
 <li>提示浏览器不是Syclover Browser，添加：<code>User-Agent: Syclover Browser</code></li>
-<li>提示邮箱不是 <a href="mailto:&#x56;&#97;&#110;&#x5a;&#x59;&#x40;&#x53;&#121;&#x63;&#108;&#111;&#x76;&#101;&#114;&#46;&#99;&#111;&#x6d;">&#x56;&#97;&#110;&#x5a;&#x59;&#x40;&#x53;&#121;&#x63;&#108;&#111;&#x76;&#101;&#114;&#46;&#99;&#111;&#x6d;</a> ，添加：<code>From: VanZY@Syclover.com</code>，得到flag：<code>SYC&#123;E3sy_Http_hhXD2333&#125;</code></li>
+<li>提示邮箱不是 <a href="mailto:&#86;&#97;&#x6e;&#90;&#x59;&#x40;&#x53;&#x79;&#99;&#x6c;&#x6f;&#x76;&#101;&#x72;&#46;&#x63;&#x6f;&#109;">&#86;&#97;&#x6e;&#90;&#x59;&#x40;&#x53;&#x79;&#99;&#x6c;&#x6f;&#x76;&#101;&#x72;&#46;&#x63;&#x6f;&#109;</a> ，添加：<code>From: VanZY@Syclover.com</code>，得到flag：<code>SYC&#123;E3sy_Http_hhXD2333&#125;</code></li>
 </ul>
 <h3 id="web-来发个包"><a href="#web-来发个包" class="headerlink" title="web-来发个包"></a>web-来发个包</h3><ul>
 <li>输入flag没反应，抓包啥也没有，查看源码发现js被注释，没办法发送请求到后端</li>
